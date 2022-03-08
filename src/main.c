@@ -12,15 +12,15 @@
 
 #include "../minishell.h"
 
-int main()
+int main(int argc, char **argv, char **envp)
 {
-	char *str;
+	t_prog	minishell;
 
-	// while (1)
-	str = readline("minishell> ");
-
-	
-	printf("%s\n", str);
-	
+	(void) argc;
+	(void) argv;
+	printf("\033[1;33m");
+	minishell.envp = envp;
+	while (1)
+		ft_process_line(readline("minishell> "), &minishell);
 	return (0);
 }

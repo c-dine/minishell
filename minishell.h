@@ -23,4 +23,19 @@
 #include <readline/history.h>
 #include "./libft/libft.h"
 
+typedef struct	s_prog
+{
+	int	output_error;
+	char **envp;
+}				t_prog;
+
+typedef struct	s_chain
+{
+	void	*input;
+	void	*cmd;
+	void	*output;
+}				t_chain;
+
+void	ft_parsing(char *line, t_prog *minishell);
+
 #endif
