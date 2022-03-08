@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/30 11:59:10 by ntan              #+#    #+#             */
+/*   Updated: 2021/11/30 17:46:19 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
-
-#endif
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	while (lst != NULL)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+}

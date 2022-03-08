@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/24 14:03:27 by ntan              #+#    #+#             */
+/*   Updated: 2021/11/30 18:27:34 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
-
-#endif
+int	ft_tolower(int c)
+{
+	if (c <= 'Z' && c >= 'A')
+		c = c + 32;
+	else if (c < 0 && c > -129 && c != -1)
+		c = 256 + c;
+	return (c);
+}

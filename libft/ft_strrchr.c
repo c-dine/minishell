@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/24 14:03:33 by ntan              #+#    #+#             */
+/*   Updated: 2021/12/02 14:07:29 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
+char	*ft_strrchr(const char *s, int c)
+{
+	char	*res;
+	char	*str;
+	size_t	i;
 
-#endif
+	res = 0;
+	i = 0;
+	str = (char *) s;
+	while (i <= ft_strlen(str))
+	{
+		if ((unsigned char) str[i] == (unsigned char) c)
+			res = &str[i];
+		i++;
+	}
+	return (res);
+}

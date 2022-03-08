@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/24 14:25:38 by ntan              #+#    #+#             */
+/*   Updated: 2021/11/30 18:26:48 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (n > 0 && (s1[i] || s2[i]))
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		n--;
+		i++;
+	}
+	return (0);
+}

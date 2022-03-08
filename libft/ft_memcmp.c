@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/24 15:19:41 by ntan              #+#    #+#             */
+/*   Updated: 2021/12/02 15:21:27 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	char	*str1;
+	char	*str2;
+	int		i;
 
-#endif
+	i = 0;
+	str1 = (char *) s1;
+	str2 = (char *) s2;
+	while (n > 0)
+	{
+		if ((unsigned char)str1[i] != (unsigned char)str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+		i++;
+		n--;
+	}
+	return (0);
+}

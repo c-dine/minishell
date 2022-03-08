@@ -9,4 +9,4 @@ int main()
 	getcwd(str, 50);
 
 	printf("%s\n", str);
-}
+} 

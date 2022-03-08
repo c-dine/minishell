@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/25 16:13:47 by ntan              #+#    #+#             */
+/*   Updated: 2021/12/10 14:15:56 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "./libft/libft.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	int		i;
+	char	*res;
 
-#endif
+	res = malloc(sizeof(char) * (ft_strlen((char *)s) + 1));
+	if (res == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		res[i] = f(i, s[i]);
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}

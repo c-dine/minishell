@@ -21,13 +21,19 @@ NAME			= 	minishell
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				$(CC) $(CFLAGS) -I. $(SRCS) -o $(NAME) -lreadline
+$(NAME):	libft $(OBJS) 
+				  $(CC) $(CFLAGS) -I. $(OBJS) -o $(NAME) -L./libft -lft
+
+libft:			
+				make -C ./libft
 
 clean:
 				$(RM) $(OBJS)
+				make clean -C libft
 
-fclean:			clean
+fclean:			
+				
 				$(RM) $(NAME)
+				make fclean -C libft
 
 re:				fclean all
