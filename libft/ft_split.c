@@ -90,6 +90,8 @@ char	**ft_split(char const *s, char c)
 	{
 		while (res[i++])
 			free(res[i]);
+		free(res);
+		return (NULL);
 	}
 	res[rank] = NULL;
 	return (res);
