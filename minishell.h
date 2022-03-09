@@ -21,13 +21,13 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "./libft/libft.h"
+#include "libft/libft.h"
 
 typedef struct	s_block
 {
-	void		*input;
-	void		*cmd;
-	void		*output;
+	char		*input;
+	char		*cmd;
+	char		*output;
 }				t_block;
 
 // typedef struct	s_linked
@@ -36,17 +36,24 @@ typedef struct	s_block
 // 	t_linked	next;
 // 	t_linked	prev;
 // }				t_linked;
+/** STRUCTURE DE LA LISTE CHAINEE DANS LA LIBFT **/
 
 typedef struct	s_prog
 {
 	int			output_error;
 	char 		**envp;
-	t_list		*cmds;
+	// t_list		*list;
+	char		**cmd_tab;
 }				t_prog;
 
-/** FONCTIONS DE PARSING **/
-void	ft_process_line(char *line, t_prog *minishell)
+/** FONCTION DEMMARAGE ET FIN**/
+t_prog *init_prog();
+void	destroy(t_prog *prog);
 
-/** **/
+
+/** FONCTIONS DE PARSING **/
+void	ft_process_line(char *line, t_prog *minishell);
+
+
 
 #endif

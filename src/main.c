@@ -14,13 +14,19 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	t_prog	minishell;
+	(void) 	argc;
+	(void) 	argv;
+	t_prog	*minishell;
+	int 	i;
 
-	(void) argc;
-	(void) argv;
 	printf("\033[1;33m");
-	minishell.envp = envp;
+	minishell = init_prog(envp);
 	while (1)
-		ft_process_line(readline("minishell> "), &minishell);
+	{
+		ft_process_line(readline("minishell> "), minishell);
+		i = 0;
+		while (minishell->cmd_tab[i])
+			printf("%s\n",minishell->cmd_tab[i++]);
+	}
 	return (0);
 }

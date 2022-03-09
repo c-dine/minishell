@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
-					src/parsing.c
-
+					src/parsing.c \
+					src/init_prog.c
 OBJS			= 	$(SRCS:.c=.o)
 
 CC				= 	cc
@@ -21,20 +21,20 @@ CFLAGS			= 	-Wall -Wextra -Werror
 NAME			= 	minishell
 LIBS      		=	-L./libft -lft -lreadline 
 
-$(NAME):		lib $(OBJS) 
-				  $(CC) $(CFLAGS) -I. $(OBJS) -o $(NAME) $(LIBS)
+all:			$(NAME)
+
+$(NAME):		lib $(OBJS) 	
+				$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 
 lib:			
-				make -C ./libft
-
-all:			$(NAME)
+				make bonus -C libft
 
 clean:
 				$(RM) $(OBJS)
 				make clean -C libft
 
 fclean:			
-				
+				$(RM) $(OBJS)
 				$(RM) $(NAME)
 				make fclean -C libft
 
