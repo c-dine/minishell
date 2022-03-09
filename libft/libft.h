@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2021/11/30 18:31:46 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/09 18:55:11 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct s_block
+{
+	char		*input;
+	char		*cmd;
+	char		*output;
+}				t_block;
+
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 	struct s_list	*prev;
 }					t_list;

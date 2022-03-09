@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:46:29 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/09 18:40:05 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
-typedef struct	s_block
-{
-	char		*input;
-	char		*cmd;
-	char		*output;
-}				t_block;
+// typedef struct	s_block
+// {
+// 	char		*input;
+// 	char		*cmd;
+// 	char		*output;
+// }				t_block;
 
 // typedef struct	s_linked
 // {
@@ -42,7 +42,7 @@ typedef struct	s_prog
 {
 	int			output_error;
 	char 		**envp;
-	// t_list		*list;
+	t_list		*list;
 	char		**cmd_tab;
 }				t_prog;
 
@@ -50,10 +50,7 @@ typedef struct	s_prog
 t_prog *init_prog();
 void	destroy(t_prog *prog);
 
-
 /** FONCTIONS DE PARSING **/
 void	ft_process_line(char *line, t_prog *minishell);
-
-
 
 #endif

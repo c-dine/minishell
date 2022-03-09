@@ -6,27 +6,32 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/07 17:35:16 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/09 18:58:32 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	(void) 	argc;
-	(void) 	argv;
 	t_prog	*minishell;
-	int 	i;
+	t_list	*temp;
 
+	(void)argc;
+	(void)argv;
 	printf("\033[1;33m");
 	minishell = init_prog(envp);
-	while (1)
-	{
+	// while (1)
+	// {
 		ft_process_line(readline("minishell> "), minishell);
-		i = 0;
-		while (minishell->cmd_tab[i])
-			printf("%s\n",minishell->cmd_tab[i++]);
-	}
+		temp = minishell->list;
+		while (minishell->list)
+		{
+			printf("%s\n",minishell->list->content);
+			minishell->list = minishell->list->next;
+		}
+		ft_lstclear(&temp, free);
+	// }
+	destroy(minishell);
 	return (0);
 }
