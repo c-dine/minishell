@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/09 18:38:41 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/10 19:01:18 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void	ft_process_line(char *line, t_prog *minishell)
 	while (split_line[i])
 	{
 		temp->next = ft_lstnew(split_line[i]);
-		// printf("%s %s %p\n", split_line[i], (char *)temp->next->content, temp->next->content);
 		temp = temp->next;
 		i++;
 	}
-	free(split_line);
 	free(line);
 }

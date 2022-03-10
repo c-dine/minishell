@@ -6,13 +6,12 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/07 17:33:35 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/10 18:37:44 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
 					src/parsing.c \
-					src/my_alloc.c \
 					src/init_prog.c
 OBJS			= 	$(SRCS:.c=.o)
 

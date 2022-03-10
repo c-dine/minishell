@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/09 18:40:05 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/10 18:38:46 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	destroy(t_prog *prog);
 
 /** FONCTIONS DE PARSING **/
 void	ft_process_line(char *line, t_prog *minishell);
+
 
 #endif

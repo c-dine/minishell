@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/26 11:47:51 by ntan              #+#    #+#              #
-#    Updated: 2021/12/10 18:04:40 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/10 18:37:38 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c \
 					ft_strdup.c  ft_strlen.c  ft_strrchr.c ft_toupper.c \
 					ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c \
 					ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c \
-					ft_striteri.c
+					ft_striteri.c memory.c
 OBJS			= $(SRCS:.c=.o)
 BONUS			=	ft_lstadd_front.c ft_lstnew.c ft_lstsize.c ft_lstlast.c \
 					ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \

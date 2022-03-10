@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/09 18:55:11 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/10 18:43:39 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,27 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/** GARBAGE COLLECTOR **/
+
+# define ERROR 0
+# define NOERR 1
+
+typedef struct s_memlst		t_memlst;
+
+struct	s_memlst
+{
+	void		*address;
+	t_memlst	*nxt;
+};
+
+// memory allocation
+int		mempush(void *ptr, const size_t byte, const size_t size);
+// memory free
+int		memfree(void *ptr);
+// all memory free
+int		memrelease(void);
+
+/**/
 
 #endif
