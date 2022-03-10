@@ -5,94 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 10:57:27 by marvin            #+#    #+#             */
-/*   Updated: 2021/12/04 17:24:31 by ntan             ###   ########.fr       */
+/*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
+/*   Updated: 2022/03/10 19:04:02 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	void	ft_strncpy(char *dest, char *src, int size)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] && size--)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
-
-static int	count_words(char *str, char c)
+static int	ft_count(char const *s, char c)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (s[i])
 	{
-		while (str[i] == c && str[i])
+		while (s[i] == c && s[i])
 			i++;
-		if (str[i] != c && str[i])
-		{
+		if (s[i])
 			count++;
-			while (str[i] != c && str[i])
-				i++;
-		}
+		while (s[i] != c && s[i])
+			i++;
 	}
 	return (count);
 }
 
-static int	split_string(char **res, char *str, char c, int *rank)
+static char	**ft_freesplit(char **result, int k)
 {
-	char	*begin;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[i])
+	while (k >= 0)
 	{
-		if (str[i] == c)
-			i++;
-		else if (str[i] != c)
-		{
-			begin = &str[i];
-			j = 0;
-			while (str[i] != c && str[i])
-			{
-				j++;
-				i++;
-			}
-			res[*rank] = malloc(sizeof(char) * (j + 1));
-			if (res[*rank] == NULL)
-				return (0);
-			ft_strncpy(res[(*rank)++], begin, j);
-		}
+		free(result[k]);
+		k--;
 	}
-	return (1);
+	return (NULL);
+}
+
+static int	ft_sizechain(const char *s, char c)
+{
+	int	size;
+
+	size = 0;
+	while (*s != c && *s)
+	{
+		size++;
+		s++;
+	}
+	return (size);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**res;
+	char	**result;
 	int		i;
-	int		rank;
+	int		k;
 
-	rank = 0;
+	if (!s)
+		return (NULL);
+	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
+	mempush(&result, sizeof(char *), ft_count(s, c) + 1);
+	if (result == NULL)
+		return (NULL);
+	k = 0;
 	i = 0;
-	res = malloc(sizeof(char *) * (count_words((char *) s, c) + 1));
-	if (res == NULL)
-		return (NULL);
-	if (split_string(res, (char *) s, c, &rank) == 0)
+	while (k < ft_count(s, c))
 	{
-		while (res[i++])
-			free(res[i]);
-		free(res);
-		return (NULL);
+		while (s[i] == c && s[i])
+			i++;
+		// result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c) + 1));
+		mempush(&result[k], sizeof(char), ft_sizechain(&s[i], c) + 1);
+		if (result[k] == NULL)
+			return (ft_freesplit(result, k));
+		ft_strlcpy(result[k++], &s[i], ft_sizechain(&s[i], c) + 1);
+		i += ft_sizechain(&s[i], c);
 	}
-	res[rank] = NULL;
-	return (res);
+	result[ft_count(s, c)] = NULL;
+	return (result);
 }
