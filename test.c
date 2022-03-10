@@ -3,10 +3,10 @@
 
 int main()
 {
-	char str[50];
+	void	*tmp;
+	char	str[6] = "hello";
 
-	chdir("");
-	getcwd(str, 50);
-
-	printf("%s\n", str);
+	tmp = str;
+	printf("%s", (char *)tmp);
+	return (0);
 } 

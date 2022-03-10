@@ -12,30 +12,42 @@
 
 SRCS			=	src/main.c \
 					src/parsing.c \
+					src/my_alloc.c \
 					src/init_prog.c
 OBJS			= 	$(SRCS:.c=.o)
 
 CC				= 	cc
 RM				= 	rm -f
-CFLAGS			= 	-Wall -Wextra -Werror
+CFLAGS			= 	-Wall -Wextra -Werror 
 NAME			= 	minishell
 LIBS      		=	-L./libft -lft -lreadline 
 
+.c.o: 			minishell
+	  			@$(CC) $(CFLAGS) -c -I. $< -o $(<:.c=.o)
+
 all:			$(NAME)
 
-$(NAME):		lib $(OBJS) 	
-				$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
+$(NAME):		lib $(OBJS)
+				@echo Compiling minishell ....
+				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
+				@echo Minishell compiled.
 
 lib:			
-				make bonus -C libft
+				@echo Compiling libft ....
+				@make bonus -C libft
+				@echo Libft compiled.
 
 clean:
-				$(RM) $(OBJS)
-				make clean -C libft
+				@echo Cleaning ....
+				@$(RM) $(OBJS)
+				@make clean -C libft
+				@echo Cleaning done.
 
 fclean:			
-				$(RM) $(OBJS)
-				$(RM) $(NAME)
-				make fclean -C libft
+				@echo Cleaning ....
+				@$(RM) $(OBJS)
+				@$(RM) $(NAME)
+				@make fclean -C libft
+				@echo Cleaning done.
 
 re:				fclean all

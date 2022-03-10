@@ -17,25 +17,21 @@ void	ft_process_line(char *line, t_prog *minishell)
 	char 	**split_line;
 	int		i;
 	t_list	*temp;
-	t_list	*begin;
 
 	printf("\033[0;37m");
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
 		exit(1);
-	// minishell->cmd_tab = split_line;
-
-	temp = ft_lstnew(0);
-	begin = temp;
+	temp = ft_lstnew(NULL);
+	minishell->cmds = temp;
 	i = 0;
 	while (split_line[i])
 	{
 		temp->next = ft_lstnew(split_line[i]);
-		free(split_line[i]);
+		// printf("%s %s %p\n", split_line[i], (char *)temp->next->content, temp->next->content);
 		temp = temp->next;
 		i++;
 	}
 	free(split_line);
 	free(line);
-	minishell->list = begin;
 }

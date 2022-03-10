@@ -31,20 +31,20 @@ CFLAGS			= -Wall -Wextra -Werror
 NAME			= libft.a
 
 .c.o:
-				$(CC) $(CFLAGS) -I. -c $< -o $(<:.c=.o)
+				@$(CC) $(CFLAGS) -I. -c $< -o $(<:.c=.o)
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
+				@ar rcs $(NAME) $(OBJS)
 
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+				@$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:			clean
-				$(RM) $(NAME)
+				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
 
 bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+				@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)

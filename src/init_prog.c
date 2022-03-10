@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_prog.c                                        :+:      :+:    :+:   */
@@ -12,25 +12,15 @@
 
 #include "../minishell.h"
 
-t_prog *init_prog()
+void	init_prog(t_prog *minishell, char **envp)
 {
-	t_prog *prog;
-
-	prog = malloc(sizeof(*prog));
-	if (!prog)
-		exit(1);
-	return (prog);
+	minishell->envp = envp;
+	minishell->garbage = ft_lstnew(0);
 }
 
 void	destroy(t_prog *prog)
 {
-	printf("envp\n");
 	if (prog->envp)
 		free(prog->envp);
-	// printf("list\n");
-	// if (prog->list)
-	// 	free(prog->list);
-	// if (prog.output_error)
-	// 	free(prog.output_error);
 	free(prog);
 }

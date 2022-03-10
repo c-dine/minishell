@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   my_alloc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 17:06:56 by ntan              #+#    #+#             */
-/*   Updated: 2021/11/30 17:47:42 by ntan             ###   ########.fr       */
+/*   Created: 2022/03/10 14:58:53 by ntan              #+#    #+#             */
+/*   Updated: 2022/03/10 15:00:12 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+/** exemple : my_alloc(listofmalloc, 10, sizeof(char)) **/
+void	my_alloc(t_list *list, int size, int memsize)
 {
-	t_list	*last;
-
-	if (*alst != NULL)
+	void *res;
+	
+	res = malloc(memsize * size);
+	if (res == NULL)
 	{
-		last = ft_lstlast(*alst);
-		last->next = new;
+		ft_lstclear(&list, free);
+		exit (1);
 	}
-	else
-		*alst = new;
+	ft_lstadd_back(&list, ft_lstnew(&res));
 }

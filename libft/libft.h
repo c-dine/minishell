@@ -16,16 +16,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_block
-{
-	char		*input;
-	char		*cmd;
-	char		*output;
-}				t_block;
+// typedef struct s_block
+// {
+// 	char		*input;
+// 	char		*cmd;
+// 	char		*output;
+// }				t_block;
 
 typedef struct s_list
 {
-	char			*content;
+	void			*content;
 	struct s_list	*next;
 	struct s_list	*prev;
 }					t_list;

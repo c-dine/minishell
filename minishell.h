@@ -23,31 +23,36 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
-// typedef struct	s_block
-// {
-// 	char		*input;
-// 	char		*cmd;
-// 	char		*output;
-// }				t_block;
 
-// typedef struct	s_linked
+// STRUCTURE POUR CHAQUE COMMANDE
+typedef struct	s_block
+{
+	char		*input;
+	char		*cmd;
+	char		*output;
+	int			fd[2];
+	int			pid;
+}				t_block;
+
+// typedef struct s_list
 // {
-// 	t_block		*trio;
-// 	t_linked	next;
-// 	t_linked	prev;
-// }				t_linked;
+// 	void			*content;
+// 	struct s_list	*next;
+// 	struct s_list	*prev;
+// }					t_list;
 /** STRUCTURE DE LA LISTE CHAINEE DANS LA LIBFT **/
 
+// STRUCTURE DU PROGRAMME
 typedef struct	s_prog
 {
 	int			output_error;
 	char 		**envp;
-	t_list		*list;
-	char		**cmd_tab;
+	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
+	t_list		*garbage;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
-t_prog *init_prog();
+void	init_prog(t_prog *minishell, char **envp);
 void	destroy(t_prog *prog);
 
 /** FONCTIONS DE PARSING **/

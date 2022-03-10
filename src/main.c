@@ -14,24 +14,25 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prog	*minishell;
-	t_list	*temp;
-
+	t_prog	minishell;
+	
 	(void)argc;
 	(void)argv;
 	printf("\033[1;33m");
-	minishell = init_prog(envp);
+	init_prog(&minishell, envp);
 	// while (1)
 	// {
-		ft_process_line(readline("minishell> "), minishell);
-		temp = minishell->list;
-		while (minishell->list)
+		ft_process_line(readline("minishell> "), &minishell);
+		
+		t_list	*temp;
+		temp = minishell.cmds;
+		while (minishell.cmds)
 		{
-			printf("%s\n",minishell->list->content);
-			minishell->list = minishell->list->next;
+			// printf("%s\n", (char *)minishell.cmds->content);
+			minishell.cmds = minishell.cmds->next;
 		}
 		ft_lstclear(&temp, free);
 	// }
-	destroy(minishell);
+	// destroy(&minishell);
 	return (0);
 }
