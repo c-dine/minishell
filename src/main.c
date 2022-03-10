@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/10 18:53:57 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/10 23:19:11 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_prog(&minishell, envp);
-	// while (1)
-	// {
+	while (1)
+	{
 		printf("\033[1;33m");
 		ft_process_line(readline("minishell> "), &minishell);
 		
-		t_list	*temp;
-		temp = minishell.cmds;
-		while (minishell.cmds)
-		{
-			printf("%s\n", (char *)minishell.cmds->content);
-			minishell.cmds = minishell.cmds->next;
-		}
+		// t_list	*temp;
+		// temp = minishell.cmds;
+		// while (temp)
+		// {
+		// 	printf("%s\n", temp->content->cmd);
+		// 	printf("%s\n", temp->content->output);
+		// 	printf("%s\n", temp->content->input);
+		// 	printf("main : %s\n", (char *)temp->content);
+		// 	temp = temp->next;
+		// }
 		// ft_lstclear(&temp, free);
-	// }
+	}
 	// destroy(&minishell);
 	memrelease();
 	return (0);

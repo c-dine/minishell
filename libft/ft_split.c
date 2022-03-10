@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/10 19:06:36 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/10 22:34:27 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@ static int	ft_count(char const *s, char c)
 {
 	int	i;
 	int	count;
+	int	quote;
 
 	i = 0;
 	count = 0;
+	quote = 0;
 	while (s[i])
 	{
 		while (s[i] == c && s[i])
 			i++;
+		if (s[i] == '"')
+			quote++;
 		if (s[i])
 			count++;
-		while (s[i] != c && s[i])
+		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') || s[i] == '"') && s[i])
+		{
+			if (s[i] == '"')
+				quote++;
 			i++;
+		}
 	}
+	if (quote % 2 == 1)
+		return (-1);
 	return (count);
 }
 
@@ -44,10 +54,16 @@ static char	**ft_freesplit(char **result, int k)
 static int	ft_sizechain(const char *s, char c)
 {
 	int	size;
+	int	nb_quotes;
 
 	size = 0;
-	while (*s != c && *s)
+	nb_quotes = 0;
+	while (*s)
 	{
+		if (*s == '"')
+			nb_quotes++;
+		if (*s == c && (nb_quotes == 2 || nb_quotes == 0))
+			break ;
 		size++;
 		s++;
 	}
@@ -60,10 +76,11 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		k;
 
-	if (!s)
+	// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
+	if (!s || ft_count(s, c) == -1)
 		return (NULL);
 	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
-	mempush(&result, sizeof(char *), ft_count(s, c) + 1);
+	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
 		return (NULL);
 	k = 0;
@@ -80,5 +97,8 @@ char	**ft_split(char const *s, char c)
 		i += ft_sizechain(&s[i], c);
 	}
 	result[ft_count(s, c)] = NULL;
+	// i = -1;
+	// while (result[++i])
+	// 	printf("%s, %d\n", result[i], i);
 	return (result);
 }

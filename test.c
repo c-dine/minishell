@@ -1,3 +1,5 @@
+#include <stddef.h>
+#include <stdlib.h>
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -18,25 +20,34 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		i++;
 	return (i);
 }
-////////////////////////////////////////
 
 static int	ft_count(char const *s, char c)
 {
 	int	i;
 	int	count;
+	int	quote;
 
 	i = 0;
 	count = 0;
+	quote = 0;
 	while (s[i])
 	{
 		while (s[i] == c && s[i])
 			i++;
+		if (s[i] == '"')
+			quote++;
 		if (s[i])
 			count++;
-		while (s[i] != c && s[i])
+		while ((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') && s[i])
+		{
+			if (s[i] == '"')
+				quote++;
 			i++;
+		}
 	}
-	return (count);
+	if (quote % 2 == 1)
+		return (-1);
+	return (count - (quote / 2));
 }
 
 static char	**ft_freesplit(char **result, int k)
@@ -49,10 +60,12 @@ static char	**ft_freesplit(char **result, int k)
 	return (NULL);
 }
 
-static int	ft_sizechain(const char *s, char c)
+static int	ft_sizechain(const char *s, char c, int quote)
 {
 	int	size;
 
+	if (quote % 2 == 1)
+		c = '"';
 	size = 0;
 	while (*s != c && *s)
 	{
@@ -69,23 +82,28 @@ char	**ft_split(char const *s, char c)
 	int		k;
 	int		quote;
 
-	if (!s)
+// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
+	if (!s || ft_count(s, c) == -1)
 		return (NULL);
 	result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
 	if (result == NULL)
 		return (NULL);
 	k = 0;
 	i = 0;
+	quote = 0;
 	while (k < ft_count(s, c))
 	{
-		while (s[i] == c && s[i])
+		while (s[i] != '"' || s[i] == c && s[i])
 			i++;
-		result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c) + 1));
-		// mempush(result[k], sizeof(char), ft_sizechain(&s[i], c) + 1);
+		if (s[i] == '"')
+			quote++;
+		result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c, quote) + 1));
 		if (result[k] == NULL)
 			return (ft_freesplit(result, k));
-		ft_strlcpy(result[k++], &s[i], ft_sizechain(&s[i], c) + 1);
-		i += ft_sizechain(&s[i], c);
+		ft_strlcpy(result[k++], &s[i], ft_sizechain(&s[i], c, quote) + 1);
+		i += ft_sizechain(&s[i], c, quote);
+		if (quote % 2 == 1)
+			quote++;
 	}
 	result[ft_count(s, c)] = NULL;
 	return (result);
@@ -95,15 +113,16 @@ char	**ft_split(char const *s, char c)
 
 int	main()
 {
-	char	str[100] = "hello \"|\"";
-	char	**splitline;
+	char	str[100] = "yo \"|\"";
+	char	**split_line;
 	int		i;
 
-	splitline = ft_split(str, '|');
+	split_line = ft_split(str, '|');
 	i = 0;
-	while (str[i])
+	while (split_line[i])
 	{
-		printf("%s\n", str[i]);
+		printf("%d: %s\n", i, split_line[i]);
 		i++;
 	}
+	return 0;
 }
