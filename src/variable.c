@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 04:37:31 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/11 04:38:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	{
 		if (line[i] == '\'')
 		{
-			i++;
-			while (line[i] != '\'')
+			while (line[++i] != '\'')
 				i++;
 			if (line[i] != '\'')
 				return (-1);
