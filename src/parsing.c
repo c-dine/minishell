@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/11 01:22:04 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/11 02:49:39 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_process_line(char *line, t_prog *minishell)
 	t_list	*temp;
 
 	printf("\033[0;37m");
+	add_history(line);
 	line = replace_var(line, minishell);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)

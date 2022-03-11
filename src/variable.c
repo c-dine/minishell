@@ -3,26 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 01:29:40 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/11 03:11:56 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// renvoie contenu de la variable depuis env
+char	*get_var_content(char *line, t_prog *msh)
+{
+	int	i;
+	int	size_var;
 
+	size_var = 0;
+	while (line[size_var] && line[size_var] != ' ')
+		size_var++;
+	i = 0;
+	while (msh->envp[i])
+	{
+		if (ft_strncmp(&line[1], msh->envp[i], size_var - 1) == 0)
+			return (&msh->envp[i][size_var]);
+		i++;
+	}
+	return (NULL);
+}
+
+// donne difference de taille entre $var et son contenu
+int	get_size_var(char *line, t_prog *msh)
+{
+	int		size_var;
+	int		size_content;
+	char	*var_content;
+
+	size_var = 0;
+	size_content = 0;
+	var_content = get_var_content(line, msh);
+	while (var_content[size_content])
+		size_content++;
+	while (line[size_var] && line[size_var] != ' ')
+		size_var++;
+	return (size_content - size_var);
+}
+
+// donne taille TOTALE a malloc pour la nouvelle chaine de char avec les vars
+int	get_size_with_vars(char *line, t_prog *msh)
+{
+	int	i;
+	int	extra_size;
+
+	i = 0;
+	extra_size = 0;
+	while (line[i])
+	{
+		if (line[i++] == '\'')
+		{
+			while (line[i] != '\'')
+				i++;
+			if (line[i] != '\'')
+				return (-1);
+			i++;
+		}
+		if (line[i] == '$')
+		{
+			extra_size += get_size_var(&line[i], msh);
+			while (line[i] && line[i] != ' ')
+				i++;
+		}
+		else
+			i++;
+	}
+	return (i + extra_size);
+}
 
 char	*replace_var(char *line, t_prog *msh)
 {
 	int	i;
+	int	j;
+	int	k;
+	int	size_to_alloc;
 	char	*res;
+	char	*tmp;
 
-	mempush(&res, sizeof(char), get_size_with_vars())
+	size_to_alloc = get_size_with_vars(line, msh);
+	if (size_to_alloc == -1)
+		return (NULL);
+		// return error de single quote pas fermee --> indetermine
+	mempush(&res, sizeof(char), size_to_alloc + 1);
 	i = 0;
+	j = 0;
 	while (line[i])
 	{
-		
+		if (line[i] == '$')
+		{
+			tmp = get_var_content(&line[i], msh);
+			k = 0;
+			while (tmp[k])
+				res[j++] = tmp[k++];
+			while (line[i] && line[i] != ' ')
+				i++;
+		}
+		else
+			res[j++] = line[i++];
 	}
+	res[j] = '\0';
+	return (res);
 }
