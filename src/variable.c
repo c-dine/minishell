@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 03:35:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/11 04:37:31 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	extra_size = 0;
 	while (line[i])
 	{
-		if (line[i++] == '\'')
+		if (line[i] == '\'')
 		{
+			i++;
 			while (line[i] != '\'')
 				i++;
 			if (line[i] != '\'')
@@ -78,6 +79,14 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	return (i + extra_size);
 }
 
+void	alias_expansion_single_quote(char *res, char *line, int *j, int *i)
+{
+	res[(*j)++] = line[(*i)++];
+	while (line[(*i)] != '\'')
+		res[(*j)++] = line[(*i)++];
+	res[(*j)++] = line[(*i)++];
+}
+
 void	alias_expansion(char *line, char *res, t_prog *msh)
 {
 	int		i;
@@ -89,6 +98,8 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 	j = 0;
 	while (line[i])
 	{
+		if (line[i] == '\'')
+			alias_expansion_single_quote(res, line, &j, &i);
 		if (line[i] == '$')
 		{
 			tmp = get_var_content(&line[i], msh);
@@ -101,8 +112,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 		else
 			res[j++] = line[i++];
 	}
-	res[j] = '\0';
-	
+	res[j] = '\0';	
 }
 
 char	*replace_var(char *line, t_prog *msh)
