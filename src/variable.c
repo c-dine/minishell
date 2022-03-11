@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 04:38:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/11 06:14:08 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	get_size_var(char *line, t_prog *msh)
 	var_content = get_var_content(line, msh);
 	while (var_content[size_content])
 		size_content++;
-	while (line[size_var] && line[size_var] != ' ')
+	while (line[size_var] && line[size_var] != ' ' && line[size_var] != '<'
+		&& line[size_var] != '>' && line[size_var] != '|')
 		size_var++;
 	return (size_content - size_var);
 }
@@ -69,7 +70,8 @@ int	get_size_with_vars(char *line, t_prog *msh)
 		if (line[i] == '$')
 		{
 			extra_size += get_size_var(&line[i], msh);
-			while (line[i] && line[i] != ' ')
+			while (line[i] && line[i] != ' ' && line[i] != '<'
+				&& line[i] != '>' && line[i] != '|')
 				i++;
 		}
 		else
@@ -105,7 +107,8 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 			k = 0;
 			while (tmp[k])
 				res[j++] = tmp[k++];
-			while (line[i] && line[i] != ' ')
+			while (line[i] && line[i] != ' ' && line[i] != '<'
+				&& line[i] != '>' && line[i] != '|')
 				i++;
 		}
 		else
@@ -113,7 +116,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 	}
 	res[j] = '\0';	
 }
-
+//////////////// NE MARCHE PAS QUAND VARIABLE COLLEE A UN AUTRE CHAR AUTRE QUE ' '
 char	*replace_var(char *line, t_prog *msh)
 {
 	int	size_to_alloc;

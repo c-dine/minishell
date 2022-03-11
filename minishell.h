@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/11 01:25:54 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/11 05:55:32 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@
 typedef struct	s_block
 {
 	char		*input;
+	int			input_fd;
 	char		**cmd;
 	char		*output;
+	int			*output_fds;
 	int			fd[2];
 	int			pid;
 }				t_block;

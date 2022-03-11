@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/11 03:50:03 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/11 06:00:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	return (0);
 }
 
+void	init_block(t_block *res)
+{
+	res->cmd = NULL;
+	res->input = NULL;
+	res->output = NULL;
+}
+
 void	cmd_to_block(t_list *cmd)
 {
 	t_block	*res;
@@ -68,6 +75,7 @@ void	cmd_to_block(t_list *cmd)
 	str = (char *) cmd->content;
 	i = 0;
 	mempush(&res, sizeof(*res), 1);
+	init_block(res);
 	/** La il faut gerer les << ou >> **/
 	while (str[i])
 	{
@@ -88,7 +96,7 @@ void	cmd_to_block(t_list *cmd)
 	i = -1;
 	while (res->cmd[++i])
 		printf("cmd %d : %s\n", i, res->cmd[i]);
-	printf("output : %s\n", res->output);
+	printf("output : %s\n\n", res->output);
 	cmd->content = res;
 }
 
