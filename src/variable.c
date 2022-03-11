@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 03:11:56 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/11 03:35:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,13 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	return (i + extra_size);
 }
 
-char	*replace_var(char *line, t_prog *msh)
+void	alias_expansion(char *line, char *res, t_prog *msh)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	size_to_alloc;
-	char	*res;
+	int		i;
+	int		j;
+	int		k;
 	char	*tmp;
 
-	size_to_alloc = get_size_with_vars(line, msh);
-	if (size_to_alloc == -1)
-		return (NULL);
-		// return error de single quote pas fermee --> indetermine
-	mempush(&res, sizeof(char), size_to_alloc + 1);
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -109,5 +102,19 @@ char	*replace_var(char *line, t_prog *msh)
 			res[j++] = line[i++];
 	}
 	res[j] = '\0';
+	
+}
+
+char	*replace_var(char *line, t_prog *msh)
+{
+	int	size_to_alloc;
+	char	*res;
+
+	size_to_alloc = get_size_with_vars(line, msh);
+	if (size_to_alloc == -1)
+		return (NULL);
+		// return error de single quote pas fermee --> indetermine
+	mempush(&res, sizeof(char), size_to_alloc + 1);
+	alias_expansion(line, res, msh);
 	return (res);
 }
