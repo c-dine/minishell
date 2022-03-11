@@ -6,13 +6,14 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/10 22:04:37 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/11 01:20:08 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
 					src/parsing.c \
 					src/init_prog.c \
+					src/variable.c
 					# src/pipes.c
 OBJS			= 	$(SRCS:.c=.o)
 

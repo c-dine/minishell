@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/10 18:38:46 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/11 01:25:54 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef struct	s_block
 {
 	char		*input;
-	char		*cmd;
+	char		**cmd;
 	char		*output;
 	int			fd[2];
 	int			pid;
@@ -57,6 +57,7 @@ void	destroy(t_prog *prog);
 
 /** FONCTIONS DE PARSING **/
 void	ft_process_line(char *line, t_prog *minishell);
+char	*replace_var(char *line, t_prog *msh);
 
 
 #endif

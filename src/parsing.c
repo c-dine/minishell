@@ -6,13 +6,34 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/10 23:1604:04 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/11 01:22:04 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	parse_input(t_block *res, char *str, int *i)
+void clean_cmd(t_block *res, char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '<' || str[i] == '>')
+		{
+			str[i++] = ' ';
+			while (str[i] == ' ')
+				i++;
+			while (str[i] && str[i] != ' ' && str[i] != '|')
+				str[i++] = ' ';
+		}
+		else
+			i++;
+	}
+	res->cmd = ft_split(str, ' ');
+}
+
+int	parse_duoput(t_block *res, char *str, int *i)
 {
 	int 	marker;
 	int		tmp;
@@ -47,12 +68,13 @@ void	cmd_to_block(t_list *cmd)
 	str = (char *) cmd->content;
 	i = 0;
 	mempush(&res, sizeof(*res), 1);
+	/** La il faut gerer les << ou >> **/
 	while (str[i])
 	{
 		if (str[i] == '<' || str[i] == '>')
 		{
 			i++;
-			if (parse_input(res, str, &i) == 1)
+			if (parse_duoput(res, str, &i) == 1)
 			{
 				printf("AAAAAAAAAAH\n");
 				break ;
@@ -61,9 +83,12 @@ void	cmd_to_block(t_list *cmd)
 		else
 			i++;
 	}
+	clean_cmd(res, str);
 	printf("input : %s\n", res->input);
-	printf("cmd : %s\n", res->cmd);
-	printf("output : %s\n\n", res->output);
+	i = -1;
+	while (res->cmd[++i])
+		printf("cmd %d : %s\n", i, res->cmd[i]);
+	printf("output : %s\n", res->output);
 	cmd->content = res;
 }
 
@@ -89,6 +114,7 @@ void	ft_process_line(char *line, t_prog *minishell)
 	t_list	*temp;
 
 	printf("\033[0;37m");
+	line = replace_var(line, minishell);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
 		exit(1);
@@ -105,6 +131,3 @@ void	ft_process_line(char *line, t_prog *minishell)
 	parse_cmd(minishell);
 	// open_pipe(minishell);
 }
-
-
-
