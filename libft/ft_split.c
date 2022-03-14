@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/10 22:34:27 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/14 18:58:37 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ static int	ft_count(char const *s, char c)
 	{
 		while (s[i] == c && s[i])
 			i++;
-		if (s[i] == '"')
-			quote++;
+		// if (s[i] == '"')
+		// {
+		// 	quote++;
+		// 	i++;
+		// }
 		if (s[i])
 			count++;
 		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') || s[i] == '"') && s[i])
@@ -97,8 +100,8 @@ char	**ft_split(char const *s, char c)
 		i += ft_sizechain(&s[i], c);
 	}
 	result[ft_count(s, c)] = NULL;
-	// i = -1;
-	// while (result[++i])
-	// 	printf("%s, %d\n", result[i], i);
+	i = -1;
+	while (result[++i])
+		printf("%s, %d\n", result[i], i);
 	return (result);
 }

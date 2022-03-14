@@ -1,25 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
+/*   Updated: 2022/03/14 18:57:05 by ntan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft/libft.h"
 #include <stddef.h>
 #include <stdlib.h>
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	int	i;
-
-	i = 0;
-	if (size > 0)
-	{
-		while (--size > 0 && src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	i = 0;
-	while (src[i])
-		i++;
-	return (i);
-}
 
 static int	ft_count(char const *s, char c)
 {
@@ -34,11 +27,14 @@ static int	ft_count(char const *s, char c)
 	{
 		while (s[i] == c && s[i])
 			i++;
-		if (s[i] == '"')
-			quote++;
+		// if (s[i] == '"')
+		// {
+		// 	quote++;
+		// 	i++;
+		// }
 		if (s[i])
 			count++;
-		while ((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') && s[i])
+		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') || s[i] == '"') && s[i])
 		{
 			if (s[i] == '"')
 				quote++;
@@ -47,7 +43,7 @@ static int	ft_count(char const *s, char c)
 	}
 	if (quote % 2 == 1)
 		return (-1);
-	return (count - (quote / 2));
+	return (count);
 }
 
 static char	**ft_freesplit(char **result, int k)
@@ -60,15 +56,19 @@ static char	**ft_freesplit(char **result, int k)
 	return (NULL);
 }
 
-static int	ft_sizechain(const char *s, char c, int quote)
+static int	ft_sizechain(const char *s, char c)
 {
 	int	size;
+	int	nb_quotes;
 
-	if (quote % 2 == 1)
-		c = '"';
 	size = 0;
-	while (*s != c && *s)
+	nb_quotes = 0;
+	while (*s)
 	{
+		if (*s == '"')
+			nb_quotes++;
+		if (*s == c && (nb_quotes == 2 || nb_quotes == 0))
+			break ;
 		size++;
 		s++;
 	}
@@ -80,44 +80,45 @@ char	**ft_split(char const *s, char c)
 	char	**result;
 	int		i;
 	int		k;
-	int		quote;
 
-// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
+	// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
 	if (!s || ft_count(s, c) == -1)
 		return (NULL);
-	result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
+	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
+	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
 		return (NULL);
 	k = 0;
 	i = 0;
-	quote = 0;
 	while (k < ft_count(s, c))
 	{
-		while (s[i] != '"' || s[i] == c && s[i])
+		while (s[i] == c && s[i])
 			i++;
-		if (s[i] == '"')
-			quote++;
-		result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c, quote) + 1));
+		// result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c) + 1));
+		mempush(&result[k], sizeof(char), ft_sizechain(&s[i], c) + 1);
 		if (result[k] == NULL)
 			return (ft_freesplit(result, k));
-		ft_strlcpy(result[k++], &s[i], ft_sizechain(&s[i], c, quote) + 1);
-		i += ft_sizechain(&s[i], c, quote);
-		if (quote % 2 == 1)
-			quote++;
+		ft_strlcpy(result[k++], &s[i], ft_sizechain(&s[i], c) + 1);
+		i += ft_sizechain(&s[i], c);
 	}
 	result[ft_count(s, c)] = NULL;
+	// i = -1;
+	// while (result[++i])
+	// 	printf("%s, %d\n", result[i], i);
 	return (result);
 }
+
 
 #include <stdio.h>
 
 int	main()
 {
-	char	str[100] = "yo \"|\"";
+	char	str[100] = "salut \"echo\" \"saluuuuutt\"";
 	char	**split_line;
 	int		i;
 
-	split_line = ft_split(str, '|');
+	printf("%s\n", str);
+	split_line = ft_split(str, ' ');
 	i = 0;
 	while (split_line[i])
 	{
