@@ -16,16 +16,23 @@
 char	*get_var_content(char *line, t_prog *msh)
 {
 	int	i;
+	int	j;
 	int	size_var;
 
 	size_var = 0;
-	while (line[size_var] && line[size_var] != ' ')
+	while (line[size_var] && line[size_var] != ' ' && line[size_var] != '<'
+		&& line[size_var] != '>' && line[size_var] != '|')
 		size_var++;
 	i = 0;
 	while (msh->envp[i])
 	{
-		if (ft_strncmp(&line[1], msh->envp[i], size_var - 1) == 0)
-			return (&msh->envp[i][size_var]);
+		j = 0;
+		while (msh->envp[i][j] != '=')
+		{
+			if (ft_strncmp(msh->envp[i], &line[1], 1) == 0)
+				return (&msh->envp[i][size_var]);
+			j++;
+		}
 		i++;
 	}
 	return (NULL);
@@ -41,11 +48,13 @@ int	get_size_var(char *line, t_prog *msh)
 	size_var = 0;
 	size_content = 0;
 	var_content = get_var_content(line, msh);
-	while (var_content[size_content])
-		size_content++;
 	while (line[size_var] && line[size_var] != ' ' && line[size_var] != '<'
 		&& line[size_var] != '>' && line[size_var] != '|')
 		size_var++;
+	if (var_content == NULL)
+		return (-size_var);
+	while (var_content[size_content])
+		size_content++;
 	return (size_content - size_var);
 }
 
@@ -104,12 +113,21 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 		if (line[i] == '$')
 		{
 			tmp = get_var_content(&line[i], msh);
-			k = 0;
-			while (tmp[k])
-				res[j++] = tmp[k++];
-			while (line[i] && line[i] != ' ' && line[i] != '<'
-				&& line[i] != '>' && line[i] != '|')
-				i++;
+			if (tmp == NULL)
+			{
+				while (line[i] && line[i] != ' ' && line[i] != '<'
+					&& line[i] != '>' && line[i] != '|')
+					i++;
+			}
+			else
+			{
+				k = 0;
+				while (tmp[k])
+					res[j++] = tmp[k++];
+				while (line[i] && line[i] != ' ' && line[i] != '<'
+					&& line[i] != '>' && line[i] != '|')
+					i++;
+			}
 		}
 		else
 			res[j++] = line[i++];
