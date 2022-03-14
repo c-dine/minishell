@@ -6,20 +6,21 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/11 01:20:08 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/14 08:28:05 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
 					src/parsing.c \
 					src/init_prog.c \
-					src/variable.c
+					src/variable.c \
+					src/signals.c
 					# src/pipes.c
 OBJS			= 	$(SRCS:.c=.o)
 
 CC				= 	cc
 RM				= 	rm -f
-CFLAGS			= 	-Wall -Wextra -Werror 
+CFLAGS			= 	-Wall -Wextra -Werror
 NAME			= 	minishell
 LIBS      		=	-L./libft -lft -lreadline 
 
