@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/14 18:58:37 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/14 19:00:11 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	ft_count(char const *s, char c)
 }
 
 static char	**ft_freesplit(char **result, int k)
+
 {
 	while (k >= 0)
 	{

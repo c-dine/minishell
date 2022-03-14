@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/11 06:14:08 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/14 18:07:48 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_var_content(char *line, t_prog *msh)
 {
 	int	i;
 	int	j;
+	int	k;
 	int	size_var;
 
 	size_var = 0;
@@ -27,12 +28,16 @@ char	*get_var_content(char *line, t_prog *msh)
 	while (msh->envp[i])
 	{
 		j = 0;
+		k = 1;
 		while (msh->envp[i][j] != '=')
 		{
-			if (ft_strncmp(msh->envp[i], &line[1], 1) == 0)
-				return (&msh->envp[i][size_var]);
+			if (ft_strncmp(msh->envp[i], &line[1], k) != 0)
+				break ;
+			k++;
 			j++;
 		}
+		if (msh->envp[i][j] == '=' && j == size_var - 1)
+			return (&msh->envp[i][size_var]);
 		i++;
 	}
 	return (NULL);
