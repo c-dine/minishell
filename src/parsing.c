@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/14 17:59:43 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/15 16:14:29 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	cmd_to_block(t_list *cmd)
 	clean_cmd(res, str);
 	printf("input : %s\n", res->input);
 	i = -1;
-	// while (res->cmd[++i])
-	// 	printf("cmd %d : %s\n", i, res->cmd[i]);
+	while (res->cmd[++i])
+		printf("cmd %d : %s\n", i, res->cmd[i]);
 	printf("output : %s\n\n", res->output);
 	cmd->content = res;
 }

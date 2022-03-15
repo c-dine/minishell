@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/14 08:28:05 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/15 16:24:05 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ SRCS			=	src/main.c \
 					# src/pipes.c
 OBJS			= 	$(SRCS:.c=.o)
 
-CC				= 	cc
+CC				= 	gcc
 RM				= 	rm -f
 CFLAGS			= 	-Wall -Wextra -Werror
+LIBS      		=	-L./libft -lft -lreadline
 NAME			= 	minishell
-LIBS      		=	-L./libft -lft -lreadline 
 
-.c.o: 			minishell
+.c.o:
 	  			@$(CC) $(CFLAGS) -c -I. $< -o $(<:.c=.o)
 
 all:			$(NAME)
@@ -33,6 +33,7 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
+				
 
 lib:			
 				@echo Compiling libft ....

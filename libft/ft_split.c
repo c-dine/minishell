@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/14 19:00:11 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/15 16:14:49 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,5 @@ char	**ft_split(char const *s, char c)
 		i += ft_sizechain(&s[i], c);
 	}
 	result[ft_count(s, c)] = NULL;
-	i = -1;
-	while (result[++i])
-		printf("%s, %d\n", result[i], i);
 	return (result);
 }
