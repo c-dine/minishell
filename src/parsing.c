@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/15 16:14:29 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/15 22:56:19 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	parse_cmd(t_prog *msh)
 }
 
 
-void	ft_process_line(char *line, t_prog *minishell)
+int	ft_process_line(char *line, t_prog *minishell)
 {
 	char	**split_line;
 	int		i;
@@ -126,7 +126,7 @@ void	ft_process_line(char *line, t_prog *minishell)
 	line = replace_var(line, minishell);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
-		exit(1);
+		return (1);
 	temp = ft_lstnew(NULL);
 	minishell->cmds = temp;
 	i = 0;
@@ -139,4 +139,5 @@ void	ft_process_line(char *line, t_prog *minishell)
 	free(line);
 	parse_cmd(minishell);
 	// open_pipe(minishell);
+	return (0);
 }

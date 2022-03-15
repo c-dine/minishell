@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/15 17:03:55 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/15 22:56:25 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_prog(t_prog *minishell, char **envp);
 void	destroy(t_prog *prog);
 
 /** FONCTIONS DE PARSING **/
-void	ft_process_line(char *line, t_prog *minishell);
+int	ft_process_line(char *line, t_prog *minishell);
 char	*replace_var(char *line, t_prog *msh);
 
 /** LES SIGNAUX **/

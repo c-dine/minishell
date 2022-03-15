@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/15 16:14:49 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/15 22:54:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_count(char const *s, char c)
 		// }
 		if (s[i])
 			count++;
-		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && s[i] != '"') || s[i] == '"') && s[i])
+		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && (s[i] != '"' || s[i] == '\'')) || s[i] == '"' || s[i] == '\'') && s[i])
 		{
 			if (s[i] == '"')
 				quote++;
@@ -64,7 +64,7 @@ static int	ft_sizechain(const char *s, char c)
 	nb_quotes = 0;
 	while (*s)
 	{
-		if (*s == '"')
+		if (*s == '"' || *s == '\'')
 			nb_quotes++;
 		if (*s == c && (nb_quotes == 2 || nb_quotes == 0))
 			break ;
@@ -82,7 +82,10 @@ char	**ft_split(char const *s, char c)
 
 	// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
 	if (!s || ft_count(s, c) == -1)
+	{
+		printf("minishell: quote not closed\n");
 		return (NULL);
+	}
 	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
 	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
