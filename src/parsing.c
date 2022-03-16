@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/15 22:56:19 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/16 16:01:24 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,18 @@ void clean_cmd(t_block *res, char *str)
 int	parse_duoput(t_block *res, char *str, int *i)
 {
 	int 	marker;
-	int		tmp;
 	char	*temp;
+	int		tmp;
+	(void)res;
 
 	tmp = 0;
 	if (str[*i - 1] == '>')
 		tmp = 1;
+	if (str[*i - 1] == '>' && str[*i] == '>')
+		tmp = 2;
 	while (str[*i] && str[*i] == ' ')
 		(*i)++;
-	if (str[*i] == '|' || str[*i] == '>'
+	if (str[*i] == '|' || (str[*i] == '>' && str[*i - 1] != '>')
 		|| str[*i] == '<' || str[*i] == '\0')
 		return (1);
 	marker = *i;
@@ -53,17 +56,24 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	mempush(&temp, sizeof(char), *i - marker + 1);
 	ft_strlcpy(temp, &str[marker], *i - marker + 1);
 	if (tmp == 0)
-		res->input = temp;
-	else
-		res->output = temp;
+		res->input = add_to_duotab(res->input, temp);
+	else if (tmp == 1)
+		res->output = add_to_duotab(res->output, temp);
+	else if (tmp == 2)
+		res->outputs_append = add_to_duotab(res->outputs_append, temp);
 	return (0);
 }
 
 void	init_block(t_block *res)
 {
-	res->cmd = NULL;
-	res->input = NULL;
-	res->output = NULL;
+	mempush(&res->cmd, sizeof(char*), 1);
+	mempush(&res->output, sizeof(char*), 1);
+	mempush(&res->input, sizeof(char*), 1);
+	mempush(&res->outputs_append, sizeof(char*), 1);
+	res->cmd[0] = 0;
+	res->input[0] = 0;
+	res->output[0] = 0;
+	res->outputs_append[0] = 0;
 }
 
 void	cmd_to_block(t_list *cmd)
@@ -76,7 +86,6 @@ void	cmd_to_block(t_list *cmd)
 	i = 0;
 	mempush(&res, sizeof(*res), 1);
 	init_block(res);
-	/** La il faut gerer les << ou >> **/
 	while (str[i])
 	{
 		if (str[i] == '<' || str[i] == '>')
@@ -92,11 +101,8 @@ void	cmd_to_block(t_list *cmd)
 			i++;
 	}
 	clean_cmd(res, str);
-	printf("input : %s\n", res->input);
-	i = -1;
-	while (res->cmd[++i])
-		printf("cmd %d : %s\n", i, res->cmd[i]);
-	printf("output : %s\n\n", res->output);
+	open_fds(res);
+	open_pipes(res);
 	cmd->content = res;
 }
 
@@ -138,6 +144,7 @@ int	ft_process_line(char *line, t_prog *minishell)
 	}
 	free(line);
 	parse_cmd(minishell);
+	// open_fds(minishell->cmds->content);
 	// open_pipe(minishell);
 	return (0);
 }

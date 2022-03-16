@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/15 23:11:28 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/16 16:06:32 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_process_line(readline("minishell> "), &minishell);
 		// if (ft_strcmp(minishell.cmds->content.cmd[0], "exit") == 0)
 		// 	break ;
+		minishell.cmds = minishell.cmds->next;
 	}
 	memrelease();
 	return (0);

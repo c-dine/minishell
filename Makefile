@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/15 16:24:05 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/16 16:06:00 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ SRCS			=	src/main.c \
 					src/parsing.c \
 					src/init_prog.c \
 					src/variable.c \
-					src/signals.c
+					src/add_put.c \
+					src/signals.c \
+					src/open_all.c
 					# src/pipes.c
 OBJS			= 	$(SRCS:.c=.o)
 
 CC				= 	gcc
 RM				= 	rm -f
-CFLAGS			= 	-Wall -Wextra -Werror
+CFLAGS			= 	-Wall -Wextra -Werror -g
 LIBS      		=	-L./libft -lft -lreadline
 NAME			= 	minishell
 
@@ -33,6 +35,7 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
+				valgrind ./minishell
 				
 
 lib:			

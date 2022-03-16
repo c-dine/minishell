@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/15 22:56:25 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/16 16:01:12 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@
 
 
 // STRUCTURE POUR CHAQUE COMMANDE
-typedef struct	s_block
-{
-	char		*input;
-	int			input_fd;
-	char		**cmd;
-	char		*output;
-	int			*output_fds;
-	int			fd[2];
-	int			pid;
-}				t_block;
+// typedef struct	s_block
+// {
+// 	char		**input;
+// 	int			*input_fd;
+// 	char		**cmd;
+// 	char		**output;
+// 	int			*output_fd;
+// 	char		**outputs_append;
+// 	int			*outputs_append_fds;
+// 	int			fd[2];
+// 	int			pid;
+// }				t_block;
 
 // typedef struct s_list
 // {
@@ -64,6 +66,15 @@ char	*replace_var(char *line, t_prog *msh);
 
 /** LES SIGNAUX **/
 void	signal_manager(t_prog *msh);
+
+/** OPENS FUNCTIONS **/
+int	open_fds(t_block *block);
+int	open_pipes(t_block *block);
+
+/** Fonctions utiles **/
+char	**add_to_duotab(char **tab, char *element);
+void	print_duotab(char **tab);
+int		strlen_duotab(char **str);
 
 
 #endif
