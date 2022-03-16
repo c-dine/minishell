@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+int error_code;
+
 void	init_prog(t_prog *minishell, char **envp)
 {
 	minishell->envp = envp;
