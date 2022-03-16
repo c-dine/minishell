@@ -6,16 +6,17 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 16:05:07 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:41:32 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int open_trioput_file(char **tab, int *fd, int option)
+int *open_trioput_file(char **tab, int option)
 {
 	int i;
 	int j;
+	int	*fd;
 
 	mempush(&fd, sizeof(int), strlen_duotab(tab) + 1);
 	j = 0;
@@ -27,13 +28,12 @@ int open_trioput_file(char **tab, int *fd, int option)
 		else if (option == 2)
 			fd[j] = open(tab[i], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 		if (fd[j] == -1)
-			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAH\n");
-		printf("fd : %d\n", fd[j]); /********AAAAAAAAAAAAA******/
+			return (ft_error(FILE_NOT_FOUND));
 		i++;
 		j++;
 	}
-	fd[j] = -1;
-	return (0);
+	fd[j] = -2;
+	return (fd);
 }
 
 
@@ -55,15 +55,15 @@ void	init_fds(t_block *block)
 int	open_fds(t_block *block)
 {
 	init_fds(block);
-	open_trioput_file(block->input, block->input_fd, 1);
-	open_trioput_file(block->output, block->output_fd, 2);
-	open_trioput_file(block->outputs_append, block->outputs_append_fds, 2);
-
-	/**TESTS**/
-	print_duotab(block->input);
-	print_duotab(block->output);
-	print_duotab(block->outputs_append);
-	/***/
+	block->input_fd = open_trioput_file(block->input, 1);
+	if (block->input_fd == NULL)
+		return (-1);
+	block->output_fd = open_trioput_file(block->output, 2);
+	if (block->output_fd == NULL)
+		return (-1);
+	block->outputs_append_fds = open_trioput_file(block->outputs_append, 2);
+	if (block->outputs_append_fds == NULL)
+		return (-1);
 	return (0);
 }
 

@@ -16,11 +16,5 @@ void	init_prog(t_prog *minishell, char **envp)
 {
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
-}
-
-void	destroy(t_prog *prog)
-{
-	if (prog->envp)
-		free(prog->envp);
-	free(prog);
+	error_code = 0;
 }

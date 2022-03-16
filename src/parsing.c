@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 16:01:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:43:54 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	int 	marker;
 	char	*temp;
 	int		tmp;
-	(void)res;
 
 	tmp = 0;
 	if (str[*i - 1] == '>')
@@ -61,6 +60,7 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		res->output = add_to_duotab(res->output, temp);
 	else if (tmp == 2)
 		res->outputs_append = add_to_duotab(res->outputs_append, temp);
+
 	return (0);
 }
 
@@ -76,7 +76,7 @@ void	init_block(t_block *res)
 	res->outputs_append[0] = 0;
 }
 
-void	cmd_to_block(t_list *cmd)
+int	cmd_to_block(t_list *cmd)
 {
 	t_block	*res;
 	char 	*str;
@@ -101,13 +101,15 @@ void	cmd_to_block(t_list *cmd)
 			i++;
 	}
 	clean_cmd(res, str);
-	open_fds(res);
+	if (open_fds(res) == -1)
+		return (-1);
 	open_pipes(res);
 	cmd->content = res;
+	return (0);
 }
 
 /** msh = minishell raccourci**/
-void	parse_cmd(t_prog *msh)
+int	parse_cmd(t_prog *msh)
 {
 	t_list	*temp;
 
@@ -115,9 +117,11 @@ void	parse_cmd(t_prog *msh)
 	while (temp)
 	{
 		printf("parse : %s\n", (char *)temp->content);
-		cmd_to_block(temp);
+		if (cmd_to_block(temp) == -1)
+			return (-1);
 		temp = temp->next;
 	}
+	return (0);
 }
 
 
@@ -132,7 +136,7 @@ int	ft_process_line(char *line, t_prog *minishell)
 	line = replace_var(line, minishell);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
-		return (1);
+		return (-1);
 	temp = ft_lstnew(NULL);
 	minishell->cmds = temp;
 	i = 0;
@@ -143,8 +147,7 @@ int	ft_process_line(char *line, t_prog *minishell)
 		i++;
 	}
 	free(line);
-	parse_cmd(minishell);
-	// open_fds(minishell->cmds->content);
-	// open_pipe(minishell);
+	if (parse_cmd(minishell) == -1)
+		return (-1);
 	return (0);
 }

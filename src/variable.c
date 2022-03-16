@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/14 18:07:48 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/16 18:04:09 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 	}
 	res[j] = '\0';	
 }
-//////////////// NE MARCHE PAS QUAND VARIABLE COLLEE A UN AUTRE CHAR AUTRE QUE ' '
+
 char	*replace_var(char *line, t_prog *msh)
 {
 	int	size_to_alloc;

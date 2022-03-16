@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 16:06:32 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:45:42 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_process_line(readline("minishell> "), &minishell);
 		// if (ft_strcmp(minishell.cmds->content.cmd[0], "exit") == 0)
 		// 	break ;
-		minishell.cmds = minishell.cmds->next;
+		close_fds(&minishell);
 	}
 	memrelease();
 	return (0);

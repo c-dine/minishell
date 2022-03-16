@@ -6,24 +6,31 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 16:01:12 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 18:51:16 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include "libft/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include "libft/libft.h"
 
+# define CMD_NOT_FOUND 0
+# define FILE_NOT_FOUND 1
+# define QUOTE_NOT_CLOSED 2
+# define PARSE_ERROR 3
+# define PERMISSION_DENIED 4
+
+extern int error_code;
 
 // STRUCTURE POUR CHAQUE COMMANDE
 // typedef struct	s_block
@@ -50,7 +57,6 @@
 // STRUCTURE DU PROGRAMME
 typedef struct	s_prog
 {
-	int			output_error;
 	char 		**envp;
 	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list		*garbage;
@@ -58,7 +64,7 @@ typedef struct	s_prog
 
 /** FONCTION DEMMARAGE ET FIN**/
 void	init_prog(t_prog *minishell, char **envp);
-void	destroy(t_prog *prog);
+void	close_fds(t_prog *msh);
 
 /** FONCTIONS DE PARSING **/
 int	ft_process_line(char *line, t_prog *minishell);
@@ -71,10 +77,13 @@ void	signal_manager(t_prog *msh);
 int	open_fds(t_block *block);
 int	open_pipes(t_block *block);
 
+
 /** Fonctions utiles **/
 char	**add_to_duotab(char **tab, char *element);
 void	print_duotab(char **tab);
 int		strlen_duotab(char **str);
 
+/** ERRORS **/
+void	*ft_error(int code);
 
 #endif
