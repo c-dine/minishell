@@ -6,11 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/16 22:40:53 by cdine            ###   ########.fr       */
-=======
-/*   Updated: 2022/03/16 21:42:51 by ntan             ###   ########.fr       */
->>>>>>> 036a1c66d087c3bbf44837da9a9c2850dea2d991
+/*   Updated: 2022/03/16 22:45:05 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +49,11 @@ int	get_size_var(char *line, t_prog *msh)
 	int		size_content;
 	char	*var_content;
 
-	size_var = 1;
+	size_var = 0;
 	size_content = 0;
 	var_content = get_var_content(line, msh);
-<<<<<<< HEAD
 	while (line[size_var])
 	{
-=======
-	while (line[size_var] && ft_isalnum(line[size_var]) == 1)
->>>>>>> 036a1c66d087c3bbf44837da9a9c2850dea2d991
 		size_var++;
 		if (size_var > 0 && ft_isalnum(line[size_var]) == 0)
 			break ;
@@ -70,12 +62,7 @@ int	get_size_var(char *line, t_prog *msh)
 		return (-size_var);
 	while (var_content[size_content])
 		size_content++;
-<<<<<<< HEAD
 	return (- (size_var - size_content));
-=======
-	printf("%s %d %d\n", line, size_content, size_var);
-	return (size_content - size_var - 1);
->>>>>>> 036a1c66d087c3bbf44837da9a9c2850dea2d991
 }
 
 // donne taille TOTALE a malloc pour la nouvelle chaine de char avec les vars
@@ -99,7 +86,6 @@ int	get_size_with_vars(char *line, t_prog *msh)
 		if (line[i] == '$')
 		{
 			extra_size += get_size_var(&line[i], msh);
-			printf("extra_size : %d\n", extra_size);
 			while (line[i] && line[i] != ' ' && line[i] != '<'
 				&& line[i] != '>' && line[i] != '|')
 				i++;
@@ -182,16 +168,9 @@ char	*replace_var(char *line, t_prog *msh)
 {
 	char	*res;
 
-<<<<<<< HEAD
 	if (check_single_quote(line) == -1)
-=======
-	size_to_alloc = get_size_with_vars(line, msh);
-	printf("%d\n", size_to_alloc);
-	if (size_to_alloc == -1)
->>>>>>> 036a1c66d087c3bbf44837da9a9c2850dea2d991
 		return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 1);
 	alias_expansion(line, res, msh);
-	printf("%s\n", res);
 	return (res);
 }
