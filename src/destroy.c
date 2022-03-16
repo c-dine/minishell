@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 18:41:22 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 21:04:06 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	close_fds(t_prog *msh)
 	tmp = msh->cmds->next;
 	while (tmp)
 	{
-		printf("INPUT CLOSE\n");
-		print_duotab(tmp->content->input);
-		printf("OUTPUTPUT CLOSE\n");
-		print_duotab(tmp->content->output);
+		// printf("INPUT CLOSE\n");
+		// print_duotab(tmp->content->input);
+		// printf("OUTPUTPUT CLOSE\n");
+		// print_duotab(tmp->content->output);
 		close_pipe(tmp->content->pipe);
 		if (tmp->content->input_fd)
 			close_fd_tab(tmp->content->input, tmp->content->input_fd);

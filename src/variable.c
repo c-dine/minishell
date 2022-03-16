@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/16 18:04:09 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/16 21:42:51 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@ char	*get_var_content(char *line, t_prog *msh)
 	int	k;
 	int	size_var;
 
-	size_var = 0;
-	while (line[size_var] && line[size_var] != ' ' && line[size_var] != '<'
-		&& line[size_var] != '>' && line[size_var] != '|')
+	size_var = 1;
+	while (line[size_var] && ft_isalnum(line[size_var]) == 1)
 		size_var++;
 	i = 0;
 	while (msh->envp[i])
 	{
 		j = 0;
 		k = 1;
-		while (msh->envp[i][j] != '=')
+		while (msh->envp[i][j] && msh->envp[i][j] != '=' && ft_isalnum(line[k]) == 1)
 		{
 			if (ft_strncmp(msh->envp[i], &line[1], k) != 0)
 				break ;
@@ -50,17 +49,17 @@ int	get_size_var(char *line, t_prog *msh)
 	int		size_content;
 	char	*var_content;
 
-	size_var = 0;
+	size_var = 1;
 	size_content = 0;
 	var_content = get_var_content(line, msh);
-	while (line[size_var] && line[size_var] != ' ' && line[size_var] != '<'
-		&& line[size_var] != '>' && line[size_var] != '|')
+	while (line[size_var] && ft_isalnum(line[size_var]) == 1)
 		size_var++;
 	if (var_content == NULL)
 		return (-size_var);
 	while (var_content[size_content])
 		size_content++;
-	return (size_content - size_var);
+	printf("%s %d %d\n", line, size_content, size_var);
+	return (size_content - size_var - 1);
 }
 
 // donne taille TOTALE a malloc pour la nouvelle chaine de char avec les vars
@@ -75,15 +74,16 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	{
 		if (line[i] == '\'')
 		{
-			while (line[++i] != '\'')
+			i++;
+			while (line[i] && line[i] != '\'')
 				i++;
 			if (line[i] != '\'')
 				return (-1);
-			i++;
 		}
 		if (line[i] == '$')
 		{
 			extra_size += get_size_var(&line[i], msh);
+			printf("extra_size : %d\n", extra_size);
 			while (line[i] && line[i] != ' ' && line[i] != '<'
 				&& line[i] != '>' && line[i] != '|')
 				i++;
@@ -134,7 +134,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 					i++;
 			}
 		}
-		else
+		else if (line[i])
 			res[j++] = line[i++];
 	}
 	res[j] = '\0';	
@@ -146,10 +146,12 @@ char	*replace_var(char *line, t_prog *msh)
 	char	*res;
 
 	size_to_alloc = get_size_with_vars(line, msh);
+	printf("%d\n", size_to_alloc);
 	if (size_to_alloc == -1)
 		return (NULL);
 		// return error de single quote pas fermee --> indetermine
 	mempush(&res, sizeof(char), size_to_alloc + 1);
 	alias_expansion(line, res, msh);
+	printf("%s\n", res);
 	return (res);
 }
