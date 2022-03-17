@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:02 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 15:20:26 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/17 23:42:57 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,24 @@ int strlen_duotab(char **str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+int	ft_nblen(int nb)
+{
+	int	len;
+
+	len = 0;
+	if (nb == 0)
+		return (1);
+	if (nb < 0)
+	{
+		len++;
+		nb *= -1;
+	}
+	while (nb >= 1)
+	{
+		nb /= 10;
+		len++;
+	}
+	return (len);
 }

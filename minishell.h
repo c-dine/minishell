@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 20:16:56 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/17 23:38:54 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	open_pipes(t_block *block);
 char	**add_to_duotab(char **tab, char *element);
 void	print_duotab(char **tab);
 int		strlen_duotab(char **str);
+int		ft_nblen(int nb);
 
 /** ERRORS **/
 void	*ft_error(int code);

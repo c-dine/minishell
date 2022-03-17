@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/16 22:45:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/18 00:04:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ int	get_size_with_vars(char *line, t_prog *msh)
 			if (line[i] != '\'')
 				return (-1);
 		}
-		if (line[i] == '$')
+		if (line[i] == '$' && line[i + 1] == '?')
+		{
+			extra_size += - (2 - ft_nblen(error_code));
+			printf("i=%d et line=%c\n", i, line[i]);
+			i += 1;
+		}
+		else if (line[i] == '$')
 		{
 			extra_size += get_size_var(&line[i], msh);
 			while (line[i] && line[i] != ' ' && line[i] != '<'
@@ -93,6 +99,7 @@ int	get_size_with_vars(char *line, t_prog *msh)
 		else
 			i++;
 	}
+	printf("i: %d extra: %d\n", i, extra_size);
 	return (i + extra_size);
 }
 
@@ -117,7 +124,16 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 	{
 		if (line[i] == '\'')
 			alias_expansion_single_quote(res, line, &j, &i);
-		if (line[i] == '$')
+		if (line[i] == '$' && line[i + 1] == '?')
+		{
+			k = 0;
+			tmp = ft_itoa(error_code);
+			while (k < ft_nblen(error_code))
+				res[j++] = tmp[k++];
+			i += 2;
+			free(tmp);
+		}
+		else if (line[i] == '$')
 		{
 			tmp = get_var_content(&line[i], msh);
 			if (tmp == NULL)

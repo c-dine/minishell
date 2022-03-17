@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/16 18:43:54 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/17 14:13:51 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_block(t_block *res)
 	res->outputs_append[0] = 0;
 }
 
-int	cmd_to_block(t_list *cmd)
+char *cmd_to_block(t_list *cmd)
 {
 	t_block	*res;
 	char 	*str;
@@ -93,8 +93,7 @@ int	cmd_to_block(t_list *cmd)
 			i++;
 			if (parse_duoput(res, str, &i) == 1)
 			{
-				printf("AAAAAAAAAAH\n");
-				break ;
+				return (ft_error(PARSE_ERROR));
 			}
 		}
 		else
@@ -102,10 +101,10 @@ int	cmd_to_block(t_list *cmd)
 	}
 	clean_cmd(res, str);
 	if (open_fds(res) == -1)
-		return (-1);
+		return (NULL);
 	open_pipes(res);
 	cmd->content = res;
-	return (0);
+	return (str);
 }
 
 /** msh = minishell raccourci**/
@@ -117,7 +116,7 @@ int	parse_cmd(t_prog *msh)
 	while (temp)
 	{
 		printf("parse : %s\n", (char *)temp->content);
-		if (cmd_to_block(temp) == -1)
+		if (cmd_to_block(temp) == NULL)
 			return (-1);
 		temp = temp->next;
 	}
