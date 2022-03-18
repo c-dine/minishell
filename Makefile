@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/17 23:59:50 by cdine            ###   ########.fr        #
+#    Updated: 2022/03/18 00:17:49 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS			=	src/main.c \
 					src/add_put.c \
 					src/signals.c \
 					src/open_all.c \
-					src/destroy.c
+					src/destroy.c \
+					src/process_line.c
 					# src/pipes.c
 OBJS			= 	$(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/17 23:38:54 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/18 00:18:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ typedef struct	s_prog
 /** FONCTION DEMMARAGE ET FIN**/
 void	init_prog(t_prog *minishell, char **envp);
 void	close_fds(t_prog *msh);
+int		ft_process_line(char *line, t_prog *minishell);
 
 /** FONCTIONS DE PARSING **/
-int	ft_process_line(char *line, t_prog *minishell);
+int		ft_parsing(char *line, t_prog *minishell);
 char	*replace_var(char *line, t_prog *msh);
 
 /** LES SIGNAUX **/

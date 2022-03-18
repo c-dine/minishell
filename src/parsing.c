@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/17 14:13:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/18 00:17:05 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,12 @@ int	parse_cmd(t_prog *msh)
 }
 
 
-int	ft_process_line(char *line, t_prog *minishell)
+int	ft_parsing(char *line, t_prog *minishell)
 {
 	char	**split_line;
 	int		i;
 	t_list	*temp;
 
-	printf("\033[0;37m");
-	add_history(line);
-	line = replace_var(line, minishell);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
 		return (-1);
