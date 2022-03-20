@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/20 15:16:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 16:51:09 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	close_fd_tab(char **trioput, int *fd)
 	i = 0;
 	while (i < strlen_duotab(trioput))
 	{
-		printf("i = %d : fd[i] = %d\n", i, fd[i]);
 		close(fd[i]);
 		i++;
 	}

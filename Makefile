@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/20 15:13:06 by cdine            ###   ########.fr        #
+#    Updated: 2022/03/20 20:00:41 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ SRCS			=	src/main.c \
 					src/open_all.c \
 					src/destroy.c \
 					src/process_line.c \
-					src/check_cmd.c
-					# src/pipes.c
+					src/check_cmd.c \
+					src/builtins/ft_echo.c
+					# src/pipes.c 
 OBJS			= 	$(SRCS:.c=.o)
 
 CC				= 	gcc
@@ -38,7 +39,8 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
-				valgrind ./minishell
+				./minishell
+				# valgrind ./minishell
 				
 
 lib:			

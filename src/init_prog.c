@@ -16,6 +16,7 @@ int error_code;
 
 void	init_prog(t_prog *minishell, char **envp)
 {
+	minishell->dup_fd_stdout = dup(STDOUT_FILENO);
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
 	error_code = 0;

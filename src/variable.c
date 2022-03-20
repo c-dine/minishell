@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/20 15:21:18 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 17:13:05 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	get_size_with_vars(char *line, t_prog *msh)
 		else
 			i++;
 	}
-	printf("i: %d extra: %d\n", i, extra_size);
 	return (i + extra_size);
 }
 

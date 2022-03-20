@@ -1,5 +1,9 @@
-- changer trioput -> 1 input et 1 output OU append par commande
-- redirections
+- programme lent -> free au fur et a mesure ?
 - process 
 - heredoc
-- builtins
+- builtins :
+	+ cd 
+	+ pwd
+	+ export
+	+ unset
+	+ env

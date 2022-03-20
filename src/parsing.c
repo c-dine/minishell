@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/18 00:17:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 17:24:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	parse_cmd(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		printf("parse : %s\n", (char *)temp->content);
+		// printf("parse : %s\n", (char *)temp->content);
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
 		temp = temp->next;

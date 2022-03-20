@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:13:28 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/20 15:19:25 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 17:19:36 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,32 @@ int	check_is_builtin(char *cmd)
 	return (-1);
 }
 
+void	ft_get_cmdname(char **cmd)
+{
+	int		marker;
+	int		i;
+
+	i = 0;
+	marker = 0;
+	while (cmd[0][i])
+	{
+		if (cmd[0][i] == '/')
+			marker = i;
+		i++;
+	}
+	if (cmd[0][marker] == '/')
+	{
+		i = 0;
+		while (cmd[0][marker + 1])
+		{
+			cmd[0][i] = cmd[0][marker + 1];
+			marker++;
+			i++;
+		}
+		cmd[0][i] = '\0';
+	}
+}
+
 void	ft_check_cmds(t_prog *msh)
 {
 	t_list	*temp;
@@ -129,11 +155,13 @@ void	ft_check_cmds(t_prog *msh)
 		if (temp->content->cmd_type == -1)
 		{
 			if (ft_findslash(temp->content->cmd[0]) == 1)
+			{
+				ft_get_cmdname(temp->content->cmd);
 				temp->content->cmd_type = check_path(temp->content->cmd[0], 1);
+			}
 			else
 				temp->content->cmd_type = check_path(get_absolute_path(temp->content->cmd[0], msh->envp), 2);
 		}
-		printf("CMD CHECK OUTPUT : %d\n", temp->content->cmd_type);
 		temp = temp->next;
 	}
 }

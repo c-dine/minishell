@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/20 14:46:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 18:26:18 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define CMD_NOT_FOUND 0
 # define FILE_NOT_FOUND 1
@@ -60,11 +62,13 @@ typedef struct	s_prog
 	char 		**envp;
 	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list		*garbage;
+	int			dup_fd_stdout;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
 void	init_prog(t_prog *minishell, char **envp);
 void	close_fds(t_prog *msh);
+void	close_pipe(int *fd);
 int		ft_process_line(char *line, t_prog *minishell);
 
 /** FONCTIONS DE PARSING **/
@@ -85,8 +89,12 @@ char	**add_to_duotab(char **tab, char *element);
 void	print_duotab(char **tab);
 int		strlen_duotab(char **str);
 int		ft_nblen(int nb);
+char	*get_absolute_path(char *cmd, char **envp);
 
 /** ERRORS **/
 void	*ft_error(int code);
+
+/** Builtin **/
+void	ft_echo(char **cmd);
 
 #endif
