@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/20 20:10:18 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 20:36:48 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int	fork_process(t_list *cmd, char **envp)
 	{
 		if (get_fd(cmd->content->input_fd) != -2)
 			dup2(get_fd(cmd->content->input_fd), STDIN_FILENO);
-		else{
-			printf("OKKKKKKKKKKKKK %s\n", cmd->content->cmd[1]);
-			dup2(cmd->content->pipe[0], STDIN_FILENO);}
+		else
+			dup2(cmd->content->pipe[0], STDIN_FILENO);
 		if (get_fd(cmd->content->output_fd) != -2)
 			dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
 		else if (cmd->next)
@@ -88,6 +87,7 @@ int	ft_processes(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
+		dprintf(STDERR_FILENO, "OKKKKKKKKKKKKK %s\n", temp->content->cmd[1]);
 		if (temp->content->cmd_type == 9)
 			return (1);
 		if (temp->content->cmd_type < 3)
@@ -95,21 +95,11 @@ int	ft_processes(t_prog *msh)
 		else
 			ft_builtin(temp);
 		dup2(msh->dup_fd_stdout, STDOUT_FILENO);
+		if (temp->content->pid != -2)
+			waitpid(temp->content->pid, NULL, 0);
 		temp = temp->next;
 	}
 	return (0);
-}
-
-void	wait_children(t_prog *msh)
-{
-	t_list	*temp;
-
-	temp = msh->cmds->next;
-	while (temp)
-	{
-		waitpid(temp->content->pid, NULL, 0);
-		temp = temp->next;
-	}
 }
 
 int	ft_process_line(char *line, t_prog *minishell)
@@ -127,6 +117,5 @@ int	ft_process_line(char *line, t_prog *minishell)
 	if (tmp == -1 || tmp == 1)
 		return (tmp);
 	// // wait pour tous les pids
-	// wait_children(minishell);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/20 17:24:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 20:19:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	parse_cmd(t_prog *msh)
 		// printf("parse : %s\n", (char *)temp->content);
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
+		temp->content->pid = -2;
 		temp = temp->next;
 	}
 	return (0);
