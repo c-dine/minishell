@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/18 00:04:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 15:21:18 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	get_size_with_vars(char *line, t_prog *msh)
 		if (line[i] == '$' && line[i + 1] == '?')
 		{
 			extra_size += - (2 - ft_nblen(error_code));
-			printf("i=%d et line=%c\n", i, line[i]);
 			i += 1;
 		}
 		else if (line[i] == '$')

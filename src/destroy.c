@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/17 14:14:17 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 15:16:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	close_fds(t_prog *msh)
 
 void	set_err_status(int code, char *str)
 {
-	perror(str);
+	printf("%s\n", str);
 	error_code = code;
 }
 

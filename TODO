@@ -1,0 +1,5 @@
+- changer trioput -> 1 input et 1 output OU append par commande
+- redirections
+- process 
+- heredoc
+- builtins

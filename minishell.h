@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/18 00:18:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/20 14:46:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		ft_process_line(char *line, t_prog *minishell);
 /** FONCTIONS DE PARSING **/
 int		ft_parsing(char *line, t_prog *minishell);
 char	*replace_var(char *line, t_prog *msh);
+void	ft_check_cmds(t_prog *msh);
 
 /** LES SIGNAUX **/
 void	signal_manager(t_prog *msh);

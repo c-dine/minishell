@@ -1,0 +1,3 @@
+CC				= 	gcc
+	  			@$(CC) $(CFLAGS) -c -I. $< -o $(<:.c=.o)
+				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
