@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 21:58:18 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 22:07:13 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		return (1);
 	marker = *i;
 	while (str[*i] && str[*i] != ' ')
+	{
 		(*i)++;
+		if (str[*i] == '<' || str[*i] == '>')
+			break ;
+	}
 	mempush(&temp, sizeof(char), *i - marker + 1);
 	ft_strlcpy(temp, &str[marker], *i - marker + 1);
 	if (tmp == 0)
