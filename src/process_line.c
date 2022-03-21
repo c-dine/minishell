@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 14:58:52 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/21 17:00:17 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	// 	ft_cd(cmd->content->cmd);
 	// else if (cmd->content->cmd_type == 5)
 	// 	ft_pwd(cmd->content->cmd);
-	// else if (cmd->content->cmd_type == 6)
-	// 	ft_export(cmd->content->cmd, msh);
+	else if (cmd->content->cmd_type == 6)
+		ft_export(cmd->content->cmd, msh);
 	// else if (cmd->content->cmd_type == 7)
 	// 	ft_unset(cmd->content->cmd, msh);
-	// else if (cmd->content->cmd_type == 8)
-	// 	ft_env(cmd->content->cmd, msh);
+	else if (cmd->content->cmd_type == 8)
+		print_duotab(msh->envp);
 	return (0);
 }
 
@@ -109,7 +109,6 @@ int	wait_children(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		printf("OKKKKK\n");
 		waitpid(temp->content->pid, NULL, 0);
 		temp = temp->next;
 	}

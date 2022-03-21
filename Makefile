@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/21 16:30:00 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/21 17:00:05 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS			=	src/main.c \
 					src/destroy.c \
 					src/process_line.c \
 					src/check_cmd.c \
-					src/builtins/ft_echo.c
+					src/builtins/ft_echo.c \
+					src/builtins/ft_export.c
 					# src/pipes.c 
 OBJS			= 	$(SRCS:.c=.o)
 
@@ -39,7 +40,11 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
+<<<<<<< HEAD
 				# ./minishell
+=======
+				# valgrind ./minishell
+>>>>>>> d8a495c7b81917503e0d864477f930bcd0ab4863
 				
 
 lib:			
