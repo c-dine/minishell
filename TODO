@@ -10,3 +10,4 @@
 
 cdine:
 - builtins
+- cat|cat|cat|ls boucle pas -> pipe

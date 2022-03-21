@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/20 18:26:18 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 16:01:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ extern int error_code;
 typedef struct	s_prog
 {
 	char 		**envp;
+	char		**export;
 	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list		*garbage;
 	int			dup_fd_stdout;
@@ -88,6 +89,7 @@ int	open_pipes(t_block *block);
 char	**add_to_duotab(char **tab, char *element);
 void	print_duotab(char **tab);
 int		strlen_duotab(char **str);
+char	 **copy_duotab(char **tab);
 int		ft_nblen(int nb);
 char	*get_absolute_path(char *cmd, char **envp);
 
@@ -96,5 +98,6 @@ void	*ft_error(int code);
 
 /** Builtin **/
 void	ft_echo(char **cmd);
+int		ft_export(char **cmd, t_prog *msh);
 
 #endif

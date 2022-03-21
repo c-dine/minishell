@@ -6,11 +6,31 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:02 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/17 23:42:57 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 16:00:43 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char **copy_duotab(char **tab)
+{
+	char 	**res;
+	int		i;
+
+	res = NULL;
+	i = 0;
+	while (tab[i])
+		i++;
+	mempush(&res, sizeof(char *), i + 1);
+	i = 0;
+	while (tab[i])
+	{
+		res[i] = ft_strdup(tab[i]);
+		i++;
+	}	
+	res[i] = NULL;
+	return (res);
+}
 
 char **add_to_duotab(char **tab, char *element)
 {
@@ -39,7 +59,7 @@ void print_duotab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("tab [%d] : %s\n", i, tab[i]);
+		printf("%s\n", tab[i]);
 		i++;
 	}	
 }
