@@ -6,13 +6,12 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 16:35:59 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 16:57:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// Var doit commencer par charactere alpha
 // ft_show_export sort env + rajoute tableau d'exceptions
 
 int	ft_is_sort(char **tab)
@@ -52,30 +51,31 @@ int	ft_show_export(t_prog *msh)
 	return (0);
 }
 
-// int	add_empty_var(char *var, t_prog *msh)
-// {
-// 	char	*tmp;
-// 	int		i;
+int	add_empty_var(char *var, t_prog *msh)
+{
+	char	*tmp;
+	int		i;
 
-// 	i = 0;
-// 	while (var[i] || var[i] == '=')
-// 		i++;
-// 	if (var[i] == '\0')
-// 	{
-// 		mempush(tmp, sizeof(char), i + 4);
-// 		i = 0;
-// 		while (var[i])
-// 		{
-// 			tmp[i] = var[i];
-// 			i++;
-// 		}
-// 		tmp[i++] = '=';
-// 	}
-// 	else
-// 	{
-// 		mempush(tmp, sizeof(char), i + 3);
-// 	}
-// }
+	i = 0;
+	while (var[i] || var[i] == '=')
+		i++;
+	if (var[i] == '\0')
+		mempush(&tmp, sizeof(char), i + 4);
+	else
+		mempush(&tmp, sizeof(char), i + 3);
+	i = 0;
+	while (var[i] != '=' && var[i])
+	{
+		tmp[i] = var[i];
+		i++;
+	}
+	tmp[i++] = '=';
+	tmp[i++] = '\'';
+	tmp[i++] = '\'';
+	tmp[i++] = '\0';
+	msh->export = add_to_duotab(msh->export, tmp);
+	return (0);
+}
 
 int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 {
@@ -96,8 +96,9 @@ int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 				msh->export = add_to_duotab(msh->export, var);
 				return (0);
 			}
+			i++;
 		}
-		// add_empty_var(var, msh);
+		add_empty_var(var, msh);
 	}
 	return (0);
 }
