@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 12:55:48 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 21:56:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	*open_trioput_file(char **tab, int option)
 			fd[j] = open(tab[i], O_RDWR);
 		else if (option == 2)
 			fd[j] = open(tab[i], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+		else if (option == 3)
+			fd[j] = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 		if (fd[j] == -1)
 			return (ft_error(ft_error_file_opening(tab[i], option)));
 		i++;
@@ -79,7 +81,7 @@ int	open_fds(t_block *block)
 	block->output_fd = open_trioput_file(block->output, 2);
 	if (block->output_fd == NULL)
 		return (-1);
-	block->outputs_append_fds = open_trioput_file(block->outputs_append, 2);
+	block->outputs_append_fds = open_trioput_file(block->outputs_append, 3);
 	if (block->outputs_append_fds == NULL)
 		return (-1);
 	return (0);

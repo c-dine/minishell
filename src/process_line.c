@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 17:03:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 21:36:10 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,27 @@ int	fork_process(t_list *cmd, char **envp)
 			dup2(get_fd(cmd->content->input_fd), STDIN_FILENO);
 		else
 			dup2(cmd->content->pipe[0], STDIN_FILENO);
-		if (get_fd(cmd->content->output_fd) != -2)
+		if (cmd->content->output_type == 1 && get_fd(cmd->content->output_fd) != -2)
 			dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
+		else if (cmd->content->output_type == 2 && get_fd(cmd->content->outputs_append_fds) != -2)
+			dup2(get_fd(cmd->content->outputs_append_fds), STDOUT_FILENO);
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 		close_pipe(cmd->content->pipe);
 		execve(get_absolute_path(cmd->content->cmd[0], envp), cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
-	close_pipe(cmd->content- >pipe);
+	close_pipe(cmd->content->pipe);
 	return (0);
 }
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
 	(void)msh;
-	if (get_fd(cmd->content->output_fd) != -2)
+	if (cmd->content->output_type == 1 && get_fd(cmd->content->output_fd) != -2)
 		dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
+	else if (cmd->content->output_type == 2 && get_fd(cmd->content->outputs_append_fds) != -2)
+		dup2(get_fd(cmd->content->outputs_append_fds), STDOUT_FILENO);
 	else if (cmd->next)
 		dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 	if (cmd->content->cmd_type == 3)
