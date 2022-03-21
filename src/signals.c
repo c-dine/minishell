@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/14 08:18:19 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/21 14:32:02 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void signal_handler(int sig)
+voidhandler(int sig)
 {
 	(void)sig;
 	memrelease();

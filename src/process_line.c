@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 13:14:08 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 14:27:31 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	fork_process(t_list *cmd, char **envp)
 	return (0);
 }
 
-int	ft_builtin(t_list *cmd)
+int	ft_builtin(t_list *cmd, t_prog *msh)
 {
 	if (get_fd(cmd->content->output_fd) != -2)
 		dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
@@ -74,11 +74,11 @@ int	ft_builtin(t_list *cmd)
 	// else if (cmd->content->cmd_type == 5)
 	// 	ft_pwd(cmd->content->cmd);
 	// else if (cmd->content->cmd_type == 6)
-	// 	ft_export(cmd->content->cmd);
+	// 	ft_export(cmd->content->cmd, msh);
 	// else if (cmd->content->cmd_type == 7)
-	// 	ft_unset(cmd->content->cmd);
+	// 	ft_unset(cmd->content->cmd, msh);
 	// else if (cmd->content->cmd_type == 8)
-	// 	ft_env(cmd->content->cmd);
+	// 	ft_env(cmd->content->cmd, msh);
 	return (0);
 }
 
@@ -94,7 +94,7 @@ int	ft_processes(t_prog *msh)
 		if (temp->content->cmd_type < 3)
 			fork_process(temp, msh->envp);
 		else
-			ft_builtin(temp);
+			ft_builtin(temp, msh);
 		dup2(msh->dup_fd_stdout, STDOUT_FILENO);
 		temp = temp->next;
 	}
