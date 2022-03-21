@@ -3,25 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 14:32:02 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 16:34:49 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-voidhandler(int sig)
+void	signal_manager(int sig)
 {
-	(void)sig;
-	memrelease();
-	printf("CTRL + C PRESSED\n");
-	// exit(0)
-}
-
-void signal_manager(t_prog *msh)
-{
-	(void)msh;
-	signal(SIGINT, signal_handler);
+	if (sig == SIGINT)
+	{
+		error_code = 130;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
+		error_code = 131;
+		printf("Quit (core dumped)\n");
+		// exit(0);
+	}
 }

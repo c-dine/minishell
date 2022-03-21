@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 14:27:31 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 14:58:52 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	fork_process(t_list *cmd, char **envp)
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
+	(void)msh;
 	if (get_fd(cmd->content->output_fd) != -2)
 		dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
 	else if (cmd->next)
