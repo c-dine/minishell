@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/20 20:36:48 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 12:39:47 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	fork_process(t_list *cmd, char **envp)
 		execve(get_absolute_path(cmd->content->cmd[0], envp), cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
+	close_pipe(cmd->content->pipe);
 	return (0);
 }
 
@@ -87,7 +88,6 @@ int	ft_processes(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		dprintf(STDERR_FILENO, "OKKKKKKKKKKKKK %s\n", temp->content->cmd[1]);
 		if (temp->content->cmd_type == 9)
 			return (1);
 		if (temp->content->cmd_type < 3)
