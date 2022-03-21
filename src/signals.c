@@ -12,16 +12,20 @@
 
 // #include "../minishell.h"
 
-// voidhandler(int sig)
-// {
-// 	(void)sig;
-// 	memrelease();
-// 	printf("CTRL + C PRESSED\n");
-// 	// exit(0)
-// }
-
-// void signal_manager(t_prog *msh)
-// {
-// 	(void)msh;
-// 	signal(SIGINT, signal_handler);
-// }
+void	signal_manager(int sig)
+{
+	if (sig == SIGINT)
+	{
+		error_code = 130;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
+		error_code = 131;
+		printf("Quit (core dumped)\n");
+		// exit(0);
+	}
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 16:01:15 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 17:00:10 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*replace_var(char *line, t_prog *msh);
 void	ft_check_cmds(t_prog *msh);
 
 /** LES SIGNAUX **/
-void	signal_manager(t_prog *msh);
+void	signal_manager(int sig);
 
 /** OPENS FUNCTIONS **/
 int	open_fds(t_block *block);
