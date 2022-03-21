@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 12:39:47 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/21 13:14:08 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	fork_process(t_list *cmd, char **envp)
 {
 	if (get_fd(cmd->content->input_fd) == -1)
 	{
+		close_pipe(cmd->content->pipe);
 		ft_error(FILE_NOT_FOUND);
 		return (1);
 	}
@@ -95,8 +96,20 @@ int	ft_processes(t_prog *msh)
 		else
 			ft_builtin(temp);
 		dup2(msh->dup_fd_stdout, STDOUT_FILENO);
-		if (temp->content->pid != -2)
-			waitpid(temp->content->pid, NULL, 0);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+int	wait_children(t_prog *msh)
+{
+	t_list	*temp;
+	
+	temp = msh->cmds->next;
+	while (temp)
+	{
+		printf("OKKKKK\n");
+		waitpid(temp->content->pid, NULL, 0);
 		temp = temp->next;
 	}
 	return (0);
@@ -117,5 +130,6 @@ int	ft_process_line(char *line, t_prog *minishell)
 	if (tmp == -1 || tmp == 1)
 		return (tmp);
 	// // wait pour tous les pids
+	wait_children(minishell);
 	return (0);
 }

@@ -1,0 +1,14 @@
+Ceci est le debut du minishell
+
+JOUR 1 :
+
+- Comment on debute un minishell ?
+
+inf loup
+afficher le user@machine
+
+Bash manual: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+
+Implementation d'un shell en C : https://www.geeksforgeeks.org/making-linux-shell-c/
+
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf

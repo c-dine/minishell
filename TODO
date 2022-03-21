@@ -2,8 +2,11 @@
 - process 
 - heredoc
 - builtins :
-	+ cd 
+	+ cd
 	+ pwd
 	+ export
 	+ unset
 	+ env
+
+cdine:
+- builtins
