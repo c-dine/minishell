@@ -10,6 +10,8 @@
 
 cdine:
 - builtins
+- echo -> revoir -n
+- process ne se ferment pas
 - cat|cat|cat|ls boucle pas -> pipe
 
 ntan

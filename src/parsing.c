@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 14:13:43 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 16:30:01 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		tmp = 1;
 	if (str[*i - 1] == '>' && str[*i] == '>')
 		tmp = 2;
+	// if (str[*i - 1] == '<' && str[*i] == '<')
+	// 	tmp = 3;
 	while (str[*i] && str[*i] == ' ')
 		(*i)++;
 	if (str[*i] == '|' || (str[*i] == '>' && str[*i - 1] != '>')
-		|| str[*i] == '<' || str[*i] == '\0')
+		|| (str[*i] == '<' && str[*i - 1] != '<') || str[*i] == '\0')
 		return (1);
 	marker = *i;
 	while (str[*i] && str[*i] != ' ')
@@ -67,14 +69,12 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		temp++;
 		res->outputs_append = add_to_duotab(res->outputs_append, temp);
 	}
-	printf("INPUT\n");
-	print_duotab(res->input);
-	printf("OUTPUT\n");
-	print_duotab(res->output);
-	printf("QPPEND\n");
-	print_duotab(res->outputs_append);
+	// else if (tmp == 3)
+	// 	printf("HEREDOC ICI\n");
 	return (0);
 }
+
+
 
 void	init_block(t_block *res)
 {
@@ -106,6 +106,24 @@ int find_output_type(char *cmd)
 	return (type);
 }
 
+int find_input_type(char *cmd)
+{
+	int	i;
+	int	type;
+
+	i = 0;
+	type = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] && (i >= 1 && cmd[i - 1]) && cmd [i] == '<' && (i >= 1 && cmd[i - 1] == '<'))
+			type = 2;
+		else if (cmd[i] && cmd [i] == '<')
+			type = 1;
+		i++;
+	}
+	return (type);
+}
+
 char *cmd_to_block(t_list *cmd)
 {
 	t_block	*res;
@@ -127,6 +145,7 @@ char *cmd_to_block(t_list *cmd)
 		else
 			i++;
 	}
+	res->input_type = find_input_type(str);
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str);
 	if (open_fds(res) == -1)
@@ -144,6 +163,7 @@ int	parse_cmd(t_prog *msh)
 	t_list	*temp;
 
 	temp = msh->cmds->next;
+	//lancer les heredoc -> param (liste chaines de commandes)
 	while (temp)
 	{
 		if (cmd_to_block(temp) == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 21:25:41 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/22 17:21:16 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,22 @@
 # include <unistd.h>
 # include <stdio.h>
 
+typedef struct 	s_heredoc
+{
+	char		*delim; // mot apres les doubles chevrons
+	char		*temp; // nom du fichier temporaire
+	int			fd;	// fd du fichier temporaire, -1 si pas de heredoc
+}				t_heredoc;
+
+typedef struct	s_hd_list
+{
+	t_heredoc	content;
+	struct s_hd_list	*next;	
+}				t_hd_list;
+
 typedef struct	s_block
 {
+	int			input_type; //1 = input, 2 = heredoc
 	char		**input;
 	int			*input_fd;
 	char		**cmd;
