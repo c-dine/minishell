@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 17:00:10 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 20:04:25 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,37 +67,39 @@ typedef struct	s_prog
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
-void	init_prog(t_prog *minishell, char **envp);
-void	close_fds(t_prog *msh);
-void	close_pipe(int *fd);
-int		ft_process_line(char *line, t_prog *minishell);
+void		init_prog(t_prog *minishell, char **envp);
+void		close_fds(t_prog *msh);
+void		close_pipe(int *fd);
+int			ft_process_line(char *line, t_prog *minishell);
 
 /** FONCTIONS DE PARSING **/
-int		ft_parsing(char *line, t_prog *minishell);
-char	*replace_var(char *line, t_prog *msh);
-void	ft_check_cmds(t_prog *msh);
+int			ft_parsing(char *line, t_prog *minishell);
+char		*replace_var(char *line, t_prog *msh);
+void		ft_check_cmds(t_prog *msh);
 
 /** LES SIGNAUX **/
-void	signal_manager(int sig);
+void		signal_manager(int sig);
 
 /** OPENS FUNCTIONS **/
-int	open_fds(t_block *block);
-int	open_pipes(t_block *block);
+int			open_fds(t_block *block);
+int			open_pipes(t_block *block);
 
 
 /** Fonctions utiles **/
-char	**add_to_duotab(char **tab, char *element);
-void	print_duotab(char **tab);
-int		strlen_duotab(char **str);
-char	 **copy_duotab(char **tab);
-int		ft_nblen(int nb);
-char	*get_absolute_path(char *cmd, char **envp);
+char		**add_to_duotab(char **tab, char *element);
+void		print_duotab(char **tab);
+int			strlen_duotab(char **str);
+char	 	**copy_duotab(char **tab);
+int			ft_nblen(int nb);
+char		*get_absolute_path(char *cmd, char **envp);
+t_hd_list	*hd_lstnew(void *content);
+
 
 /** ERRORS **/
-void	*ft_error(int code);
+void		*ft_error(int code);
 
 /** Builtin **/
-void	ft_echo(char **cmd);
-int		ft_export(char **cmd, t_prog *msh);
+void		ft_echo(char **cmd);
+int			ft_export(char **cmd, t_prog *msh);
 
 #endif

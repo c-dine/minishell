@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 17:21:16 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 20:01:51 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct 	s_heredoc
 
 typedef struct	s_hd_list
 {
-	t_heredoc	content;
+	t_heredoc			*content;
 	struct s_hd_list	*next;	
 }				t_hd_list;
 
