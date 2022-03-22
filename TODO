@@ -10,10 +10,13 @@
 
 cdine:
 - builtins
-- echo -> revoir -n
 - process ne se ferment pas
 - cat|cat|cat|ls boucle pas -> pipe
-- exec ./minishell
+  cat boucle pas -> close trop tot un fd ?
+	-> ==> exec ./minishell marche pas ?
+- output files chmod 000 sseg fault
+	- seg fault meme endroit premiere commande avec quote non fermee
 
 ntan
 - ctrl + \ sur boucle inf avec cat
+- parsing -> enlever quotes de la commande avant de process

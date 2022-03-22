@@ -3,31 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:16:21 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/16 20:44:29 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/23 00:17:25 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../minishell.h"
-#include <unistd.h>
-#include <stdlib.h>
-
-int	ft_strlen(char *str)
-{
-	int i = 0;
-
-	while (str[i])
-		i++;
-	return (i);
-}
-
+#include "../../minishell.h"
 
 int	is_line_break_option(char *option)
 {
 	int	i;
 
+	if (option[1] != 'n')
+		return (0);
 	i = 1;
 	while (option[i])
 	{
@@ -50,8 +40,8 @@ char *put_line_together(char **str)
 	i = 0;
 	while (str[i])
 		size_res += ft_strlen(str[i++]) + 1;
-	// mempush(res, sizeof(char), size_res);
-	res = malloc(sizeof(char) * size_res);
+	mempush(&res, sizeof(char), size_res);
+	// res = malloc(sizeof(char) * size_res);
 	i = 0;
 	k = 0;
 	while (str[i])
@@ -70,7 +60,8 @@ char *put_line_together(char **str)
 
 void	ft_display(char *str, int n)
 {
-	write(1, str, ft_strlen(str));
+	if (str)
+		write(1, str, ft_strlen(str));
 	if (n == 0)
 		write(1, "\n", 1);
 }
@@ -88,8 +79,8 @@ void	ft_echo(char **cmd)
 	{
 		if (cmd[i][0] == '-')
 		{
-			n = is_line_break_option(cmd[i]);
-			if (n == 0)
+			n += is_line_break_option(cmd[i]);
+			if (is_line_break_option(cmd[i]) == 0)
 				break ;
 			i++;
 		}
@@ -97,7 +88,8 @@ void	ft_echo(char **cmd)
 			break ;
 	}
 	str = put_line_together(&cmd[i]);
-	ft_display(str, n);
+	if (str)
+		ft_display(str, n);
 }
 
 // int	main(int ac, char **av)
