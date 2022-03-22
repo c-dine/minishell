@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/22 19:32:55 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 22:28:30 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,80 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*rev_char(char *str)
+{
+	char	*rev;
+	int		i;
+	int		size;
+
+	i = 0;
+	size = 0;
+	size = ft_strlen(str) - 1;
+	rev = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (rev == NULL)
+		return (NULL);
+	while (str[i])
+	{
+		rev[i] = str[size - i];
+		i++;
+	}
+	rev[i] = '\0';
+	return (rev);
+}
+
+char	*ft_itoa(int n)
+{
+	char			res[200];
+	unsigned int	quotient;
+	int				reste;
+	int				i;
+
+	i = 0;
+	if (n < 0)
+		quotient = -n;
+	else
+		quotient = n;
+	while (1)
+	{
+		reste = quotient % 10;
+		quotient = quotient / 10;
+		res[i++] = (reste + '0');
+		if (quotient == 0)
+		{
+			if (n < 0)
+				res[i++] = '-';
+			res[i] = '\0';
+			break ;
+		}
+	}
+	return (rev_char(res));
+}
 
 
 int main()
 {
-	char *name;
-	int fd;
-	int i;
-	int max;
+	char			*name;
+	unsigned int	n;
+	int				fd;
 
-	max = 64;
-	name = malloc(sizeof(char) * (max + 1));
-	i = -1;
-	while (++i < max)
-		name[i] = 'a';
-	name[i] = '\0';
-	i = 0;
 	while (1)
 	{
+		name = ft_itoa(n);
+		printf("%d\n", n);
 		fd = open(name, O_CREAT | O_EXCL | O_RDWR, 0644);
 		if (fd > 0)
 			break ;
-		if (name[i] < 'z')
-			name[i]++;
-		else
-			i++;
-		if (i > max - 1)
-			i = 0;
+		n++;
 	}
 	return 0;
 }

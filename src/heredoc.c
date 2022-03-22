@@ -6,39 +6,28 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 20:05:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 22:38:43 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*generate_random_file(void)
+void	generate_random_file(char **temp, int *hd_fd)
 {
-	char *name;
-	int fd;
-	int i;
-	int max;
+	char			*name;
+	unsigned int	n;
+	int				fd;
 
-	max = 200;
-	mempush(&name, sizeof(char), max + 1);
-	i = -1;
-	while (++i < max)
-		name[i] = 'a';
-	name[i] = '\0';
-	i = 0;
 	while (1)
 	{
+		name = ft_itoa(n);
 		fd = open(name, O_CREAT | O_EXCL | O_RDWR, 0644);
 		if (fd > 0)
 			break ;
-		if (name[i] < 'z')
-			name[i]++;
-		else
-			i++;
-		if (i > max - 1)
-			i = 0;
+		n++;
 	}
-	return (name);
+	*temp = name;
+	*hd_fd = fd;
 }
 
 char *find_heredoc(char *str)
@@ -71,7 +60,7 @@ char *find_delim(char *str)
 		return (NULL); // ERROR
 	marker = i;	
 	while ((str[i] != '\0' != str[i] != '|' || str[i] != '>'
-		|| str[i] != '<' || str[i] != ' ')
+		|| str[i] != '<' || str[i] != ' '))
 		i++;
 	mempush(&res, sizeof(char), i - marker + 1);
 	ft_strlcpy(res, &str[marker], i - marker + 1);
@@ -83,14 +72,14 @@ int fill_heredoc(t_heredoc *heredoc, char *str)
 	heredoc->delim = find_delim(str);
 	if (heredoc->delim == NULL)
 		return (-1);
-	heredoc->temp = generate_random_file();
+	generate_random_file(&heredoc->temp, &heredoc->fd);
 }
 
-t_heredoc add_heredoc(t_list *cmd)
+t_heredoc *add_heredoc(t_list *cmd)
 {
-	t_heredoc	heredoc;
+	t_heredoc	*heredoc;
 	char		*hd_pos;/** RETOURNE LA POSITTION A PARTI DU DEUXIEME CHEVRON **/
-	heredoc.fd = -1;
+	heredoc->fd = -1;
 	hd_pos = find_heredoc((char*)cmd->content);
 	if (hd_pos == NULL)
 		return (heredoc);
@@ -119,4 +108,5 @@ int	ft_heredoc(t_prog *msh)
 		temp = temp->next;
 		temp2 = temp2->next;
 	}
+	return (1);
 }
