@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 20:04:25 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 22:50:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char		**add_to_duotab(char **tab, char *element);
 void		print_duotab(char **tab);
 int			strlen_duotab(char **str);
 char	 	**copy_duotab(char **tab);
+int			get_fd(int *fd_tab);
 int			ft_nblen(int nb);
 char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);

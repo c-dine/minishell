@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:13:28 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 13:00:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/22 22:43:39 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,14 @@ void	ft_check_cmds(t_prog *msh)
 			if (ft_findslash(temp->content->cmd[0]) == 1)
 			{
 				temp->content->cmd_type = check_path(temp->content->cmd[0], 1);
+				temp->content->cmd_path = ft_strdup(temp->content->cmd[0]);
 				ft_get_cmdname(temp->content->cmd);
 			}
 			else
+			{
 				temp->content->cmd_type = check_path(get_absolute_path(temp->content->cmd[0], msh->envp), 2);
+				temp->content->cmd_path = get_absolute_path(temp->content->cmd[0], msh->envp);
+			}
 		}
 		temp = temp->next;
 	}

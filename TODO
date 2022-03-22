@@ -13,6 +13,7 @@ cdine:
 - echo -> revoir -n
 - process ne se ferment pas
 - cat|cat|cat|ls boucle pas -> pipe
+- exec ./minishell
 
 ntan
 - ctrl + \ sur boucle inf avec cat

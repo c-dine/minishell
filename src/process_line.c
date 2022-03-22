@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/22 14:59:46 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 22:58:51 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_fd(int *fd_tab)
 	return (ret);
 }
 
-int	fork_process(t_list *cmd, char **envp)
+int	fork_process(t_list *cmd)
 {
 	if (get_fd(cmd->content->input_fd) == -1)
 	{
@@ -56,7 +56,7 @@ int	fork_process(t_list *cmd, char **envp)
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 		close_pipe(cmd->content->pipe);
-		execve(get_absolute_path(cmd->content->cmd[0], envp), cmd->content->cmd, 0);
+		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
 	close_pipe(cmd->content->pipe);
@@ -97,7 +97,7 @@ int	ft_processes(t_prog *msh)
 		if (temp->content->cmd_type == 9)
 			return (1);
 		if (temp->content->cmd_type < 3)
-			fork_process(temp, msh->envp);
+			fork_process(temp);
 		else
 			ft_builtin(temp, msh);
 		dup2(msh->dup_fd_stdout, STDOUT_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 19:41:47 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/22 22:56:10 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,9 @@ char *cmd_to_block(t_list *cmd)
 	res->input_type = find_input_type(str);
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str);
+	open_pipes(res);
 	if (open_fds(res) == -1)
 		return (NULL);
-	open_pipes(res);
 	cmd->content = res;
 	return (str);
 }
