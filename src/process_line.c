@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 21:36:10 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/22 14:59:46 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,11 @@ int	ft_process_line(char *line, t_prog *minishell)
 	int	tmp;
 	printf("\033[0;37m");
 	add_history(line);
-	line = replace_var(line, minishell);
+	if (line)
+		line = replace_var(line, minishell);
+	else
+		return (1);
+	signal(SIGQUIT, SIG_DFL);/** Modifie le ctrl + \ pour interrompre programme en cours **/
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);
     // check cmds with access ; if -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
