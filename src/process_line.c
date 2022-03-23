@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/23 15:11:12 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:11:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	fork_process(t_list *cmd, t_list *beginning)
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
+	if (open_fds(cmd->content) == -1)
+		return (-1);
 	if (cmd->content->output_fd != -2)
 		dup2(cmd->content->output_fd, STDOUT_FILENO);
 	else if (cmd->next)
@@ -80,7 +82,6 @@ int	ft_processes(t_prog *msh)
 			fork_process(temp, beginning);
 		else
 			ft_builtin(temp, msh);
-		dup2(msh->dup_fd_stdout, STDOUT_FILENO);
 		temp = temp->next;
 	}
 	close_all_pipes(beginning);

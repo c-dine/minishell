@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 15:15:00 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:03:13 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct	s_prog
 	char		**export;
 	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list		*garbage;
-	int			dup_fd_stdout;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/

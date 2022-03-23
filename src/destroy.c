@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 15:14:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 15:26:18 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ void	close_trioput_fd(t_list *cmd)
 		close(cmd->content->input_fd);
 	if (cmd->content->output_fd != -2)
 		close(cmd->content->output_fd);
-}
-
-void	close_fd_tab(char **trioput, int *fd)
-{
-	int	i;
-
-	i = 0;
-	while (i < strlen_duotab(trioput))
-	{
-		if (fd[i] != -1)
-			close(fd[i]);
-		i++;
-	}
 }
 
 void	set_err_status(int code, char *str)
