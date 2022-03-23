@@ -14,6 +14,7 @@ cdine:
 - cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
   cat boucle pas
 	-> ==> exec ./minishell marche pas ?
+- export -> tout caractere non alphabetique doit afficher erreur
 
 ntan
 - ctrl + \ sur boucle inf avec cat
