@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 22:50:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 15:15:00 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ typedef struct	s_prog
 
 /** FONCTION DEMMARAGE ET FIN**/
 void		init_prog(t_prog *minishell, char **envp);
-void		close_fds(t_prog *msh);
-void		close_pipe(int *fd);
 int			ft_process_line(char *line, t_prog *minishell);
+void		close_all_pipes(t_list *beg_all_pipes);
+void		close_trioput_fd(t_list *cmd);
 
 /** FONCTIONS DE PARSING **/
 int			ft_parsing(char *line, t_prog *minishell);

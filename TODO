@@ -7,6 +7,7 @@
 	+ export
 	+ unset
 	+ env
+- fuites memoire quand exit du process enfant quand pd de fichier
 
 cdine:
 - builtins

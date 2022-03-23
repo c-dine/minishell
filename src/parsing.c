@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 14:35:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 14:45:22 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,6 @@ char *cmd_to_block(t_list *cmd)
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str);
 	open_pipes(res);
-	if (open_fds(res) == -1)
-		return (NULL);
 	cmd->content = res;
 	return (str);
 }

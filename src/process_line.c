@@ -6,23 +6,16 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/23 14:27:12 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 15:11:12 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	fork_process(t_list *cmd)
+int	fork_process(t_list *cmd, t_list *beginning)
 {
-	if (cmd->content->input_fd == -1)
-	{
-		close_pipe(cmd->content->pipe);
-		ft_error(FILE_NOT_FOUND);
-		return (1);
-	}
 	if (cmd->content->cmd_type == -1)
 	{
-		close_pipe(cmd->content->pipe);
 		ft_error(CMD_NOT_FOUND);
 		return (1);
 	}
@@ -30,6 +23,11 @@ int	fork_process(t_list *cmd)
 	////////////////// PROTEGER FORK
 	if (cmd->content->pid == 0)
 	{
+		if (open_fds(cmd->content) == -1)
+		{
+			close_all_pipes(beginning);
+			exit(1);
+		}
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
 		else
@@ -38,11 +36,11 @@ int	fork_process(t_list *cmd)
 			dup2(cmd->content->output_fd, STDOUT_FILENO);
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
-		close_pipe(cmd->content->pipe);
+		close_all_pipes(beginning);
+		close_trioput_fd(cmd);
 		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
-	close_pipe(cmd->content->pipe);
 	return (0);
 }
 
@@ -70,19 +68,22 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 int	ft_processes(t_prog *msh)
 {
 	t_list	*temp;
+	t_list	*beginning;
 
 	temp = msh->cmds->next;
+	beginning = temp;
 	while (temp)
 	{
 		if (temp->content->cmd_type == 9)
 			return (1);
 		if (temp->content->cmd_type < 3)
-			fork_process(temp);
+			fork_process(temp, beginning);
 		else
 			ft_builtin(temp, msh);
 		dup2(msh->dup_fd_stdout, STDOUT_FILENO);
 		temp = temp->next;
 	}
+	close_all_pipes(beginning);
 	return (0);
 }
 

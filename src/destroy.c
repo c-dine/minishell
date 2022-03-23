@@ -6,18 +6,31 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 23:21:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 15:14:37 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_pipe(int *fd)
+void	close_all_pipes(t_list *beg_all_pipes)
 {
-	if (fd && fd[0] != -1)
-		close(fd[0]);
-	if (fd && fd[1] != -1)
-		close(fd[1]);
+	t_list	*temp;
+
+	temp = beg_all_pipes;
+	while (temp)
+	{
+		close(temp->content->pipe[0]);
+		close(temp->content->pipe[1]);
+		temp = temp->next;
+	}
+}
+
+void	close_trioput_fd(t_list *cmd)
+{
+	if (cmd->content->input_fd != -2)
+		close(cmd->content->input_fd);
+	if (cmd->content->output_fd != -2)
+		close(cmd->content->output_fd);
 }
 
 void	close_fd_tab(char **trioput, int *fd)
@@ -30,30 +43,6 @@ void	close_fd_tab(char **trioput, int *fd)
 		if (fd[i] != -1)
 			close(fd[i]);
 		i++;
-	}
-}
-
-void	close_fds(t_prog *msh)
-{
-	t_list		*tmp;
-
-	tmp = msh->cmds->next;
-	while (tmp)
-	{
-		// printf("INPUT CLOSE\n");
-		// print_duotab(tmp->content->input);
-		// printf("OUTPUTPUT CLOSE\n");
-		// print_duotab(tmp->content->output);
-		if (tmp->content->input_fd)
-			close_fd_tab(tmp->content->input, tmp->content->input_fd);
-		if (tmp->content->output_fd)
-			close_fd_tab(tmp->content->output, tmp->content->output_fd);
-		if (tmp->content->outputs_append_fds)
-			close_fd_tab(tmp->content->outputs_append,
-				tmp->content->outputs_append_fds);
-		if (tmp->content->pipe)
-			close_pipe(tmp->content->pipe);
-		tmp = tmp->next;
 	}
 }
 
