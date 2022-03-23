@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/23 16:11:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 19:03:59 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 {
 	if (cmd->content->cmd_type == -1)
 	{
-		ft_error(CMD_NOT_FOUND);
+		ft_error(CMD_NOT_FOUND, NULL);
 		return (1);
 	}
 	cmd->content->pid = fork();
@@ -25,7 +25,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 	{
 		if (open_fds(cmd->content) == -1)
 		{
-			close_all_pipes(beginning);
+			close_all_pipes(beginning, -2,-2);
 			exit(1);
 		}
 		if (cmd->content->input_fd != -2)
@@ -36,7 +36,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 			dup2(cmd->content->output_fd, STDOUT_FILENO);
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
-		close_all_pipes(beginning);
+		close_all_pipes(beginning, -2, -2);
 		close_trioput_fd(cmd);
 		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
@@ -46,6 +46,9 @@ int	fork_process(t_list *cmd, t_list *beginning)
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
+	int	fd_out;
+
+	fd_out = dup(STDOUT_FILENO);
 	if (open_fds(cmd->content) == -1)
 		return (-1);
 	if (cmd->content->output_fd != -2)
@@ -64,6 +67,9 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	// 	ft_unset(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 8)
 		print_duotab(msh->envp);
+	close_trioput_fd(cmd);
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd_out);
 	return (0);
 }
 
@@ -84,7 +90,7 @@ int	ft_processes(t_prog *msh)
 			ft_builtin(temp, msh);
 		temp = temp->next;
 	}
-	close_all_pipes(beginning);
+	close_all_pipes(beginning, -2, -2);
 	return (0);
 }
 

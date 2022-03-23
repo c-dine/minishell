@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 16:45:58 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 18:21:38 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char *cmd_to_block(t_list *cmd)
 		{
 			i++;
 			if (parse_duoput(res, str, &i) == 1)
-				return (ft_error(PARSE_ERROR));
+				return (ft_error(PARSE_ERROR, NULL), NULL);
 		}
 		else
 			i++;

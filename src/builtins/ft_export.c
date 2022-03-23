@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/21 16:57:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 18:27:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ int	ft_is_sort(char **tab)
 	return (0);
 }
 
+void print_export(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		printf("declare -x ");
+		printf("%s\n", tab[i]);
+		i++;
+	}	
+}
+
 int	ft_show_export(t_prog *msh)
 {
 	char	*tmp;
@@ -47,7 +60,7 @@ int	ft_show_export(t_prog *msh)
 			i++;
 		}
 	}
-	print_duotab(msh->export);
+	print_export(msh->export);
 	return (0);
 }
 
@@ -117,6 +130,12 @@ int	ft_export(char **cmd, t_prog *msh)
 	i = 1;
 	while (cmd[i])
 	{
+		if (ft_isalpha(cmd[i][0]) == 0)
+		{
+			ft_error(INVALID_IDENTIFIER, cmd[i]);
+			i++;
+			continue ;
+		}
 		tmp = 0;
 		j = 0;
 		while (cmd[i][j])

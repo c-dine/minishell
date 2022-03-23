@@ -1,22 +1,19 @@
-- programme lent -> free au fur et a mesure ?
-- process 
 - heredoc
+- exit status
 - builtins :
 	+ cd
 	+ pwd
-	+ export
 	+ unset
-	+ env
-- fuites memoire quand exit du process enfant quand pd de fichier
+- fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
 - addhistory leaks ?
+- parsing -> enlever quotes de la commande avant de process
 
 cdine:
-- builtins
-- cat|cat|cat|ls boucle pas -> pipe
-  cat boucle pas -> close trop tot un fd ?
+- export +=
+- cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
+  cat boucle pas
 	-> ==> exec ./minishell marche pas ?
 
 ntan
 - ctrl + \ sur boucle inf avec cat
-- parsing -> enlever quotes de la commande avant de process

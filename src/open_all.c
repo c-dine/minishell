@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 14:51:35 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 18:20:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	open_trioput_file(char **tab, int option)
 			fd = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 		if (fd == -1)
 		{
-			ft_error(ft_error_file_opening(tab[i], option));
+			ft_error(ft_error_file_opening(tab[i], option), NULL);
 			return (-1);
 		}
 		if (tab[i + 1] != NULL)
@@ -73,7 +73,7 @@ int	open_and_close(char **tab, int option)
 			fd = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 		if (fd == -1)
 		{
-			ft_error(ft_error_file_opening(tab[i], option));
+			ft_error(ft_error_file_opening(tab[i], option), NULL);
 			return (-1);
 		}
 		close(fd);
