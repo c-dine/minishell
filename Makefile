@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/22 22:18:02 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/23 11:26:40 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
-				# valgrind ./minishell
+				valgrind ./minishell
 
 lib:			
 				@echo Compiling libft ....

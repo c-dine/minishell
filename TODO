@@ -17,6 +17,9 @@ cdine:
 - output files chmod 000 sseg fault
 	- seg fault meme endroit premiere commande avec quote non fermee
 
+aprem :
+- fermer fds dans process
+
 ntan
 - ctrl + \ sur boucle inf avec cat
 - parsing -> enlever quotes de la commande avant de process

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 21:56:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 12:33:02 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_error_file_opening(char *path_file, int option)
 {
+	// INPUT
 	if (option == 1)
 	{
 		if (access(path_file, F_OK) == -1)
@@ -21,6 +22,7 @@ int	ft_error_file_opening(char *path_file, int option)
 		else
 			return (PERMISSION_DENIED);
 	}
+	// OUTPUT
 	else
 	{
 		if (access(path_file, W_OK) == -1)
@@ -30,59 +32,74 @@ int	ft_error_file_opening(char *path_file, int option)
 	}
 }
 
-int	*open_trioput_file(char **tab, int option)
+int	open_trioput_file(char **tab, int option)
 {
 	int i;
-	int j;
-	int	*fd;
+	int	fd;
 
-	mempush(&fd, sizeof(int), strlen_duotab(tab) + 1);
-	j = 0;
+	fd = -2;
 	i = 0;
 	while (tab[i])
 	{
 		if (option == 1) /** ICI POUR LES INPUTS **/
-			fd[j] = open(tab[i], O_RDWR);
-		else if (option == 2)
-			fd[j] = open(tab[i], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
-		else if (option == 3)
-			fd[j] = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
-		if (fd[j] == -1)
-			return (ft_error(ft_error_file_opening(tab[i], option)));
+			fd = open(tab[i], O_RDWR);
+		else if (option == 2) /** OUTPUT **/
+			fd = open(tab[i], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+		else if (option == 3) /** APPEND **/
+			fd = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
+		if (fd == -1)
+		{
+			printf("PATH : %s\n", tab[i]);
+			ft_error(ft_error_file_opening(tab[i], option));
+			return (-1);
+		}
+		if (tab[i + 1] != NULL)
+			close(fd);
 		i++;
-		j++;
 	}
-	fd[j] = -2;
 	return (fd);
 }
 
-
-void	init_fds(t_block *block)
+int	open_and_close(char **tab, int option)
 {
-	int *tab1 = NULL;
-	int *tab2 = NULL;
-	int *tab3 = NULL;
+	int i;
+	int	fd;
 
-	mempush(&tab1, sizeof(int), 1);
-	mempush(&tab2, sizeof(int), 1);
-	mempush(&tab3, sizeof(int), 1);
-
-	block->input_fd = tab1;
-	block->output_fd = tab2;
-	block->outputs_append_fds = tab3;
+	i = 0;
+	while (tab[i])
+	{
+		if (option == 2) /** OUTPUT **/
+			fd = open(tab[i], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+		else if (option == 3) /** APPEND **/
+			fd = open(tab[i], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
+		if (fd == -1)
+		{
+			ft_error(ft_error_file_opening(tab[i], option));
+			return (-1);
+		}
+		close(fd);
+		i++;
+	}
+	return (0);
 }
 
 int	open_fds(t_block *block)
 {
-	init_fds(block);
+	int	tmp;
+
+	tmp = -2;
 	block->input_fd = open_trioput_file(block->input, 1);
-	if (block->input_fd == NULL)
+	if (block->input_fd == -1)
 		return (-1);
-	block->output_fd = open_trioput_file(block->output, 2);
-	if (block->output_fd == NULL)
-		return (-1);
-	block->outputs_append_fds = open_trioput_file(block->outputs_append, 3);
-	if (block->outputs_append_fds == NULL)
+	if (block->output_type == 1)
+		block->output_fd = open_trioput_file(block->output, 2);
+	else if (block->output_type == 2)
+		block->output_fd = open_trioput_file(block->outputs_append, 3);
+	if (block->output_type == 1)
+		tmp = open_and_close(block->outputs_append, 3);	
+	else if (block->output_type == 2)
+		tmp = open_and_close(block->output, 2);
+	if (block->output_fd == -1 || tmp == -1)
 		return (-1);
 	return (0);
 }

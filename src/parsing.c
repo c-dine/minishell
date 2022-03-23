@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 23:21:29 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 14:35:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void clean_cmd(t_block *res, char *str)
 		if (str[i] == '<' || str[i] == '>')
 		{
 			str[i++] = ' ';
+			if (str[i] == '>')
+				str[i++] = ' ';
 			while (str[i] == ' ')
 				i++;
 			while (str[i] && str[i] != ' ' && str[i] != '|')
@@ -40,10 +42,13 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	int		tmp;
 
 	tmp = 0;
-	if (str[*i - 1] == '>')
+	if (str[*i - 1] == '>') /**OUTPUT**/
 		tmp = 1;
-	if (str[*i - 1] == '>' && str[*i] == '>')
+	if (str[*i - 1] == '>' && str[*i] == '>') /**APPEND**/
+	{
+		(*i)++;
 		tmp = 2;
+	}	
 	// if (str[*i - 1] == '<' && str[*i] == '<')
 	// 	tmp = 3;
 	while (str[*i] && str[*i] == ' ')
@@ -65,10 +70,7 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	else if (tmp == 1)
 		res->output = add_to_duotab(res->output, temp);
 	else if (tmp == 2)
-	{
-		temp++;
 		res->outputs_append = add_to_duotab(res->outputs_append, temp);
-	}
 	// else if (tmp == 3)
 	// 	printf("HEREDOC ICI\n");
 	return (0);
@@ -86,6 +88,8 @@ void	init_block(t_block *res)
 	res->input[0] = 0;
 	res->output[0] = 0;
 	res->outputs_append[0] = 0;
+	res->input_fd = -2;
+	res->output_fd = -2;
 }
 
 int find_output_type(char *cmd)

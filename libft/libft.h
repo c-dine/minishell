@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 22:37:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 12:07:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ typedef struct	s_block
 {
 	int			input_type; //1 = input, 2 = heredoc
 	char		**input;
-	int			*input_fd;
+	int			input_fd;
 	char		**cmd;
 	char		*cmd_path;
 	int			cmd_type;
 	int			output_type; //si 1 output, si 2 append
 	char		**output;
-	int			*output_fd;
+	int			output_fd;
 	char		**outputs_append;
-	int			*outputs_append_fds;
 	int			*pipe;
 	int			pid;
 }				t_block;

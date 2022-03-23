@@ -6,30 +6,15 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/22 22:58:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 14:27:12 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	get_fd(int *fd_tab)
-{
-	int	i;
-	int	ret;
-
-	ret = -2;
-	i = 0;
-	while (fd_tab[i] != -2)
-	{
-		ret = fd_tab[i];
-		i++;
-	}
-	return (ret);
-}
-
 int	fork_process(t_list *cmd)
 {
-	if (get_fd(cmd->content->input_fd) == -1)
+	if (cmd->content->input_fd == -1)
 	{
 		close_pipe(cmd->content->pipe);
 		ft_error(FILE_NOT_FOUND);
@@ -45,14 +30,12 @@ int	fork_process(t_list *cmd)
 	////////////////// PROTEGER FORK
 	if (cmd->content->pid == 0)
 	{
-		if (get_fd(cmd->content->input_fd) != -2)
-			dup2(get_fd(cmd->content->input_fd), STDIN_FILENO);
+		if (cmd->content->input_fd != -2)
+			dup2(cmd->content->input_fd, STDIN_FILENO);
 		else
 			dup2(cmd->content->pipe[0], STDIN_FILENO);
-		if (cmd->content->output_type == 1 && get_fd(cmd->content->output_fd) != -2)
-			dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
-		else if (cmd->content->output_type == 2 && get_fd(cmd->content->outputs_append_fds) != -2)
-			dup2(get_fd(cmd->content->outputs_append_fds), STDOUT_FILENO);
+		if (cmd->content->output_fd != -2)
+			dup2(cmd->content->output_fd, STDOUT_FILENO);
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 		close_pipe(cmd->content->pipe);
@@ -65,11 +48,8 @@ int	fork_process(t_list *cmd)
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
-	(void)msh;
-	if (cmd->content->output_type == 1 && get_fd(cmd->content->output_fd) != -2)
-		dup2(get_fd(cmd->content->output_fd), STDOUT_FILENO);
-	else if (cmd->content->output_type == 2 && get_fd(cmd->content->outputs_append_fds) != -2)
-		dup2(get_fd(cmd->content->outputs_append_fds), STDOUT_FILENO);
+	if (cmd->content->output_fd != -2)
+		dup2(cmd->content->output_fd, STDOUT_FILENO);
 	else if (cmd->next)
 		dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 	if (cmd->content->cmd_type == 3)

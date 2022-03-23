@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/22 23:53:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 12:20:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		if (ft_process_line(readline("minishell> "), &minishell) == 1)
 			exit(0);
-		close_fds(&minishell);
+		// close_fds(&minishell);
 	}
 	memrelease();
 	return (0);
