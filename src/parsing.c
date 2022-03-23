@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 14:45:22 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:45:58 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,6 @@ int	ft_parsing(char *line, t_prog *minishell)
 		temp = temp->next;
 		i++;
 	}
-	free(line);
 	if (parse_cmd(minishell) == -1)
 		return (-1);
 	return (0);
