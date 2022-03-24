@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 18:20:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/24 16:17:02 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_prog
 	char		**export;
 	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list		*garbage;
+	t_hd_list	*heredocs;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
@@ -102,5 +103,8 @@ void	*ft_error(int code, char *indic);
 /** Builtin **/
 void		ft_echo(char **cmd);
 int			ft_export(char **cmd, t_prog *msh);
+
+/** Heredoc **/
+void		*ft_heredoc(t_prog *msh);
 
 #endif

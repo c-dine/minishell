@@ -18,3 +18,5 @@ cdine:
 
 ntan
 - ctrl + \ sur boucle inf avec cat
+- \n sur le heredoc
+- no such file or directory apres heredoc

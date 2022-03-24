@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
+#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/23 17:32:49 by cdine            ###   ########.fr        #
+#    Updated: 2022/03/24 14:44:25 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS			=	src/main.c \
 					src/destroy.c \
 					src/process_line.c \
 					src/check_cmd.c \
+					src/heredoc.c \
 					src/builtins/ft_echo.c \
 					src/builtins/ft_export.c \
 					src/hd_list/hd_lstnew.c

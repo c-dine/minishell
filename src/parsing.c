@@ -3,14 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 18:21:38 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/24 16:21:41 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*copy_no_quotes(char *str, int size)
+{
+	char *res;
+	int j;
+	int i;
+	
+	res = malloc(sizeof(char) * (size + 1));
+	i = 0;
+	j = 0;
+	while (i < size)
+	{
+		if (str[i] != '\0')
+			res[j++] = str[i];
+		i++;
+	}
+	res[j] = '\0';
+	free(str);
+	return (res);
+}
+
+char	*remove_quotes(char *str)
+{
+	int i;
+	
+	int size;
+
+	size = ft_strlen(str);
+	i = 0;
+	if (str[0] == '\"')
+	{
+		while (i < size)
+		{
+			if (str[i] && str[i] == '\"')
+				str[i] = '\0';
+			i++;
+		}
+	}
+	else
+	{
+		while (i < size)
+		{
+			if (str[i] && str[i] == '\'')
+				str[i] = '\0';
+			i++;
+		}
+	}
+	return (copy_no_quotes(str, size));
+}
 
 void clean_cmd(t_block *res, char *str)
 {
@@ -33,6 +82,12 @@ void clean_cmd(t_block *res, char *str)
 			i++;
 	}
 	res->cmd = ft_split(str, ' ');
+	i = 0;
+	while (res->cmd[i])
+	{
+		res->cmd[i] = remove_quotes(res->cmd[i]);
+		i++;
+	}
 }
 
 int	parse_duoput(t_block *res, char *str, int *i)
@@ -49,8 +104,6 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		(*i)++;
 		tmp = 2;
 	}	
-	// if (str[*i - 1] == '<' && str[*i] == '<')
-	// 	tmp = 3;
 	while (str[*i] && str[*i] == ' ')
 		(*i)++;
 	if (str[*i] == '|' || (str[*i] == '>' && str[*i - 1] != '>')
@@ -71,8 +124,6 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		res->output = add_to_duotab(res->output, temp);
 	else if (tmp == 2)
 		res->outputs_append = add_to_duotab(res->outputs_append, temp);
-	// else if (tmp == 3)
-	// 	printf("HEREDOC ICI\n");
 	return (0);
 }
 
@@ -162,15 +213,21 @@ char *cmd_to_block(t_list *cmd)
 /** msh = minishell raccourci**/
 int	parse_cmd(t_prog *msh)
 {
-	t_list	*temp;
+	t_list		*temp;
+	t_hd_list	*temp_hd;
 
 	temp = msh->cmds->next;
-	//lancer les heredoc -> param (liste chaines de commandes)
+	temp_hd = ft_heredoc(msh);
+	if (temp_hd == NULL)
+		return (-1);
+	msh->heredocs = temp_hd;
 	while (temp)
 	{
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
+		temp->content->heredoc = temp_hd->content;
 		temp->content->pid = -2;
+		temp_hd = temp_hd->next;
 		temp = temp->next;
 	}
 	return (0);
