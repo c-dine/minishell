@@ -6,13 +6,31 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/23 19:30:13 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/24 16:19:24 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// ft_show_export sort env + rajoute tableau d'exceptions
+int	ft_is_in_tab(char *var, char **tab, int tmp)
+{
+	int	size_var_name;
+	int	i;
+
+	if (tmp == 0)
+		var = ft_strjoin(var, "=");
+	size_var_name = 0;
+	while (var[size_var_name] && var[size_var_name] != '=')
+		size_var_name++;
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_strncmp(tab[i], var, size_var_name + 1) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_is_sort(char **tab)
 {
@@ -90,16 +108,37 @@ int	add_empty_var(char *var, t_prog *msh)
 	return (0);
 }
 
+char	**add_to_env_tab(char **tab, char *var, int tmp)
+{
+	int i;
+	int	size_var_name;
+
+	size_var_name = 0;
+	while (var[size_var_name] && var[size_var_name] != '=')
+		size_var_name++;
+	if (ft_is_in_tab(var, tab, tmp) == 0)
+		return (add_to_duotab(tab, var));
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_strncmp(tab[i], var, size_var_name + 1) == 0)
+			break ;
+		i++;
+	}
+	tab[i] = ft_strdup(var);
+	return (tab);
+}
+
 int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 {
 	int		i;
 	
 	if (tmp == 1)
 	{
-		msh->envp = add_to_duotab(msh->envp, var);
-		msh->export = add_to_duotab(msh->export, var);
+		msh->envp = add_to_env_tab(msh->envp, var, tmp);
+		msh->export = add_to_env_tab(msh->export, var, tmp);
 	}
-	else
+	else if (tmp == 0 && ft_is_in_tab(var, msh->export, tmp) == 0)
 	{
 		i = 0;
 		while (var[i])
@@ -112,6 +151,24 @@ int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 			i++;
 		}
 		add_empty_var(var, msh);
+	}
+	return (0);
+}
+
+int	ft_invalid_identifier(char *str)
+{
+	int	i;
+
+	if (ft_isalpha(str[0]) == 0)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			break ;
+		if (ft_isalnum(str[i]) == 0)
+			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -130,7 +187,7 @@ int	ft_export(char **cmd, t_prog *msh)
 	i = 1;
 	while (cmd[i])
 	{
-		if (ft_isalpha(cmd[i][0]) == 0)
+		if (ft_invalid_identifier(cmd[i]) == 1)
 		{
 			ft_error(INVALID_IDENTIFIER, cmd[i]);
 			i++;

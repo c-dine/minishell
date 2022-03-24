@@ -6,7 +6,6 @@
 	+ unset
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
-- addhistory leaks ?
 - parsing -> enlever quotes de la commande avant de process
 
 cdine:
@@ -14,7 +13,6 @@ cdine:
 - cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
   cat boucle pas
 	-> ==> exec ./minishell marche pas ?
-- export -> tout caractere non alphabetique doit afficher erreur
 
 ntan
 - ctrl + \ sur boucle inf avec cat

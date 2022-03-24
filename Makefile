@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/24 14:44:25 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/24 16:40:02 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
-				# valgrind ./minishell
+				valgrind --suppressions=./.readline.supp --leak-check=full ./minishell
 
 lib:			
 				@echo Compiling libft ....
