@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/23 17:32:49 by cdine            ###   ########.fr        #
+#    Updated: 2022/03/24 15:34:21 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
-				# valgrind ./minishell
+				# valgrind --suppressions=./.readline.supp ./minishell
 
 lib:			
 				@echo Compiling libft ....
