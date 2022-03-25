@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/24 16:21:41 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/25 16:42:10 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*copy_no_quotes(char *str, int size)
 	int j;
 	int i;
 	
-	res = malloc(sizeof(char) * (size + 1));
+	// res = malloc(sizeof(char) * (size + 1));
+	mempush(&res, sizeof(char), (size + 1));
 	i = 0;
 	j = 0;
 	while (i < size)
@@ -28,7 +29,6 @@ char	*copy_no_quotes(char *str, int size)
 		i++;
 	}
 	res[j] = '\0';
-	free(str);
 	return (res);
 }
 
@@ -103,7 +103,9 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	{
 		(*i)++;
 		tmp = 2;
-	}	
+	}
+	if (str[*i - 1] == '<' && str[*i] == '<')
+		tmp = 3;
 	while (str[*i] && str[*i] == ' ')
 		(*i)++;
 	if (str[*i] == '|' || (str[*i] == '>' && str[*i - 1] != '>')
@@ -124,6 +126,8 @@ int	parse_duoput(t_block *res, char *str, int *i)
 		res->output = add_to_duotab(res->output, temp);
 	else if (tmp == 2)
 		res->outputs_append = add_to_duotab(res->outputs_append, temp);
+	else if (tmp == 3) // EN CAS DE HEREDOC ON PASSE INPUT EN TYPE 2
+		res->input_type = 2;
 	return (0);
 }
 
@@ -217,16 +221,16 @@ int	parse_cmd(t_prog *msh)
 	t_hd_list	*temp_hd;
 
 	temp = msh->cmds->next;
-	temp_hd = ft_heredoc(msh);
-	if (temp_hd == NULL)
+	if (ft_heredoc(msh) == NULL)
 		return (-1);
-	msh->heredocs = temp_hd;
+	temp_hd = msh->heredocs->next;
 	while (temp)
 	{
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
 		temp->content->heredoc = temp_hd->content;
 		temp->content->pid = -2;
+		printf("heredoc str : %s\n", temp->content->heredoc->str);
 		temp_hd = temp_hd->next;
 		temp = temp->next;
 	}
