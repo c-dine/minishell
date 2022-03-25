@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 18:26:19 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:42:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	close_trioput_fd(t_list *cmd)
 		close(cmd->content->input_fd);
 	if (cmd->content->output_fd != -2)
 		close(cmd->content->output_fd);
+	if (cmd->content->input_type == 2)
+		unlink(cmd->content->heredoc->temp);
 }
 
 void	set_err_status(int code, char *str, char *indic)

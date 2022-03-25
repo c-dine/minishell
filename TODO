@@ -7,7 +7,6 @@
 - parsing -> enlever quotes de la commande avant de process
 
 cdine:
-- export +=
 - cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
   cat boucle pas
 	-> ==> exec ./minishell marche pas ?
