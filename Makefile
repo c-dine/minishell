@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/24 16:40:02 by ntan             ###   ########.fr        #
+#    Updated: 2022/03/25 15:05:33 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS			=	src/main.c \
 					src/heredoc.c \
 					src/builtins/ft_echo.c \
 					src/builtins/ft_export.c \
+					src/builtins/ft_unset.c \
 					src/hd_list/hd_lstnew.c
 					# src/pipes.c 
 OBJS			= 	$(SRCS:.c=.o)

@@ -3,7 +3,6 @@
 - builtins :
 	+ cd
 	+ pwd
-	+ unset
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
 - parsing -> enlever quotes de la commande avant de process

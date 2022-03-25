@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/24 16:19:24 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 16:11:29 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	add_empty_var(char *var, t_prog *msh)
 		i++;
 	}
 	tmp[i++] = '=';
-	tmp[i++] = '\'';
-	tmp[i++] = '\'';
+	tmp[i++] = '"';
+	tmp[i++] = '"';
 	tmp[i++] = '\0';
 	msh->export = add_to_duotab(msh->export, tmp);
 	return (0);
@@ -129,14 +129,61 @@ char	**add_to_env_tab(char **tab, char *var, int tmp)
 	return (tab);
 }
 
+char *ft_unquote(char *var)
+{
+	int	i;
+
+	i = 0;
+	while (var[i] != '=')
+		i++;
+	i++;
+	if (var[i] == '"')
+	{
+		while (var[i + 1] != '"')
+		{
+			var[i] = var[i + 1];
+			i++;
+		}
+		var[i] = '\0';
+	}
+	return (var);
+}
+
+char	*ft_quote(char *var)
+{
+	int		i;
+	int		j;
+	char	*res;
+
+	i = 0;
+	while (var[i + 1])
+	{
+		if (var[i] == '=' && var[i + 1] == '"')
+			return (var);
+		i++;
+	}
+	mempush(&res, sizeof(char), ft_strlen(var) + 3);
+	i = 0;
+	j = 0;
+	while (var[i] != '=')
+		res[j++] = var[i++];
+	res[j++] = var[i++];
+	res[j++] = '"';
+	while (var[i])
+		res[j++] = var[i++];
+	res[j++] = '"';
+	res[j] = '\0';	
+	return (res);
+}
+
 int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 {
 	int		i;
 	
 	if (tmp == 1)
 	{
-		msh->envp = add_to_env_tab(msh->envp, var, tmp);
-		msh->export = add_to_env_tab(msh->export, var, tmp);
+		msh->envp = add_to_env_tab(msh->envp, ft_unquote(var), tmp);
+		msh->export = add_to_env_tab(msh->export, ft_quote(var), tmp);
 	}
 	else if (tmp == 0 && ft_is_in_tab(var, msh->export, tmp) == 0)
 	{
