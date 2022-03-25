@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 18:34:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 19:44:54 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	open_and_close(char **tab, int option)
 int	open_heredoc_fd(t_heredoc *hd)
 {
 	generate_random_file(&hd->temp, &hd->fd);
-	write(hd->fd, hd->str, ft_strlen(hd->str));
-	return (0);
+	ft_putstr_fd(hd->str, hd->fd);
+	return (hd->fd);
 }
 
 int	open_fds(t_block *block)
