@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 16:42:10 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/25 18:40:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,9 @@ int	parse_cmd(t_prog *msh)
 			return (-1);
 		temp->content->heredoc = temp_hd->content;
 		temp->content->pid = -2;
-		printf("heredoc str : %s\n", temp->content->heredoc->str);
+		// printf("heredoc str : %s\n", temp->content->heredoc->str);
+		// printf("CMD:\n");
+		// print_duotab(temp->content->cmd);
 		temp_hd = temp_hd->next;
 		temp = temp->next;
 	}

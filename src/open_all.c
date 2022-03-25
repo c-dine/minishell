@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/23 18:20:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:34:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,25 @@ int	open_and_close(char **tab, int option)
 	return (0);
 }
 
+int	open_heredoc_fd(t_heredoc *hd)
+{
+	generate_random_file(&hd->temp, &hd->fd);
+	write(hd->fd, hd->str, ft_strlen(hd->str));
+	return (0);
+}
+
 int	open_fds(t_block *block)
 {
 	int	tmp;
 
-	tmp = -2;
-	block->input_fd = open_trioput_file(block->input, 1);
+	if (block->input_type == 1)
+		block->input_fd = open_trioput_file(block->input, 1);
+	else if (block->input_type == 2)
+		block->input_fd = open_heredoc_fd(block->heredoc);
 	if (block->input_fd == -1)
 		return (-1);
+	
+	tmp = -2;
 	if (block->output_type == 1)
 		block->output_fd = open_trioput_file(block->output, 2);
 	else if (block->output_type == 2)
@@ -100,6 +111,7 @@ int	open_fds(t_block *block)
 		tmp = open_and_close(block->output, 2);
 	if (block->output_fd == -1 || tmp == -1)
 		return (-1);
+		
 	return (0);
 }
 
