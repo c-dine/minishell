@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:13:28 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/22 22:43:39 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 15:12:26 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*get_absolute_path(char *cmd, char **envp)
 	char	**alldir;
 	char	*pathcmd;
 
+	if (ft_get_envp(envp) == NULL)
+		return (NULL);
 	alldir = ft_split(ft_get_envp(envp), ':');
 	i = 0;
 	while (alldir[i])

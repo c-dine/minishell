@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/24 13:38:19 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 15:05:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	// 	ft_pwd(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 6)
 		ft_export(cmd->content->cmd, msh);
-	// else if (cmd->content->cmd_type == 7)
-	// 	ft_unset(cmd->content->cmd, msh);
+	else if (cmd->content->cmd_type == 7)
+		ft_unset(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 8)
 		print_duotab(msh->envp);
 	close_trioput_fd(cmd);
