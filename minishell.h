@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 15:06:00 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:30:01 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ int			ft_unset(char **cmd, t_prog *msh);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
+void		generate_random_file(char **temp, int *hd_fd);
 
 #endif
