@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 16:20:28 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 18:10:49 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,13 @@ int	open_pipes(t_block *block)
 
 	fd = NULL;
 	mempush(&fd, sizeof(int), 2);
-	pipe(fd);
 	block->pipe = fd;
+	if (block->cmd_i != 0)
+		pipe(fd);
+	else
+	{
+		block->pipe[0] = -2;
+		block->pipe[1] = -2;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 19:00:55 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 18:02:32 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ char *cmd_to_block(t_list *cmd)
 	res->input_type = find_input_type(str);
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str);
-	open_pipes(res);
 	cmd->content = res;
 	return (str);
 }
@@ -221,7 +220,9 @@ int	parse_cmd(t_prog *msh)
 {
 	t_list		*temp;
 	t_hd_list	*temp_hd;
+	int			cmd_i;
 
+	cmd_i = 0;
 	temp = msh->cmds->next;
 	if (ft_heredoc(msh) == NULL)
 		return (-1);
@@ -230,6 +231,8 @@ int	parse_cmd(t_prog *msh)
 	{
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
+		temp->content->cmd_i = cmd_i;
+		open_pipes(temp->content);
 		temp->content->heredoc = temp_hd->content;
 		temp->content->pid = -2;
 		// printf("heredoc str : %s\n", temp->content->heredoc->str);
@@ -237,6 +240,7 @@ int	parse_cmd(t_prog *msh)
 		// print_duotab(temp->content->cmd);
 		temp_hd = temp_hd->next;
 		temp = temp->next;
+		cmd_i++;
 	}
 	return (0);
 }

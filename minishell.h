@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 16:41:59 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 17:39:28 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		init_prog(t_prog *minishell, char **envp);
 int			ft_process_line(char *line, t_prog *minishell);
 void		close_all_pipes(t_list *beg_all_pipes, int fd1, int fd2);
 void		close_trioput_fd(t_list *cmd);
+void		close_main_process(t_list *node);
 
 /** FONCTIONS DE PARSING **/
 int			ft_parsing(char *line, t_prog *minishell);

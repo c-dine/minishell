@@ -7,6 +7,7 @@
 
 cdine:
 - ./minishell marche po -> waitpid, pipe fermee trop tot/tard ?
+- var replacement -> var ne peut etre que alphanumerique, premier char peut etre non alphanumerique
 
 ntan
 - ctrl + \ sur boucle inf avec cat

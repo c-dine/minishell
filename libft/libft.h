@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/24 16:00:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/26 17:59:37 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_block
 	
 	int			*pipe;
 	int			pid;
+	int			cmd_i; // index de la commande dans la ligne
 
 	// HEREDOC
 	t_heredoc	*heredoc;

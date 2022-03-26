@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 16:47:03 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 18:09:17 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,28 @@ void	close_all_pipes(t_list *beg_all_pipes, int fd1, int fd2)
 {
 	t_list	*temp;
 
+	(void) fd1;
+	(void) fd2;
 	// ferme tous les fd sauf fd1 et fd2 (??)
 	temp = beg_all_pipes;
 	while (temp)
 	{
-		if (temp->content->pipe[0] != fd1 && temp->content->pipe[0] != fd2)
+		if (temp->content->pipe[0] != -2)
 			close(temp->content->pipe[0]);
-		if (temp->content->pipe[1] != fd1 && temp->content->pipe[1] != fd2)
+		if (temp->content->pipe[1] != -2)
 			close(temp->content->pipe[1]);
 		temp = temp->next;
 	}
 }
+
+void	close_main_process(t_list *node)
+{
+	if (node->content->cmd_i != 0)
+		close(node->content->pipe[0]);
+	if (node->next)
+		close(node->next->content->pipe[1]);
+}
+
 
 void	close_trioput_fd(t_list *cmd)
 {

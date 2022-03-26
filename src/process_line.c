@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 16:11:27 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 18:09:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	wait_children(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		printf("PID WAITED: %d\n", temp->content->pid);
+		// printf("PID WAITED: %d\n", temp->content->pid);
 		waitpid(temp->content->pid, NULL, 0);
-		printf("PID DONE: %d\n", temp->content->pid);
+		// printf("PID DONE: %d\n", temp->content->pid);
 		temp = temp->next;
 	}
 	return (0);
@@ -45,7 +45,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		}
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
-		else
+		else if (cmd->content->pipe[0] != -2)
 			dup2(cmd->content->pipe[0], STDIN_FILENO);
 		if (cmd->content->output_fd != -2)
 			dup2(cmd->content->output_fd, STDOUT_FILENO);
@@ -56,7 +56,9 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
-	wait(NULL);
+	else
+		close_main_process(cmd);
+	// wait(NULL);
 	return (0);
 }
 
@@ -114,7 +116,7 @@ int	ft_processes(t_prog *msh)
 			ft_builtin(temp, msh);
 		temp = temp->next;
 	}
-	close_all_pipes(beginning, -2, -2);
+	// close_all_pipes(beginning, -2, -2);
 	return (0);
 }
 
@@ -137,6 +139,6 @@ int	ft_process_line(char *line, t_prog *minishell)
 	tmp = ft_processes(minishell);
 	if (tmp == -1 || tmp == 1)
 		return (tmp);
-	// wait_children(minishell);
+	wait_children(minishell);
 	return (0);
 }
