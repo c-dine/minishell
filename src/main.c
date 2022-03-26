@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	printf("\e[1;1H\e[2J");
 	init_prog(&minishell, envp);
-	signal(SIGINT, signal_manager);
+	signal(SIGINT, SIG_DFL);
 	while (1)
 	{
 		printf("\033[1;33m");

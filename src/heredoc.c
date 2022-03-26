@@ -99,7 +99,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
-		if (ft_strncmp(delim, buf, ft_strlen(delim)) == 0)
+		if (buf == NULL || ft_strncmp(delim, buf, ft_strlen(buf)) == 0)
 			break;
 		res = hd_strjoin(res, buf);
 		free(buf);
@@ -156,6 +156,7 @@ void *ft_heredoc(t_prog *msh)
 	t_hd_list	*temp2;
 	t_list		*temp;
 
+	signal(SIGINT, signal_heredoc);
 	temp = msh->cmds->next;
 	temp2 = hd_lstnew(NULL);
 	msh->heredocs = temp2;
@@ -167,5 +168,6 @@ void *ft_heredoc(t_prog *msh)
 		temp = temp->next;
 		temp2 = temp2->next;
 	}
+	signal(SIGINT, signal_manager);
 	return ((void*)1);
 }

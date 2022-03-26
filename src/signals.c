@@ -29,3 +29,12 @@ void	signal_manager(int sig)
 	// 	exit(0);
 	// }
 }
+
+void	signal_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		error_code = 130;
+		printf("\n");
+	}
+}
