@@ -4,7 +4,7 @@
 	+ cd
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
-- parsing -> enlever quotes de la commande avant de process
+- segfault quand input sans commande
 
 cdine:
 - cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
@@ -15,3 +15,5 @@ ntan
 - ctrl + \ sur boucle inf avec cat
 - \n sur le heredoc
 - no such file or directory apres heredoc
+- ctrl+c marche pas dans heredoc
+- heredoc doit s'arreter a pile le mot delimiteur pas plus pas moins

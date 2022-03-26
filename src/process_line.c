@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/25 19:48:48 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 13:13:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 			close_all_pipes(beginning, -2,-2);
 			exit(1);
 		}
+		printf("FD= %d\n", cmd->content->input_fd);
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
 		else
