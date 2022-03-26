@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 18:09:17 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 19:48:50 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,7 @@ void	*ft_error(int code, char *indic)
 		set_err_status(1, "not a valid identifier", indic, code);
 	else if (code == INVALID_DIRECTORY)
 		set_err_status(1, "Not a directory", indic, code);
+	else if (code == PATH_CORRUPTED)
+		set_err_status(1, "path corrupted", indic, code);
 	return (NULL);
 }

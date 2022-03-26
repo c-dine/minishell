@@ -4,10 +4,15 @@
 - echec execve (quand execute un non executable) a definir
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
 - leaks getcwd
+- ctrl+c dans boucle inf de cat affiche minishell 2x
+- heredoc -> cat << EOF -> \n au debut et pas a la fin
+- proteger execve et fork
 
 cdine:
 - var replacement -> var ne peut etre que alphanumerique, premier char peut etre non alphanumerique
-- envp protege -> trop fait ?
+- envp marche pas dans sous shell
+- mkdir test_fold; cd test_fold; rm -Rf ../test_fold; pwd ou cd .. 
+- var replacement -> single quotes ne marche pas dans double quotes -> CMD : echo $USER "'$USER'"
 
 ntan
 - ctrl + \ sur boucle inf avec cat

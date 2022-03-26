@@ -6,11 +6,25 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:44:40 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 16:43:47 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 19:54:10 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	ft_pwd()
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (path == NULL)
+	{
+		ft_error(PATH_CORRUPTED, "pwd");
+		return (1);
+	}
+	printf("%s\n", path);
+	return (0);
+}
 
 int	ft_cd(char **cmd)
 {

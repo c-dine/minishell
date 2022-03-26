@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 18:09:53 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 19:49:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	else if (cmd->content->cmd_type == 4)
 		ft_cd(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 5)
-		printf("%s\n", getcwd(NULL, 0));
+		ft_pwd();
 	else if (cmd->content->cmd_type == 6)
 		ft_export(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 7)

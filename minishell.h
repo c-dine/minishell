@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 17:39:28 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 19:49:35 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PERMISSION_DENIED 4
 # define INVALID_IDENTIFIER 5
 # define INVALID_DIRECTORY 6
+# define PATH_CORRUPTED 7
 
 extern int error_code;
 
@@ -69,7 +70,7 @@ typedef struct	s_prog
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
-void		init_prog(t_prog *minishell, char **envp);
+void		init_prog(t_prog *minishell, char ***envp);
 int			ft_process_line(char *line, t_prog *minishell);
 void		close_all_pipes(t_list *beg_all_pipes, int fd1, int fd2);
 void		close_trioput_fd(t_list *cmd);
@@ -108,6 +109,7 @@ void		ft_echo(char **cmd);
 int			ft_export(char **cmd, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd);
+int			ft_pwd();
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
