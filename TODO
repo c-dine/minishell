@@ -1,7 +1,5 @@
 - heredoc
 - exit status
-- builtins :
-	+ cd
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
