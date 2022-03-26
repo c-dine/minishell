@@ -80,6 +80,7 @@ void		ft_check_cmds(t_prog *msh);
 
 /** LES SIGNAUX **/
 void		signal_manager(int sig);
+void		signal_heredoc(int sig);
 
 /** OPENS FUNCTIONS **/
 int			open_fds(t_block *block);
