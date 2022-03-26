@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 18:30:01 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 16:41:59 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
-# include <sys/types.h>
+#include <dirent.h>
 # include <sys/wait.h>
 
 # define CMD_NOT_FOUND 0
@@ -32,6 +32,7 @@
 # define PARSE_ERROR 3
 # define PERMISSION_DENIED 4
 # define INVALID_IDENTIFIER 5
+# define INVALID_DIRECTORY 6
 
 extern int error_code;
 
@@ -105,6 +106,7 @@ void	*ft_error(int code, char *indic);
 void		ft_echo(char **cmd);
 int			ft_export(char **cmd, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
+int			ft_cd(char **cmd);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

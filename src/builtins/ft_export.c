@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/25 17:47:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 16:47:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ int	ft_export(char **cmd, t_prog *msh)
 	{
 		if (ft_invalid_identifier(cmd[i]) == 1)
 		{
-			ft_error(INVALID_IDENTIFIER, cmd[i]);
+			ft_error(INVALID_IDENTIFIER, ft_strjoin("export: `", cmd[i]));
 			i++;
 			continue ;
 		}

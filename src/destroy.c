@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 13:43:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 16:47:03 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,36 @@ void	close_trioput_fd(t_list *cmd)
 		unlink(cmd->content->heredoc->temp);
 }
 
-void	set_err_status(int code, char *str, char *indic)
+void	set_err_status(int code, char *str, char *indic, int indic_type)
 {
-	printf("minishell: ");
+	if (indic_type != CMD_NOT_FOUND)
+		printf("minishell: ");
 	if (indic)
-		printf("'%s': ", indic);
-	printf("%s\n", str);
+		printf("%s", indic);
+	if (indic_type == INVALID_IDENTIFIER)
+		printf("\': ");
+	else
+		printf(": ");
+	printf("%s", str);
+	printf("\n");
 	error_code = code;
 }
 
 void	*ft_error(int code, char *indic)
 {
 	if (code == CMD_NOT_FOUND)
-		set_err_status(127, "command not found (RTFM)", NULL);
+		set_err_status(127, "command not found (RTFM)", indic, code);
 	else if (code == FILE_NOT_FOUND)
-		set_err_status(1, "no such file or directory", NULL);
+		set_err_status(1, "No such file or directory", indic, code);
 	else if (code == QUOTE_NOT_CLOSED)
-		set_err_status(1, "quote not closed", NULL);
+		set_err_status(1, "quote not closed", indic, code);
 	else if (code == PARSE_ERROR)
-		set_err_status(0, "parse error", NULL);
+		set_err_status(0, "parse error", indic, code);
 	else if (code == PERMISSION_DENIED)
-		set_err_status(0, "permission denied", NULL);
+		set_err_status(0, "Permission denied", indic, code);
 	else if (code == INVALID_IDENTIFIER)
-		set_err_status(1, "not a valid identifier", indic);
+		set_err_status(1, "not a valid identifier", indic, code);
+	else if (code == INVALID_DIRECTORY)
+		set_err_status(1, "Not a directory", indic, code);
 	return (NULL);
 }

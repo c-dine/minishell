@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/23 15:48:38 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 14:49:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,18 @@ char	*ft_itoa(int n)
 
 int main()
 {
-	// char			*name;
-	// unsigned int	n;
-	// int				fd;
+	 char			*name;
+	 unsigned int	n;
+	 int				fd;
 
-	// while (1)
-	// {
-	// 	name = ft_itoa(n);
-	// 	printf("%d\n", n);
-	// 	fd = open(name, O_CREAT | O_EXCL | O_RDWR, 0644);
-	// 	if (fd > 0)
-	// 		break ;
-	// 	n++;
-	// }
+	 while (1)
+	 {
+	 	name = ft_itoa(n);
+	 	printf("%d\n", n);
+	 	fd = open(name, O_CREAT | O_EXCL | O_RDWR, 0644);
+	 	if (fd > 0)
+	 		break ;
+	 	n++;
+	  }
 	return 0;
 }

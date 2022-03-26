@@ -6,17 +6,32 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 14:38:41 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 16:11:27 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	wait_children(t_prog *msh)
+{
+	t_list	*temp;
+	
+	temp = msh->cmds->next;
+	while (temp)
+	{
+		printf("PID WAITED: %d\n", temp->content->pid);
+		waitpid(temp->content->pid, NULL, 0);
+		printf("PID DONE: %d\n", temp->content->pid);
+		temp = temp->next;
+	}
+	return (0);
+}
+
 int	fork_process(t_list *cmd, t_list *beginning)
 {
 	if (cmd->content->cmd_type == -1)
 	{
-		ft_error(CMD_NOT_FOUND, NULL);
+		ft_error(CMD_NOT_FOUND, cmd->content->cmd[0]);
 		return (1);
 	}
 	cmd->content->pid = fork();
@@ -41,6 +56,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
+	wait(NULL);
 	return (0);
 }
 
@@ -57,8 +73,8 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 		dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 	if (cmd->content->cmd_type == 3)
 		ft_echo(cmd->content->cmd);
-	// else if (cmd->content->cmd_type == 4)
-	// 	ft_cd(cmd->content->cmd);
+	else if (cmd->content->cmd_type == 4)
+		ft_cd(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 5)
 		printf("%s\n", getcwd(NULL, 0));
 	else if (cmd->content->cmd_type == 6)
@@ -102,19 +118,6 @@ int	ft_processes(t_prog *msh)
 	return (0);
 }
 
-int	wait_children(t_prog *msh)
-{
-	t_list	*temp;
-	
-	temp = msh->cmds->next;
-	while (temp)
-	{
-		waitpid(temp->content->pid, NULL, 0);
-		temp = temp->next;
-	}
-	return (0);
-}
-
 int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
@@ -134,7 +137,6 @@ int	ft_process_line(char *line, t_prog *minishell)
 	tmp = ft_processes(minishell);
 	if (tmp == -1 || tmp == 1)
 		return (tmp);
-	// // wait pour tous les pids
-	wait_children(minishell);
+	// wait_children(minishell);
 	return (0);
 }

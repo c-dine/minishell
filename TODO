@@ -5,11 +5,10 @@
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
+- leaks getcwd
 
 cdine:
-- cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
-  cat boucle pas
-	-> ==> exec ./minishell marche pas ?
+- ./minishell marche po -> waitpid, pipe fermee trop tot/tard ?
 
 ntan
 - ctrl + \ sur boucle inf avec cat
