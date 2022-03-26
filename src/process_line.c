@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 13:42:09 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 14:38:41 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
 	printf("\033[0;37m");
-	add_history(line);
+	if (ft_strlen(line) != 0)
+		add_history(line);
 	if (line)
 		line = replace_var(line, minishell);
 	else
