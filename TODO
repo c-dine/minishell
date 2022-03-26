@@ -4,12 +4,12 @@
 	+ cd
 - fuites memoire quand exit du process enfant quand probleme de fichier
 - echec execve (quand execute un non executable) a definir
-- segfault quand input sans commande
 
 cdine:
 - cat|cat|cat|ls boucle pas -> quelle pipe ne pas ferme pdt le process enfant ??
   cat boucle pas
 	-> ==> exec ./minishell marche pas ?
+- addhistory que quand y a contenu
 
 ntan
 - ctrl + \ sur boucle inf avec cat

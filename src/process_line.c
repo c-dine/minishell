@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 13:13:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 13:42:09 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	fork_process(t_list *cmd, t_list *beginning)
 			close_all_pipes(beginning, -2,-2);
 			exit(1);
 		}
-		printf("FD= %d\n", cmd->content->input_fd);
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
 		else
@@ -74,6 +73,12 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	return (0);
 }
 
+void	no_cmd(t_list *cmd)
+{
+	open_fds(cmd->content);
+	close_trioput_fd(cmd);	
+}
+
 int	ft_processes(t_prog *msh)
 {
 	t_list	*temp;
@@ -85,8 +90,10 @@ int	ft_processes(t_prog *msh)
 	{
 		if (temp->content->cmd_type == 9)
 			return (1);
-		if (temp->content->cmd_type < 3)
+		if (temp->content->cmd_type < 3 && temp->content->cmd_type != -2)
 			fork_process(temp, beginning);
+		else if (temp->content->cmd_type == -2)
+			no_cmd(temp);
 		else
 			ft_builtin(temp, msh);
 		temp = temp->next;
@@ -120,7 +127,7 @@ int	ft_process_line(char *line, t_prog *minishell)
 	signal(SIGQUIT, SIG_DFL);/** Modifie le ctrl + \ pour interrompre programme en cours **/
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);
-    // check cmds with access ; if -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
+    // check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
 	ft_check_cmds(minishell);
     // set pipes with fds && fork processes avec distinction entre builtins et cmds
 	tmp = ft_processes(minishell);

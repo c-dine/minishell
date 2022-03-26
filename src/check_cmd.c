@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:13:28 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/25 15:12:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 13:34:42 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,12 @@ void	ft_check_cmds(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
+		if (temp->content->cmd[0] == NULL)
+		{
+			temp->content->cmd_type = -2;
+			temp = temp->next;
+			continue ;
+		}
 		temp->content->cmd_type = check_is_builtin(temp->content->cmd[0]);
 		if (temp->content->cmd_type == -1)
 		{
