@@ -49,6 +49,13 @@ char **init_export(char **tab)
 void	init_prog(t_prog *minishell, char **envp)
 {
 	minishell->envp = envp;
+	if (minishell->envp[0] == NULL)
+	{
+		mempush(&minishell->envp, sizeof(char *), 2);
+		mempush(&minishell->envp[0], sizeof(char), 149);
+		minishell->envp[0] = ft_strdup("PATH=/mnt/nfs/homes/cdine/bin:/mnt/nfs/homes/cdine/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+		minishell->envp[1] = NULL;
+	}
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
 	error_code = 0;
