@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 19:44:49 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/26 14:44:13 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
-		if (buf == NULL || ft_strncmp(delim, buf, ft_strlen(buf)) == 0)
+		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		res = hd_strjoin(res, buf);
 		free(buf);
