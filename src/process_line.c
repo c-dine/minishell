@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 16:44:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 17:12:57 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 	{
 		if (open_fds(cmd->content) == -1)
 		{
-			close_all_pipes(beginning, -2,-2);
+			close_all_pipes(beginning);
 			exit(1);
 		}
 		if (cmd->content->input_fd != -2)
@@ -49,14 +49,13 @@ int	fork_process(t_list *cmd, t_list *beginning)
 			dup2(cmd->content->output_fd, STDOUT_FILENO);
 		else if (cmd->next)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
-		close_all_pipes(beginning, -2, -2);
+		close_all_pipes(beginning);
 		close_trioput_fd(cmd);
 		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
 		////////////// proteger execve
 	}
 	else
-		close_main_process(cmd);
-	// wait(NULL);
+		close_main_process(cmd, 0);
 	return (0);
 }
 
@@ -86,6 +85,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	close_trioput_fd(cmd);
 	dup2(fd_out, STDOUT_FILENO);
 	close(fd_out);
+	close_main_process(cmd, 1);
 	return (0);
 }
 

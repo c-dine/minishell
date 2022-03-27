@@ -6,19 +6,16 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 19:48:50 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 17:13:24 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_all_pipes(t_list *beg_all_pipes, int fd1, int fd2)
+void	close_all_pipes(t_list *beg_all_pipes)
 {
 	t_list	*temp;
 
-	(void) fd1;
-	(void) fd2;
-	// ferme tous les fd sauf fd1 et fd2 (??)
 	temp = beg_all_pipes;
 	while (temp)
 	{
@@ -30,9 +27,9 @@ void	close_all_pipes(t_list *beg_all_pipes, int fd1, int fd2)
 	}
 }
 
-void	close_main_process(t_list *node)
+void	close_main_process(t_list *node, int builtin)
 {
-	if (node->content->cmd_i != 0)
+	if (node->content->cmd_i != 0 && builtin == 0)
 		close(node->content->pipe[0]);
 	if (node->next)
 		close(node->next->content->pipe[1]);
