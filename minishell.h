@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 17:13:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 17:58:05 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define INVALID_IDENTIFIER 5
 # define INVALID_DIRECTORY 6
 # define PATH_CORRUPTED 7
+# define FORK_ERROR 8
+# define EXECVE_ERROR 9
 
 extern int error_code;
 
@@ -70,7 +72,7 @@ typedef struct	s_prog
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
-void		init_prog(t_prog *minishell, char ***envp);
+void		init_prog(t_prog *minishell, char **envp);
 int			ft_process_line(char *line, t_prog *minishell);
 void		close_all_pipes(t_list *beg_all_pipes);
 void		close_trioput_fd(t_list *cmd);

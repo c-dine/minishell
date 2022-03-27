@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 17:13:24 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 19:43:55 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ void	close_trioput_fd(t_list *cmd)
 void	set_err_status(int code, char *str, char *indic, int indic_type)
 {
 	if (indic_type != CMD_NOT_FOUND)
-		printf("minishell: ");
+		write(STDERR_FILENO, "minishell: ", ft_strlen("minishell: "));
 	if (indic)
-		printf("%s", indic);
+		write(STDERR_FILENO, indic, ft_strlen(indic));
 	if (indic_type == INVALID_IDENTIFIER)
-		printf("\': ");
+		write(STDERR_FILENO, "\': ", ft_strlen("\': "));
 	else
-		printf(": ");
-	printf("%s", str);
-	printf("\n");
+		write(STDERR_FILENO, ": ", ft_strlen(": "));
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, "\n", 1);
 	error_code = code;
 }
 
@@ -70,14 +70,18 @@ void	*ft_error(int code, char *indic)
 	else if (code == QUOTE_NOT_CLOSED)
 		set_err_status(1, "quote not closed", indic, code);
 	else if (code == PARSE_ERROR)
-		set_err_status(0, "parse error", indic, code);
+		set_err_status(2, "parse error", indic, code);
 	else if (code == PERMISSION_DENIED)
-		set_err_status(0, "Permission denied", indic, code);
+		set_err_status(1, "Permission denied", indic, code);
 	else if (code == INVALID_IDENTIFIER)
 		set_err_status(1, "not a valid identifier", indic, code);
 	else if (code == INVALID_DIRECTORY)
 		set_err_status(1, "Not a directory", indic, code);
 	else if (code == PATH_CORRUPTED)
 		set_err_status(1, "path corrupted", indic, code);
+	else if (code == FORK_ERROR)
+		set_err_status(1, "error", indic, code);
+	else if (code == EXECVE_ERROR)
+		set_err_status(126, "Permission denied", indic, code);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 18:46:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 19:27:45 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	main(int argc, char **argv, char **envp)
 	// printf("\e[1;1H\e[2J");
 	if (!envp)
 		return (1);
-	init_prog(&minishell, &envp);
+	init_prog(&minishell, envp);
 	signal(SIGINT, SIG_DFL);
 	while (1)
 	{
-		printf("\033[1;33m");
 		signal(SIGQUIT, SIG_IGN);
-		if (ft_process_line(readline("minishell> "), &minishell) == 1)
+		if (ft_process_line(readline("\e[1;34mminishell> \e[0m"), &minishell) == 1)
 			break ;
 	}
 	rl_clear_history();

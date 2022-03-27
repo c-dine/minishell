@@ -46,10 +46,10 @@ char **init_export(char **tab)
 	return (res);
 }
 
-void	init_prog(t_prog *minishell, char ***envp)
+void	init_prog(t_prog *minishell, char **envp)
 {
-	minishell->envp = *envp;
+	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
-	minishell->export = init_export(*envp);
+	minishell->export = init_export(envp);
 	error_code = 0;
 }

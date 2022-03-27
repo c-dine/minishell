@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 17:12:57 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 19:51:50 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,32 @@
 int	wait_children(t_prog *msh)
 {
 	t_list	*temp;
+	int		err;
 	
+	err = -1;
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		waitpid(temp->content->pid, NULL, 0);
+		waitpid(temp->content->pid, &err, 0);
 		temp = temp->next;
 	}
+	if (err != -1)
+		error_code = WEXITSTATUS(err);
 	return (0);
 }
 
 int	fork_process(t_list *cmd, t_list *beginning)
 {
-	if (cmd->content->cmd_type == -1)
+	if (cmd->content->cmd_type == -1 && access(cmd->content->cmd_path, F_OK) == -1)
 	{
-		ft_error(CMD_NOT_FOUND, cmd->content->cmd[0]);
-		return (1);
+		if (cmd->content->cmd_path == NULL)
+			return (ft_error(CMD_NOT_FOUND, cmd->content->cmd[0]), 1);
+		else
+			return (ft_error(FILE_NOT_FOUND, cmd->content->cmd_path), 1);
 	}
 	cmd->content->pid = fork();
-	////////////////// PROTEGER FORK
+	if (cmd->content->pid == -1)
+		return (ft_error(FORK_ERROR, "fork"), 1);
 	if (cmd->content->pid == 0)
 	{
 		if (open_fds(cmd->content) == -1)
@@ -51,8 +58,8 @@ int	fork_process(t_list *cmd, t_list *beginning)
 			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
 		close_all_pipes(beginning);
 		close_trioput_fd(cmd);
-		execve(cmd->content->cmd_path, cmd->content->cmd, 0);
-		////////////// proteger execve
+		if (execve(cmd->content->cmd_path, cmd->content->cmd, 0) == -1)
+			return (ft_error(EXECVE_ERROR, cmd->content->cmd_path), 1);
 	}
 	else
 		close_main_process(cmd, 0);
@@ -86,6 +93,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	dup2(fd_out, STDOUT_FILENO);
 	close(fd_out);
 	close_main_process(cmd, 1);
+	error_code = 0;
 	return (0);
 }
 
@@ -121,7 +129,7 @@ int	ft_processes(t_prog *msh)
 int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
-	printf("\033[0;37m");
+	
 	if (ft_strlen(line) != 0)
 		add_history(line);
 	if (line)
