@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 19:27:45 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 20:00:45 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	// printf("\e[1;1H\e[2J");
-	if (!envp)
-		return (1);
 	init_prog(&minishell, envp);
 	signal(SIGINT, SIG_DFL);
 	while (1)

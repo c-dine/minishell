@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:08:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/25 15:07:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 20:11:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_unset(char **cmd, t_prog *msh)
 	{
 		if (ft_invalid_identifier_export(cmd[i]) == 1)
 		{
-			ft_error(INVALID_IDENTIFIER, cmd[i]);
+			ft_error(INVALID_IDENTIFIER, cmd[i], 1);
 			i++;
 			continue ;
 		}

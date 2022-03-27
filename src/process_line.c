@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 19:51:50 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 20:09:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ int	wait_children(t_prog *msh)
 
 int	fork_process(t_list *cmd, t_list *beginning)
 {
-	if (cmd->content->cmd_type == -1 && access(cmd->content->cmd_path, F_OK) == -1)
+	if (cmd->content->cmd_type == -1 && (!cmd->content->cmd_path || access(cmd->content->cmd_path, F_OK) == -1))
 	{
 		if (cmd->content->cmd_path == NULL)
-			return (ft_error(CMD_NOT_FOUND, cmd->content->cmd[0]), 1);
+			return (ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127), 1);
 		else
-			return (ft_error(FILE_NOT_FOUND, cmd->content->cmd_path), 1);
+			return (ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127), 1);
 	}
 	cmd->content->pid = fork();
 	if (cmd->content->pid == -1)
-		return (ft_error(FORK_ERROR, "fork"), 1);
+		return (ft_error(FORK_ERROR, "fork", 1), 1);
 	if (cmd->content->pid == 0)
 	{
 		if (open_fds(cmd->content) == -1)
@@ -59,7 +59,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		close_all_pipes(beginning);
 		close_trioput_fd(cmd);
 		if (execve(cmd->content->cmd_path, cmd->content->cmd, 0) == -1)
-			return (ft_error(EXECVE_ERROR, cmd->content->cmd_path), 1);
+			return (ft_error(PERMISSION_DENIED, cmd->content->cmd_path, 126), 1);
 	}
 	else
 		close_main_process(cmd, 0);

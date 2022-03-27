@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 17:58:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 20:12:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define INVALID_DIRECTORY 6
 # define PATH_CORRUPTED 7
 # define FORK_ERROR 8
-# define EXECVE_ERROR 9
 
 extern int error_code;
 
@@ -104,7 +103,7 @@ t_hd_list	*hd_lstnew(void *content);
 
 
 /** ERRORS **/
-void	*ft_error(int code, char *indic);
+void	*ft_error(int code, char *indic, int err_code);
 
 /** Builtin **/
 void		ft_echo(char **cmd);
