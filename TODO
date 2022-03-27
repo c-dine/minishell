@@ -9,9 +9,7 @@
 - proteger execve et fork
 
 cdine:
-- var replacement -> var ne peut etre que alphanumerique, premier char peut etre non alphanumerique
 - envp marche pas dans sous shell
-- mkdir test_fold; cd test_fold; rm -Rf ../test_fold; pwd ou cd .. 
 - var replacement -> single quotes ne marche pas dans double quotes -> CMD : echo $USER "'$USER'"
 
 ntan

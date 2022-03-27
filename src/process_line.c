@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 19:49:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 16:44:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	wait_children(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		// printf("PID WAITED: %d\n", temp->content->pid);
 		waitpid(temp->content->pid, NULL, 0);
-		// printf("PID DONE: %d\n", temp->content->pid);
 		temp = temp->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/20 17:13:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 16:41:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,16 @@ int	get_size_with_vars(char *line, t_prog *msh)
 			extra_size += - (2 - ft_nblen(error_code));
 			i += 1;
 		}
+		else if (line[i] == '$' && ft_isalpha(line[i + 1]) == 0)
+		{
+			extra_size = -2;
+			i += 2;
+		}
 		else if (line[i] == '$')
 		{
 			extra_size += get_size_var(&line[i], msh);
-			while (line[i] && line[i] != ' ' && line[i] != '<'
-				&& line[i] != '>' && line[i] != '|')
+			i++;
+			while (line[i] && ft_isalnum(line[i]) == 1)
 				i++;
 		}
 		else
@@ -131,13 +136,15 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 			i += 2;
 			free(tmp);
 		}
+		else if (line[i] == '$' && ft_isalpha(line[i + 1]) == 0)
+			i += 2;
 		else if (line[i] == '$')
 		{
 			tmp = get_var_content(&line[i], msh);
 			if (tmp == NULL)
 			{
-				while (line[i] && line[i] != ' ' && line[i] != '<'
-					&& line[i] != '>' && line[i] != '|')
+				i++;
+				while (line[i] && ft_isalnum(line[i]) == 1)
 					i++;
 			}
 			else
