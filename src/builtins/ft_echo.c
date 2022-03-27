@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:16:21 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/26 19:38:28 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/27 20:27:51 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char *put_line_together(char **str)
 	i = 0;
 	while (str[i])
 		size_res += ft_strlen(str[i++]) + 1;
+	if (!size_res)
+		return (NULL);
 	mempush(&res, sizeof(char), size_res);
 	// res = malloc(sizeof(char) * size_res);
 	i = 0;
