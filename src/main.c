@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 11:46:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 19:26:39 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_prog(&minishell, envp);
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, signal_manager);
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
