@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 20:11:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 20:00:39 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ void	*ft_error(int code, char *indic, int err_code)
 		set_err_status(err_code, "path corrupted", indic, code);
 	else if (code == FORK_ERROR)
 		set_err_status(err_code, "error", indic, code);
+	else if (code == TOO_MANY_FDS)
+		set_err_status(err_code, "Too many open files", indic, code);
 	return (NULL);
 }
