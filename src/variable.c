@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/28 18:19:09 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:29:25 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,5 @@ char	*replace_var(char *line, t_prog *msh)
 		return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 1);
 	alias_expansion(line, res, msh);
-	printf("%s\n", line);
 	return (res);
 }
