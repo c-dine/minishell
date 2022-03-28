@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 17:18:16 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/28 19:06:39 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int			get_fd(int *fd_tab);
 int			ft_nblen(int nb);
 char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);
+char		*ft_quotes(char *str);
 
 
 /** ERRORS **/
