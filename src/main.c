@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 20:00:45 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 11:46:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
-		if (ft_process_line(readline("\e[1;34mminishell> \e[0m"), &minishell) == 1)
-			break ;
+		if (error_code > 0)
+		{
+			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &minishell) == 1)
+				break ;
+		}
+		else
+		{
+			if (ft_process_line(readline("\e[1;32mminishell> \e[0m"), &minishell) == 1)
+				break ;
+		}
 	}
 	rl_clear_history();
 	memrelease();
