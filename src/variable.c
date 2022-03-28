@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 19:12:03 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:19:09 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,30 @@ int	get_size_with_vars(char *line, t_prog *msh)
 {
 	int	i;
 	int	extra_size;
+	int	open_d_quote;
 
+	open_d_quote = 0;
 	i = 0;
 	extra_size = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'')
+		if (line[i] == '"')
+		{
+			open_d_quote++;
+			i++;
+		}
+		else if (line[i] == '\'')
 		{
 			i++;
+			if (open_d_quote % 2 == 1)
+				continue ;
 			while (line[i] && line[i] != '\'')
 				i++;
 			if (line[i] != '\'')
 				return (-1);
+			i++;
 		}
-		if (line[i] == '$' && line[i + 1] == '?')
+		else if (line[i] == '$' && line[i + 1] == '?')
 		{
 			extra_size += - (2 - ft_nblen(error_code));
 			i += 1;
@@ -106,28 +116,34 @@ int	get_size_with_vars(char *line, t_prog *msh)
 	return (i + extra_size);
 }
 
-void	alias_expansion_single_quote(char *res, char *line, int *j, int *i)
-{
-	res[(*j)++] = line[(*i)++];
-	while (line[(*i)] && line[(*i)] != '\'')
-		res[(*j)++] = line[(*i)++];
-	res[(*j)++] = line[(*i)++];
-}
-
 void	alias_expansion(char *line, char *res, t_prog *msh)
 {
 	int		i;
 	int		j;
 	int		k;
 	char	*tmp;
+	int		open_d_quote;
 
+	open_d_quote = 0;
 	i = 0;
 	j = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'')
-			alias_expansion_single_quote(res, line, &j, &i);
-		if (line[i] == '$' && line[i + 1] == '?')
+		if (line[i] == '"')
+		{
+			open_d_quote++;
+			res[j++] = line[i++];
+		}
+		else if (line[i] == '\'')
+		{
+			res[j++] = line[i++];
+			if (open_d_quote % 2 == 1)
+				continue ;
+			while (line[i] && line[i] != '\'')
+				res[j++] = line[i++];
+			res[j++] = line[i++];
+		}
+		else if (line[i] == '$' && line[i + 1] == '?')
 		{
 			k = 0;
 			tmp = ft_itoa(error_code);
@@ -193,5 +209,6 @@ char	*replace_var(char *line, t_prog *msh)
 		return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 1);
 	alias_expansion(line, res, msh);
+	printf("%s\n", line);
 	return (res);
 }
