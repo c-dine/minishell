@@ -16,6 +16,7 @@ cdine:
 
 ntan
 -	heredoc double quote
--	heredoc expands
-- 	signaux
+-	heredoc expands tester $"HOME" "$HOME"
+- 	signaux faire des trucs avec l'entree standard
 -	echo salut > "truc"
+- 	def signaux 

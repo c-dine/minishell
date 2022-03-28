@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 18:22:30 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/28 20:17:33 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,15 @@ char *find_delim(char *str)
 		str = ft_split(&str[i], '<')[0];
 		str = ft_split(str, '>')[0];
 	}
-	printf("%s\n", str);
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	mempush(&res, sizeof(char), i - marker + 1);
-	ft_strlcpy(res, &str[marker], i - marker + 1);
-	printf("res = %s\n", res);
-	return (res);
+	else
+	{
+		while (str[i] && str[i] != '<' && str[i] != '>')
+			i++;
+		mempush(&res, sizeof(char), i - marker + 1);
+		ft_strlcpy(res, &str[marker], i - marker + 1);
+		return (res);
+	}
+	return (ft_quotes(str));
 }
 
 void	heredoc_prompt(t_heredoc *heredoc, char *delim)
@@ -105,7 +106,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
-		printf("delim = |%s|\n", delim);
+		// printf("delim = |%s|\n", delim);
 		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		res = hd_strjoin(res, buf);
@@ -144,7 +145,7 @@ t_heredoc *add_heredoc(t_list *cmd)
 	t_heredoc	*heredoc;
 	char		*hd_pos;/** RETOURNE LA POSITTION A PARTI DU DEUXIEME CHEVRON **/
 
-	printf("%s\n", (char*)cmd->content);
+	// printf("%s\n", (char*)cmd->content);
 	mempush(&heredoc, sizeof(*heredoc), 1);
 	heredoc->fd = -1;
 	hd_pos = find_heredoc((char*)cmd->content);

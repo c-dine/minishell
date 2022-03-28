@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 20:09:53 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 19:23:28 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	ft_process_line(char *line, t_prog *minishell)
 		return (1);
 	signal(SIGQUIT, SIG_DFL);/** Modifie le ctrl + \ pour interrompre programme en cours **/
 	if (ft_parsing(line, minishell) == -1)
-		return (-1);
+		return (1);
     // check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
 	ft_check_cmds(minishell);
     // set pipes with fds && fork processes avec distinction entre builtins et cmds
