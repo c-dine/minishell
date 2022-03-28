@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/26 18:11:57 by cdine            ###   ########.fr        #
+#    Updated: 2022/03/28 18:56:23 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS			=	src/main.c \
 					src/builtins/ft_export.c \
 					src/builtins/ft_unset.c \
 					src/builtins/ft_cd.c \
-					src/hd_list/hd_lstnew.c
+					src/hd_list/hd_lstnew.c \
+					src/quotes.c
 					# src/pipes.c 
 OBJS			= 	$(SRCS:.c=.o)
 

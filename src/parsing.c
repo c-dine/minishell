@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 20:08:50 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:58:41 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void clean_cmd(t_block *res, char *str)
 	i = 0;
 	while (res->cmd[i])
 	{
-		res->cmd[i] = remove_quotes(res->cmd[i]);
+		res->cmd[i] = ft_quotes(res->cmd[i]);
 		i++;
 	}
 }
@@ -123,11 +123,11 @@ int	parse_duoput(t_block *res, char *str, int *i)
 	mempush(&temp, sizeof(char), *i - marker + 1);
 	ft_strlcpy(temp, &str[marker], *i - marker + 1);
 	if (tmp == 0)
-		res->input = add_to_duotab(res->input, temp);
+		res->input = add_to_duotab(res->input, ft_quotes(temp));
 	else if (tmp == 1)
-		res->output = add_to_duotab(res->output, temp);
+		res->output = add_to_duotab(res->output, ft_quotes(temp));
 	else if (tmp == 2)
-		res->outputs_append = add_to_duotab(res->outputs_append, temp);
+		res->outputs_append = add_to_duotab(res->outputs_append, ft_quotes(temp));
 	else if (tmp == 3) // EN CAS DE HEREDOC ON PASSE INPUT EN TYPE 2
 		res->input_type = 2;
 	return (0);

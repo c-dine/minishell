@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 20:12:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:56:49 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			get_fd(int *fd_tab);
 int			ft_nblen(int nb);
 char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);
+char		*ft_quotes(char *str);
 
 
 /** ERRORS **/
