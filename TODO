@@ -4,7 +4,6 @@
     131: ctrld+d dans cmd inf (?? pas sur)
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
 - ctrl+c dans boucle inf de cat affiche minishell 2x
-- heredoc -> cat << EOF -> \n au debut et pas a la fin
 - lors de l'echec d'execve (= execute un fichier existant non executable), pour quitter
     il faut exit autant de fois que d'execve rates
 
@@ -16,8 +15,7 @@ cdine:
 - var replacement -> single quotes ne marche pas dans double quotes -> CMD : echo $USER "'$USER'"
 
 ntan
-- ctrl + \ sur boucle inf avec cat
-- \n sur le heredoc
-- no such file or directory apres heredoc
-- ctrl+c marche pas dans heredoc
-- heredoc doit s'arreter a pile le mot delimiteur pas plus pas moins
+-	heredoc double quote
+-	heredoc expands
+- 	signaux
+-	echo salut > "truc"

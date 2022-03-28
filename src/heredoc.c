@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 14:44:13 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:22:30 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ char	*hd_strjoin(char const *s1, char const *s2)
 	j = 0;
 	res = NULL;
 	mempush(&res, sizeof(char), ft_strlen((char *)s1) + 1 + ft_strlen((char *)s2) + 1);
-	if (res == NULL)
-		return (NULL);
 	while (s1[i])
-		res[j++] = s1[i++];
-	res[j++] = '\n'; 
+		res[j++] = s1[i++]; 
 	i = 0;
 	while (s2[i])
 		res[j++] = s2[i++];
+	res[j++] = '\n';	
 	res[j++] = '\0';
 	return (res);
 }
@@ -83,10 +81,18 @@ char *find_delim(char *str)
 		|| str[i] == '<' || str[i] == '\0')
 		return (NULL);
 	marker = i;
-	while (str[i] != '\0' && str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] != ' ')
+	if (str[i] == '"' || str[i] == '\'')
+	{
+		str = ft_split(&str[i], '<')[0];
+		str = ft_split(str, '>')[0];
+	}
+	printf("%s\n", str);
+	i = 0;
+	while (str[i] != '\0')
 		i++;
 	mempush(&res, sizeof(char), i - marker + 1);
 	ft_strlcpy(res, &str[marker], i - marker + 1);
+	printf("res = %s\n", res);
 	return (res);
 }
 
@@ -99,6 +105,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
+		printf("delim = |%s|\n", delim);
 		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		res = hd_strjoin(res, buf);
@@ -137,6 +144,7 @@ t_heredoc *add_heredoc(t_list *cmd)
 	t_heredoc	*heredoc;
 	char		*hd_pos;/** RETOURNE LA POSITTION A PARTI DU DEUXIEME CHEVRON **/
 
+	printf("%s\n", (char*)cmd->content);
 	mempush(&heredoc, sizeof(*heredoc), 1);
 	heredoc->fd = -1;
 	hd_pos = find_heredoc((char*)cmd->content);
