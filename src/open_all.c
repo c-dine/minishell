@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/27 20:08:32 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/28 20:17:29 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ int	open_pipes(t_block *block)
 	mempush(&fd, sizeof(int), 2);
 	block->pipe = fd;
 	if (block->cmd_i != 0)
-		pipe(fd);
+	{		
+		if (pipe(fd) == -1)
+			return (ft_error(TOO_MANY_FDS, "pipe error", 129), 1);
+	}
 	else
 	{
 		block->pipe[0] = -2;

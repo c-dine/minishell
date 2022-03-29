@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/29 15:11:18 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/29 15:14:17 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,8 @@ int	parse_cmd(t_prog *msh)
 		if (cmd_to_block(temp) == NULL)
 			return (-1);
 		temp->content->cmd_i = cmd_i;
-		open_pipes(temp->content);
+		if (open_pipes(temp->content) == 1)
+			return (-1);
 		temp->content->heredoc = temp_hd->content;
 		temp->content->pid = -2;
 		// printf("heredoc str : %s\n", temp->content->heredoc->str);

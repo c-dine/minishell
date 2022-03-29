@@ -6,13 +6,14 @@
 - ctrl+c dans boucle inf de cat affiche minishell 2x
 - lors de l'echec d'execve (= execute un fichier existant non executable), pour quitter
     il faut exit autant de fois que d'execve rates
+- couleurs bugs
 
 Leaks ? :
 - fuites memoire quand exit du process enfant quand probleme de fichier -> CMD : < lolilolol cat
 - leaks getcwd
 
 cdine:
-- var replacement -> single quotes ne marche pas dans double quotes -> CMD : echo $USER "'$USER'"
+- ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
 
 ntan
 -	heredoc se lance sans delim
