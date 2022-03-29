@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/29 16:40:17 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/29 17:12:15 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,13 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
-		printf("delim = |%s|\n", delim);
+		if (buf == NULL)
+		{
+			ft_error(BASH_WARNING, "warning: here-document delimited by end of file", 0);
+			// printf("(wanted `%s')", delim);
+			break ;
+		}
+		// printf("delim = |%s|\n", delim);
 		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		res = hd_strjoin(res, buf);
@@ -142,7 +148,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc)
 		{
 			delim = find_delim(&str[i]);
 			if (delim == NULL)
-				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL);
+				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon
 			heredoc_prompt(heredoc, delim);
 		}
 		i++;

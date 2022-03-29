@@ -16,11 +16,11 @@ cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
 
 ntan
--	heredoc se lance sans delim
-- 	print error avec ctrl D
+-	heredoc se lance sans delim								ok
+- 	print error avec ctrl D									ok
 -	heredoc double quote 									(y a moyen c bon)
 -	heredoc expands tester $"HOME" "$HOME"
 - 	signaux faire des trucs avec l'entree standard
 -	echo salut > "truc"										(askiparait c bon)
 - 	def signaux 
--	ft_quotes laisse des espaces a la fin parfois
+-	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
