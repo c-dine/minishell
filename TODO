@@ -17,8 +17,10 @@ cdine:
 
 ntan
 -	heredoc se lance sans delim
+- 	print error avec ctrl D
 -	heredoc double quote 									(y a moyen c bon)
 -	heredoc expands tester $"HOME" "$HOME"
 - 	signaux faire des trucs avec l'entree standard
 -	echo salut > "truc"										(askiparait c bon)
 - 	def signaux 
+-	ft_quotes laisse des espaces a la fin parfois

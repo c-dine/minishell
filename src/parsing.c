@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/29 15:14:17 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/29 16:30:06 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,6 @@ int	ft_parsing(char *line, t_prog *minishell)
 		i++;
 	}
 	if (parse_cmd(minishell) == -1)
-		return (-1);
+		return (-1); 
 	return (0);
 }

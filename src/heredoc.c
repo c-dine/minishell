@@ -6,11 +6,23 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 20:17:33 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/29 16:40:17 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	rm_end_spaces(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while(i >= 0 && str[i] == ' ')
+	{
+		str[i] = '\0';
+		i--;
+	}
+}
 
 char	*hd_strjoin(char const *s1, char const *s2)
 {
@@ -94,7 +106,9 @@ char *find_delim(char *str)
 		ft_strlcpy(res, &str[marker], i - marker + 1);
 		return (res);
 	}
-	return (ft_quotes(str));
+	str = ft_quotes(str);
+	rm_end_spaces(str);
+	return (str);
 }
 
 void	heredoc_prompt(t_heredoc *heredoc, char *delim)
@@ -106,7 +120,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	while (1)
 	{
 		buf = readline("heredoc>");
-		// printf("delim = |%s|\n", delim);
+		printf("delim = |%s|\n", delim);
 		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		res = hd_strjoin(res, buf);
@@ -115,20 +129,25 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 	heredoc->str = res;
 }
 
-void	print_heredoc(char *str, t_heredoc *heredoc)
+void	*print_heredoc(char *str, t_heredoc *heredoc)
 {
 	int i;
+	char *delim;
 
 	i = 1;
+	delim = NULL;
 	while (str[i])
 	{
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
-			// printf("%s\n", &str[i]);
-			heredoc_prompt(heredoc, find_delim(&str[i]));
+			delim = find_delim(&str[i]);
+			if (delim == NULL)
+				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL);
+			heredoc_prompt(heredoc, delim);
 		}
 		i++;
-	}	
+	}
+	return ((void*)1);
 }
 
 // int fill_heredoc(t_heredoc *heredoc, char *str)
@@ -151,12 +170,8 @@ t_heredoc *add_heredoc(t_list *cmd)
 	hd_pos = find_heredoc((char*)cmd->content);
 	if (hd_pos == NULL)
 		return (heredoc);
-	print_heredoc((char*)cmd->content, heredoc);
-	// else
-	// {
-	// 	if (fill_heredoc(heredoc, hd_pos) == -1)
-	// 		return (NULL);
-	// }
+	if (print_heredoc((char*)cmd->content, heredoc) == NULL)
+		return (NULL);
 	return (heredoc);
 }
 
