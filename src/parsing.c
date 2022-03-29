@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 18:58:41 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/29 15:11:18 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,36 @@ char	*remove_quotes(char *str)
 void clean_cmd(t_block *res, char *str)
 {
 	int i;
-
+	
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '<' || str[i] == '>')
 		{
 			str[i++] = ' ';
-			if (str[i] == '>')
+			if (str[i] == '>' || str[i] == '<')
 				str[i++] = ' ';
-			if (str[i] == '<')
-				str[i++] = ' ';
-			while (str[i] == ' ')
+			while (str[i] && str[i] == ' ')
 				i++;
-			while (str[i] && str[i] != ' ' && str[i] != '|')
-				str[i++] = ' ';
+			if (str[i] == '"')
+			{
+				str[i] = ' ';
+				while (str[++i] && str[i] != '"')
+					str[i] = ' ';
+				str[i] = ' ';
+			}
+			else if (str[i] == '\'')
+			{
+				str[i] = ' ';
+				while (str[++i] && str[i] != '\'')
+					str[i] = ' ';
+				str[i] = ' ';
+			}
+			else
+			{
+				while (str[i] && str[i] != '|' && str[i] != ' ')
+					str[i++] = ' ';
+			}
 		}
 		else
 			i++;

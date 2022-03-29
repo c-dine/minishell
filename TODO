@@ -15,8 +15,9 @@ cdine:
 - var replacement -> single quotes ne marche pas dans double quotes -> CMD : echo $USER "'$USER'"
 
 ntan
--	heredoc double quote
+-	heredoc se lance sans delim
+-	heredoc double quote 									(y a moyen c bon)
 -	heredoc expands tester $"HOME" "$HOME"
 - 	signaux faire des trucs avec l'entree standard
--	echo salut > "truc"
+-	echo salut > "truc"										(askiparait c bon)
 - 	def signaux 
