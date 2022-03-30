@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/29 16:30:06 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 12:22:24 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void clean_cmd(t_block *res, char *str)
 			i++;
 	}
 	res->cmd = ft_split(str, ' ');
+	if (ft_strncmp(res->cmd[0], "cat", 3) == 0);
+		res->sig_status = 1;
 	i = 0;
 	while (res->cmd[i])
 	{
@@ -162,6 +164,7 @@ void	init_block(t_block *res)
 	res->outputs_append[0] = 0;
 	res->input_fd = -2;
 	res->output_fd = -2;
+	res->sig_status = 0;
 }
 
 int find_output_type(char *cmd)
@@ -228,8 +231,6 @@ char *cmd_to_block(t_list *cmd)
 	return (str);
 }
 
-
-
 /** msh = minishell raccourci**/
 int	parse_cmd(t_prog *msh)
 {
@@ -260,7 +261,6 @@ int	parse_cmd(t_prog *msh)
 	}
 	return (0);
 }
-
 
 int	ft_parsing(char *line, t_prog *minishell)
 {

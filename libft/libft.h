@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/26 17:59:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/03/30 12:20:16 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct	s_block
 
 	// HEREDOC
 	t_heredoc	*heredoc;
+
+	int			sig_status;
 }				t_block;
 
 typedef struct s_list

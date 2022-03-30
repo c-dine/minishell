@@ -19,8 +19,9 @@ ntan
 -	heredoc se lance sans delim								ok
 - 	print error avec ctrl D									ok
 -	heredoc double quote 									(y a moyen c bon)
--	heredoc expands tester $"HOME" "$HOME"
+-	heredoc expands tester $"HOME" "$HOME"					ca marche ? mais bug sur $"HOME"
 - 	signaux faire des trucs avec l'entree standard
 -	echo salut > "truc"										(askiparait c bon)
-- 	def signaux 
+- 	def signaux
 -	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
+- 	echo $"HOME" -> echo HOME" -> quote not closed

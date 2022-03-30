@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/28 19:26:39 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 12:08:24 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_prog(&minishell, envp);
-	signal(SIGINT, signal_manager);
+	
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, signal_manager);
+		signal(SIGQUIT, signal_manager);
 		if (error_code > 0)
 		{
 			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &minishell) == 1)
@@ -34,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 				break ;
 		}
 	}
+	printf("BY MINISHELL\n");
 	rl_clear_history();
 	memrelease();
 	return (0);

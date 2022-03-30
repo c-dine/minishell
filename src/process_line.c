@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/29 16:30:22 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 11:55:17 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,14 @@ int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
 	
-	if (ft_strlen(line) != 0)
+	if (line && ft_strlen(line) != 0)
 		add_history(line);
 	if (line)
 		line = replace_var(line, minishell);
 	else
 		return (1);
 	signal(SIGQUIT, SIG_DFL);
+	// printf("%s\n", line);
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);  // -1 pour que ca relance la boucle du main
     // check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin

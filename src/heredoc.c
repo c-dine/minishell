@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/29 17:12:15 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 11:42:47 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char *find_delim(char *str)
 	return (str);
 }
 
-void	heredoc_prompt(t_heredoc *heredoc, char *delim)
+void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 {
 	char *buf;
 	char *res;
@@ -129,13 +129,14 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim)
 		// printf("delim = |%s|\n", delim);
 		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
+		buf = replace_var(buf, msh);
 		res = hd_strjoin(res, buf);
 		free(buf);
 	}
 	heredoc->str = res;
 }
 
-void	*print_heredoc(char *str, t_heredoc *heredoc)
+void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 {
 	int i;
 	char *delim;
@@ -149,7 +150,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc)
 			delim = find_delim(&str[i]);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon
-			heredoc_prompt(heredoc, delim);
+			heredoc_prompt(heredoc, delim, msh);
 		}
 		i++;
 	}
@@ -165,7 +166,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc)
 // 	return (1);
 // }
 
-t_heredoc *add_heredoc(t_list *cmd)
+t_heredoc *add_heredoc(t_list *cmd, t_prog *msh)
 {
 	t_heredoc	*heredoc;
 	char		*hd_pos;/** RETOURNE LA POSITTION A PARTI DU DEUXIEME CHEVRON **/
@@ -176,7 +177,7 @@ t_heredoc *add_heredoc(t_list *cmd)
 	hd_pos = find_heredoc((char*)cmd->content);
 	if (hd_pos == NULL)
 		return (heredoc);
-	if (print_heredoc((char*)cmd->content, heredoc) == NULL)
+	if (print_heredoc((char*)cmd->content, heredoc, msh) == NULL)
 		return (NULL);
 	return (heredoc);
 }
@@ -192,7 +193,7 @@ void *ft_heredoc(t_prog *msh)
 	msh->heredocs = temp2;
 	while (temp)
 	{
-		temp2->next = hd_lstnew(add_heredoc(temp));
+		temp2->next = hd_lstnew(add_heredoc(temp, msh));
 		if (temp2->next->content == NULL)
 			return (NULL); //AAAAAAA define error
 		temp = temp->next;
