@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 15:42:31 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 17:36:18 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 			break ;
 		}
 		// printf("delim = |%s|\n", delim);
-		if (buf == NULL || (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
+		if ((ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
 			break;
 		buf = replace_var(buf, msh);
 		res = hd_strjoin(res, buf);
@@ -193,7 +193,7 @@ void *ft_heredoc(t_prog *msh)
 	msh->heredocs = temp2;
 	while (temp)
 	{
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, signal_heredoc);
 		temp2->next = hd_lstnew(add_heredoc(temp, msh));
 		sigaction(SIGINT, &msh->sa, NULL);
 		if (temp2->next->content == NULL)

@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 15:24:56 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 17:56:03 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	signal_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		error_code = 130;
-		printf("\n");
+		write(0, "QUIT", 5);
 	}
 }
