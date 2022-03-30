@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 11:42:47 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 15:42:31 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,18 +187,19 @@ void *ft_heredoc(t_prog *msh)
 	t_hd_list	*temp2;
 	t_list		*temp;
 
-	signal(SIGINT, signal_heredoc);
+	
 	temp = msh->cmds->next;
 	temp2 = hd_lstnew(NULL);
 	msh->heredocs = temp2;
 	while (temp)
 	{
+		signal(SIGINT, SIG_DFL);
 		temp2->next = hd_lstnew(add_heredoc(temp, msh));
+		sigaction(SIGINT, &msh->sa, NULL);
 		if (temp2->next->content == NULL)
 			return (NULL); //AAAAAAA define error
 		temp = temp->next;
 		temp2 = temp2->next;
 	}
-	signal(SIGINT, signal_manager);
 	return ((void*)1);
 }

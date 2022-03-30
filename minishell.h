@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 12:20:21 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 15:35:01 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ extern int error_code;
 // STRUCTURE DU PROGRAMME
 typedef struct	s_prog
 {
-	char 		**envp;
-	char		**export;
-	t_list		*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
-	t_list		*garbage;
-	t_hd_list	*heredocs;
+	char 				**envp;
+	char				**export;
+	t_list				*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
+	t_list				*garbage;
+	t_hd_list			*heredocs;
+	struct sigaction	sa;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
@@ -86,7 +87,7 @@ void		ft_check_cmds(t_prog *msh);
 char		*remove_quotes(char *str);
 
 /** LES SIGNAUX **/
-void		signal_manager(int sig);
+void		signal_manager(int sig, siginfo_t *si, void *unused);
 void		signal_heredoc(int sig);
 
 /** OPENS FUNCTIONS **/

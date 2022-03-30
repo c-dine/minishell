@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 12:22:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 15:31:47 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void clean_cmd(t_block *res, char *str)
 			i++;
 	}
 	res->cmd = ft_split(str, ' ');
-	if (ft_strncmp(res->cmd[0], "cat", 3) == 0);
-		res->sig_status = 1;
+	// if (ft_strncmp(res->cmd[0], "cat", 3) == 0)
+	// 	res->sig_status = 1;
 	i = 0;
 	while (res->cmd[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 12:08:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/30 15:37:59 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,35 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prog	minishell;
+	t_prog	msh;
 
 	(void)argc;
 	(void)argv;
-	init_prog(&minishell, envp);
+	init_prog(&msh, envp);
+
+	struct sigaction sa;
+
+    sa.sa_flags = SA_SIGINFO;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_sigaction = signal_manager;
+	msh.sa = sa;
 	
 	while (1)
 	{
-		signal(SIGINT, signal_manager);
-		signal(SIGQUIT, signal_manager);
+		sigaction(SIGINT, &msh.sa, NULL);
+		sigaction(SIGQUIT, &msh.sa, NULL);
 		if (error_code > 0)
 		{
-			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &minishell) == 1)
+			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &msh) == 1)
 				break ;
 		}
 		else
 		{
-			if (ft_process_line(readline("\e[1;32mminishell> \e[0m"), &minishell) == 1)
+			if (ft_process_line(readline("\e[1;32mminishell> \e[0m"), &msh) == 1)
 				break ;
 		}
 	}
-	printf("BY MINISHELL\n");
+	printf("BYE MINISHELL\n");
 	rl_clear_history();
 	memrelease();
 	return (0);
