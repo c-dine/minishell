@@ -3,7 +3,6 @@
     130: ctrl+c dans cmd en cours (cat, heredoc)
     131: ctrld+d dans cmd inf (?? pas sur)
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
-- ctrl+c dans boucle inf de cat affiche minishell 2x
 - lors de l'echec d'execve (= execute un fichier existant non executable), pour quitter
     il faut exit autant de fois que d'execve rates
 - couleurs bugs

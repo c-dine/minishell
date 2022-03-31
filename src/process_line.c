@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/30 15:25:21 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/31 15:12:36 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 	{
 		/**SIGNAL DU CHILD**/
 		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (open_fds(cmd->content) == -1)
 		{
 			close_all_pipes(beginning);
@@ -138,7 +139,6 @@ int	ft_process_line(char *line, t_prog *minishell)
 		line = replace_var(line, minishell);
 	else
 		return (1);
-	signal(SIGQUIT, SIG_DFL);
 	// printf("%s\n", line);
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);  // -1 pour que ca relance la boucle du main

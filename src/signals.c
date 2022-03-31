@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 17:56:03 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/31 15:34:19 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+	}
+}
+
+void	signal_quit(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		
 	}
 }
 

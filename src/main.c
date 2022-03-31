@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 15:37:59 by ntan             ###   ########.fr       */
+/*   Updated: 2022/03/31 15:11:02 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		sigaction(SIGINT, &msh.sa, NULL);
-		sigaction(SIGQUIT, &msh.sa, NULL);
+		signal(SIGQUIT, SIG_IGN);
 		if (error_code > 0)
 		{
 			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &msh) == 1)
