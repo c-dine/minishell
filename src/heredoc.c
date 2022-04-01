@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 17:36:18 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/01 13:17:30 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char *find_delim(char *str)
 	return (str);
 }
 
-void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
+void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh, int save_in)
 {
 	char *buf;
 	char *res;
@@ -136,7 +136,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 	heredoc->str = res;
 }
 
-void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
+void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh, int save_in)
 {
 	int i;
 	char *delim;
@@ -150,7 +150,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 			delim = find_delim(&str[i]);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon
-			heredoc_prompt(heredoc, delim, msh);
+			heredoc_prompt(heredoc, delim, msh, save_in);
 		}
 		i++;
 	}
@@ -166,7 +166,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 // 	return (1);
 // }
 
-t_heredoc *add_heredoc(t_list *cmd, t_prog *msh)
+t_heredoc *add_heredoc(t_list *cmd, t_prog *msh, int save_in)
 {
 	t_heredoc	*heredoc;
 	char		*hd_pos;/** RETOURNE LA POSITTION A PARTI DU DEUXIEME CHEVRON **/
@@ -177,7 +177,7 @@ t_heredoc *add_heredoc(t_list *cmd, t_prog *msh)
 	hd_pos = find_heredoc((char*)cmd->content);
 	if (hd_pos == NULL)
 		return (heredoc);
-	if (print_heredoc((char*)cmd->content, heredoc, msh) == NULL)
+	if (print_heredoc((char*)cmd->content, heredoc, msh, save_in) == NULL)
 		return (NULL);
 	return (heredoc);
 }
@@ -186,15 +186,16 @@ void *ft_heredoc(t_prog *msh)
 {
 	t_hd_list	*temp2;
 	t_list		*temp;
-
+	int			save_in;
 	
 	temp = msh->cmds->next;
 	temp2 = hd_lstnew(NULL);
 	msh->heredocs = temp2;
 	while (temp)
 	{
+		save_in = dup(STDIN_FILENO);
 		signal(SIGINT, signal_heredoc);
-		temp2->next = hd_lstnew(add_heredoc(temp, msh));
+		temp2->next = hd_lstnew(add_heredoc(temp, msh, save_in));
 		sigaction(SIGINT, &msh->sa, NULL);
 		if (temp2->next->content == NULL)
 			return (NULL); //AAAAAAA define error
