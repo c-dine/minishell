@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 13:17:30 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/01 14:35:45 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char *find_delim(char *str)
 	return (str);
 }
 
-void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh, int save_in)
+int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh, int save_in)
 {
 	char *buf;
 	char *res;
@@ -119,11 +119,15 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh, int save_in)
 	res = "";
 	while (1)
 	{
-		buf = readline("heredoc>");
+		buf = readline("heredoc> ");
 		if (buf == NULL)
 		{
-			ft_error(BASH_WARNING, "warning: here-document delimited by end of file", 0);
-			// printf("(wanted `%s')", delim);
+			if (error_code == 130)
+			{
+				dup2(save_in, STDIN_FILENO);
+				return (1);
+			}
+			ft_error(BASH_WARNING, "warning: here-document delimited by end-of-file", 0);
 			break ;
 		}
 		// printf("delim = |%s|\n", delim);
@@ -134,6 +138,7 @@ void	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh, int save_in)
 		free(buf);
 	}
 	heredoc->str = res;
+	return (0);
 }
 
 void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh, int save_in)
@@ -148,9 +153,11 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh, int save_in)
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
 			delim = find_delim(&str[i]);
+			rm_end_spaces(delim);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon
-			heredoc_prompt(heredoc, delim, msh, save_in);
+			if (heredoc_prompt(heredoc, delim, msh, save_in) == 1)
+				return (NULL);
 		}
 		i++;
 	}
