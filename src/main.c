@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 12:45:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/01 16:38:28 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,14 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_prog	msh;
-
+	struct sigaction sa;
 	(void)argc;
 	(void)argv;
-	init_prog(&msh, envp);
-
-	struct sigaction sa;
-
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_sigaction = signal_manager;
-	msh.sa = sa;
 	
+	init_prog(&msh, envp, &sa);
 	while (1)
 	{
-		sigaction(SIGINT, &msh.sa, NULL);
+		sigaction(SIGINT, &sa, NULL);
 		signal(SIGQUIT, SIG_IGN);
 		if (error_code > 0)
 		{

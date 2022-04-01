@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 15:35:01 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/01 16:34:32 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ typedef struct	s_prog
 	t_list				*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list				*garbage;
 	t_hd_list			*heredocs;
-	struct sigaction	sa;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/
-void		init_prog(t_prog *minishell, char **envp);
+void		init_prog(t_prog *minishell, char **envp, struct sigaction *sa);
 int			ft_process_line(char *line, t_prog *minishell);
 void		close_all_pipes(t_list *beg_all_pipes);
 void		close_trioput_fd(t_list *cmd);
@@ -89,6 +88,7 @@ char		*remove_quotes(char *str);
 /** LES SIGNAUX **/
 void		signal_manager(int sig, siginfo_t *si, void *unused);
 void		signal_heredoc(int sig);
+void		signal_bs(int sig);
 
 /** OPENS FUNCTIONS **/
 int			open_fds(t_block *block);

@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 14:22:12 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/01 17:19:36 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,14 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 			printf("\n");
 		error_code = 130;
 	}
-	else if (sig == SIGQUIT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
 }
 
-void	signal_quit(int sig)
+void	signal_bs(int sig)
 {
-	if (sig == SIGQUIT)
-	{
-		
-	}
+	(void)sig;
+	error_code = 131;
+	printf(" \n");
+	// signal(SIGQUIT, SIG_DFL);
 }
 
 void	signal_heredoc(int sig)
