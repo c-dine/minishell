@@ -70,6 +70,7 @@ typedef struct	s_prog
 	t_list				*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
 	t_list				*garbage;
 	t_hd_list			*heredocs;
+	struct sigaction	sa;
 }				t_prog;
 
 /** FONCTION DEMMARAGE ET FIN**/

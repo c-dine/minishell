@@ -15,14 +15,13 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_prog	msh;
-	struct sigaction sa;
 	(void)argc;
 	(void)argv;
 	
-	init_prog(&msh, envp, &sa);
+	init_prog(&msh, envp, &msh.sa);
 	while (1)
 	{
-		sigaction(SIGINT, &sa, NULL);
+		sigaction(SIGINT, &msh.sa, NULL);
 		signal(SIGQUIT, SIG_IGN);
 		if (error_code > 0)
 		{

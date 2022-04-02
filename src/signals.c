@@ -37,7 +37,7 @@ void	signal_bs(int sig)
 	(void)sig;
 	error_code = 131;
 	printf(" \n");
-	// signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	signal_heredoc(int sig)
