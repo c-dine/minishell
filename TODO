@@ -3,8 +3,6 @@
     130: ctrl+c dans cmd en cours (cat, heredoc)
     131: ctrld+d dans cmd inf (?? pas sur)
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
-- lors de l'echec d'execve (= execute un fichier existant non executable), pour quitter
-    il faut exit autant de fois que d'execve rates
 - couleurs bugs
 - ouvre sous shell quand met slash /
 
@@ -14,6 +12,9 @@ Leaks ? :
 
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
+- lors de l'echec d'execve (= execute un fichier existant 	ok
+	non executable), pour quitter il faut exit autant de 
+	fois que d'execve rates
 - 	echo $"HOME" -> echo HOME" -> quote not closed			ok
 -	ne repere pas le heredoc place avant la commande		ok
 - dans builtin in -> check existance des mots apres commande

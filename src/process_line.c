@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/03 16:27:36 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 18:26:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	wait_children(t_prog *msh)
 {
 	t_list	*temp;
 	int		err;
-	
+
 	err = -1;
 	temp = msh->cmds->next;
 	while (temp)
@@ -43,14 +43,20 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		{
 			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
 				ft_error(FILENAME_REQUIRED, ".", 2);
-			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
-				exit(2);
 			else if (cmd->content->cmd_path == NULL || (cmd->content->cmd && (cmd->content->cmd[0][0] == '\0' || ft_strncmp(cmd->content->cmd[0], "..", 2) == 0)))
 				ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127);
 			else
 				ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127);
+			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
+				exit(2);
 			close_all_pipes(beginning);
 			exit(127);
+		}
+		if (cmd->content->cmd_type == 1 && access(cmd->content->cmd[0], X_OK) == -1)
+		{
+			ft_error(PERMISSION_DENIED, cmd->content->cmd_path, 126);
+			close_all_pipes(beginning);
+			exit(126);
 		}
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
@@ -104,7 +110,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 void	no_cmd(t_list *cmd)
 {
 	open_fds(cmd->content);
-	close_trioput_fd(cmd);	
+	close_trioput_fd(cmd);
 }
 
 int	ft_processes(t_prog *msh)
@@ -151,7 +157,8 @@ int	ft_check_specialchar(char *line)
 			tmp++;
 			error_code = 1;
 		}
-		i++;
+		if (line[i])
+			i++;
 	}
 	if (tmp == 1 && line[i] == '\0')
 		return (1);
@@ -162,16 +169,17 @@ int	ft_check_specialchar(char *line)
 int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
-	
+
 	if (line && ft_strlen(line) != 0)
 		add_history(line);
 	if (line)
 		line = replace_var(line, minishell);
 	else
 		return (1);
+	if (line == NULL)
+		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1), -1);
 	if (ft_check_specialchar(line) == 1)
 		return (0);
-	// printf("%s\n", line);
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);  // -1 pour que ca relance la boucle du main
     // check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
