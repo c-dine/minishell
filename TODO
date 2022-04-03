@@ -13,6 +13,7 @@ Leaks ? :
 
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
+- 	echo $"HOME" -> echo HOME" -> quote not closed			ok
 
 ntan
 -	heredoc se lance sans delim								ok
@@ -23,4 +24,3 @@ ntan
 -	echo salut > "truc"										(askiparait c bon)
 - 	def signaux
 -	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
-- 	echo $"HOME" -> echo HOME" -> quote not closed

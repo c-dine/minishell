@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/16 21:05:41 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/03 11:20:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 #include "libft.h"
 
 static int	ft_count(char const *s, char c)
@@ -82,10 +83,7 @@ char	**ft_split(char const *s, char c)
 
 	// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
 	if (!s || ft_count(s, c) == -1)
-	{
-		printf("minishell: quote not closed\n");
-		return (NULL);
-	}
+		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1));
 	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
 	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
