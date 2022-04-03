@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 15:37:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/03 13:27:59 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char *find_delim(char *str)
 	}
 	else
 	{
-		while (str[i] && str[i] != '<' && str[i] != '>')
+		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != ' ')
 			i++;
 		mempush(&res, sizeof(char), i - marker + 1);
 		ft_strlcpy(res, &str[marker], i - marker + 1);
@@ -134,7 +134,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 			break ;
 		}
 		// printf("delim = |%s|\n", delim);
-		if ((ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim)))
+		if (ft_strncmp(delim, buf, ft_strlen(buf)) == 0 && ft_strlen(buf) == ft_strlen(delim))
 			break;
 		buf = replace_var(buf, msh);
 		res = hd_strjoin(res, buf);
@@ -156,6 +156,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
 			delim = find_delim(&str[i]);
+			printf("%s\n", delim);
 			rm_end_spaces(delim);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon
