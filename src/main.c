@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 16:38:28 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/03 14:57:58 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ int	main(int argc, char **argv, char **envp)
 	{
 		sigaction(SIGINT, &msh.sa, NULL);
 		signal(SIGQUIT, SIG_IGN);
-		if (error_code > 0)
-		{
-			if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &msh) == 1)
-				break ;
-		}
-		else
-		{
-			if (ft_process_line(readline("\e[1;32mminishell> \e[0m"), &msh) == 1)
-				break ;
-		}
+		printf("\n%d\n", error_code);
+		if (ft_process_line(readline("minishell> "), &msh) == 1)
+			break ;
+		// if (error_code > 0)
+		// {
+		// 	if (ft_process_line(readline("\e[1;31mminishell> \e[0m"), &msh) == 1)
+		// 		break ;
+		// }
+		// else
+		// {
+		// 	if (ft_process_line(readline("\e[1;32mminishell> \e[0m"), &msh) == 1)
+		// 		break ;
+		// }
 	}
 	printf("BYE MINISHELL\n");
 	rl_clear_history();

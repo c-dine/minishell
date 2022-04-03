@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/03 12:00:08 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 16:19:59 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ char *cmd_to_block(t_list *cmd)
 		{
 			i++;
 			if (parse_duoput(res, str, &i) == 1)
-				return (ft_error(PARSE_ERROR, NULL, 2), NULL);
+				return (ft_error(PARSE_ERROR, "minishell", 2), NULL);
 		}
 		else
 			i++;
@@ -262,12 +262,38 @@ int	parse_cmd(t_prog *msh)
 	return (0);
 }
 
+int	ft_check_pipe_parse_error(char *line)
+{
+	int	i;
+	int	tmp;
+	int	pipe;
+
+	i = 0;
+	pipe = 0;
+	tmp = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '|')
+			tmp++;
+		if (line[i] == '|' && pipe == 0)
+			pipe++;
+		if (line[i] == '|' && pipe == 1 && tmp == 0)
+			return (1);
+		else if (line[i] == '|' && pipe == 1 && tmp != 0)
+			tmp = 0;
+		i++;
+	}
+	return (0);
+}
+
 int	ft_parsing(char *line, t_prog *minishell)
 {
 	char	**split_line;
 	int		i;
 	t_list	*temp;
 
+	if (ft_check_pipe_parse_error(line) == 1)
+		return (ft_error(PARSE_ERROR, "minishell", 2), -1);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)
 		return (-1);

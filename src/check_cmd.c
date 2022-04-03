@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:13:28 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 19:39:49 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 16:36:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,24 @@ void	ft_get_cmdname(char **cmd)
 	}
 }
 
+char	**ft_check_split_cmd(char **cmd)
+{
+	int	i;
+	int	space;
+
+	i = 0;
+	space = 0;
+	while (cmd[0][i])
+	{
+		if (cmd[0][i] == ' ')
+			space++;
+		i++;
+	}
+	if (space != 0)
+		cmd = ft_split(cmd[0], ' ');
+	return (cmd);
+}
+
 void	ft_check_cmds(t_prog *msh)
 {
 	t_list	*temp;
@@ -153,9 +171,12 @@ void	ft_check_cmds(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		if (temp->content->cmd[0] == NULL)
+		temp->content->cmd = ft_check_split_cmd(temp->content->cmd);
+		if (temp->content->cmd[0] == NULL || temp->content->cmd[0][0] == '\0' || ft_strncmp(temp->content->cmd[0], "..", 2) == 0 || ft_strncmp(temp->content->cmd[0], ".", 2) == 0)
 		{
 			temp->content->cmd_type = -2;
+			if (temp->content->cmd[0] && (temp->content->cmd[0][0] == '\0' || ft_strncmp(temp->content->cmd[0], "..", 2) == 0 || ft_strncmp(temp->content->cmd[0], ".", 2) == 0))
+				temp->content->cmd_type = -1;
 			temp = temp->next;
 			continue ;
 		}

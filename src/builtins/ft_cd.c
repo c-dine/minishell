@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:44:40 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 20:10:43 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 17:24:50 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,17 @@ int	ft_pwd()
 int	ft_cd(char **cmd)
 {
 	DIR	*tmp;
+	int	i;
 	
 	if (!cmd[1])
 		return (1);
+	i = 2;
+	while (cmd[i])
+	{
+		cmd[1] = ft_strjoin(cmd[1], " ");
+		cmd[1] = ft_strjoin(cmd[1], cmd[i]);
+		i++;
+	}
 	if (access(cmd[1], F_OK) == -1)
 	{
 		ft_error(FILE_NOT_FOUND, cmd[1], 1);

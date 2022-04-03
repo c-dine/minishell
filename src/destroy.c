@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/03 11:20:31 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 15:17:18 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	close_trioput_fd(t_list *cmd)
 
 void	set_err_status(int code, char *str, char *indic, int indic_type)
 {
-	if (indic_type != CMD_NOT_FOUND && indic_type != QUOTE_NOT_CLOSED)
+	if (indic_type != CMD_NOT_FOUND && indic_type != QUOTE_NOT_CLOSED
+		&& ft_strncmp(indic, "minishell", 10) != 0)
 		write(STDERR_FILENO, "minishell: ", ft_strlen("minishell: "));
 	if (indic)
 		write(STDERR_FILENO, indic, ft_strlen(indic));
@@ -85,5 +86,7 @@ void	*ft_error(int code, char *indic, int err_code)
 		set_err_status(err_code, "Too many open files", indic, code);
 	else if (code == BASH_WARNING)
 		set_err_status(err_code, "", indic, code);
+	else if (code == FILENAME_REQUIRED)
+		set_err_status(err_code, "filename argument required", indic, code);
 	return (NULL);
 }

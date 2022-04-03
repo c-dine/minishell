@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 16:34:32 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/03 15:15:38 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define FORK_ERROR 8
 # define TOO_MANY_FDS 9
 # define BASH_WARNING 10
+# define FILENAME_REQUIRED 11
 
 extern int error_code;
 

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/03 13:27:59 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/03 13:33:31 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
 			delim = find_delim(&str[i]);
-			printf("%s\n", delim);
 			rm_end_spaces(delim);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR, "no heredoc delimiter", 2), NULL); // AAAA pas pareil mais bon

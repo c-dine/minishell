@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/01 17:15:30 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/03 16:27:36 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,13 @@ int	wait_children(t_prog *msh)
 		waitpid(temp->content->pid, &err, 0);
 		temp = temp->next;
 	}
-	if (err != -1)
+	if (err != -1 && error_code == 0)
 		error_code = WEXITSTATUS(err);
 	return (0);
 }
 
 int	fork_process(t_list *cmd, t_list *beginning)
 {
-	if (cmd->content->cmd_type == -1 && (!cmd->content->cmd_path || access(cmd->content->cmd_path, F_OK) == -1))
-	{
-		if (cmd->content->cmd_path == NULL)
-			return (ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127), 1);
-		else
-			return (ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127), 1);
-	}
 	cmd->content->pid = fork();
 	if (cmd->content->pid == -1)
 		return (ft_error(FORK_ERROR, "fork", 1), 1);
@@ -46,10 +39,18 @@ int	fork_process(t_list *cmd, t_list *beginning)
 		/**SIGNAUX DU CHILD**/
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, signal_bs);
-		if (open_fds(cmd->content) == -1)
+		if (open_fds(cmd->content) == -1 || (cmd->content->cmd_type == -1 && (!cmd->content->cmd_path || access(cmd->content->cmd_path, F_OK) == -1)))
 		{
+			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
+				ft_error(FILENAME_REQUIRED, ".", 2);
+			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
+				exit(2);
+			else if (cmd->content->cmd_path == NULL || (cmd->content->cmd && (cmd->content->cmd[0][0] == '\0' || ft_strncmp(cmd->content->cmd[0], "..", 2) == 0)))
+				ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127);
+			else
+				ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127);
 			close_all_pipes(beginning);
-			exit(1);
+			exit(127);
 		}
 		if (cmd->content->input_fd != -2)
 			dup2(cmd->content->input_fd, STDIN_FILENO);
@@ -129,6 +130,35 @@ int	ft_processes(t_prog *msh)
 	return (0);
 }
 
+int	ft_check_specialchar(char *line)
+{
+	int	i;
+	int	tmp;
+
+	tmp = 0;
+	i = 0;
+	while (line[i])
+	{
+		while (line[i] == ' ')
+			i++;
+		if (line[i] == ':')
+		{
+			tmp++;
+			error_code = 0;
+		}
+		if (line[i] == '!')
+		{
+			tmp++;
+			error_code = 1;
+		}
+		i++;
+	}
+	if (tmp == 1 && line[i] == '\0')
+		return (1);
+	error_code = 0;
+	return (0);
+}
+
 int	ft_process_line(char *line, t_prog *minishell)
 {
 	int	tmp;
@@ -139,6 +169,8 @@ int	ft_process_line(char *line, t_prog *minishell)
 		line = replace_var(line, minishell);
 	else
 		return (1);
+	if (ft_check_specialchar(line) == 1)
+		return (0);
 	// printf("%s\n", line);
 	if (ft_parsing(line, minishell) == -1)
 		return (-1);  // -1 pour que ca relance la boucle du main
