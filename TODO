@@ -1,10 +1,4 @@
-- heredoc
-- exit status
-    130: ctrl+c dans cmd en cours (cat, heredoc)
-    131: ctrld+d dans cmd inf (?? pas sur)
 - quand compilation d'un fichier qui segfault -> recuperer signal segfault
-- couleurs bugs
-- ouvre sous shell quand met slash /
 
 Leaks ? :
 - fuites memoire quand exit du process enfant quand probleme de fichier -> CMD : < lolilolol cat
@@ -17,7 +11,7 @@ cdine:
 	fois que d'execve rates
 - 	echo $"HOME" -> echo HOME" -> quote not closed			ok
 -	ne repere pas le heredoc place avant la commande		ok
-- dans builtin in -> check existance des mots apres commande
+- dans builtin -> check existance des mots apres commande
 
 ntan
 -	heredoc se lance sans delim								ok
