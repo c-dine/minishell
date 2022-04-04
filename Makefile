@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
+#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/04 15:20:36 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/04 15:52:30 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS			=	src/main.c \
 					src/heredoc/heredoc_parse.c \
 					src/builtins/ft_echo.c \
 					src/builtins/ft_export.c \
+					src/builtins/ft_export_2.c \
+					src/builtins/ft_export_3.c \
 					src/builtins/ft_unset.c \
 					src/builtins/ft_cd.c \
 					src/hd_list/hd_lstnew.c \
