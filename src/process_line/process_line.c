@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:43:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:02:28 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	ft_processes(t_prog *msh)
 	return (0);
 }
 
+// return -1 pour que ca relance la boucle du main
+// check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
 
 int	ft_process_line(char *line, t_prog *minishell)
 {
@@ -78,10 +80,8 @@ int	ft_process_line(char *line, t_prog *minishell)
 	if (ft_check_specialchar(line) == 1)
 		return (0);
 	if (ft_parsing(line, minishell) == -1)
-		return (-1);  // -1 pour que ca relance la boucle du main
-    // check cmds with access ; if cmd_type == -2 -> pas de cmd, -1 -> not valid, 1 -> absolute path, 2 -> env cmd (comme ls), >= 3 -> builtin
+		return (-1);
 	ft_check_cmds(minishell);
-    // set pipes with fds && fork processes avec distinction entre builtins et cmds
 	tmp = ft_processes(minishell);
 	if (tmp == -1 || tmp == 1)
 		return (tmp);
