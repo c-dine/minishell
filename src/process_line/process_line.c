@@ -6,11 +6,11 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/03 18:26:53 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 12:48:23 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	wait_children(t_prog *msh)
 {
@@ -26,53 +26,6 @@ int	wait_children(t_prog *msh)
 	}
 	if (err != -1 && error_code == 0)
 		error_code = WEXITSTATUS(err);
-	return (0);
-}
-
-int	fork_process(t_list *cmd, t_list *beginning)
-{
-	cmd->content->pid = fork();
-	if (cmd->content->pid == -1)
-		return (ft_error(FORK_ERROR, "fork", 1), 1);
-	if (cmd->content->pid == 0)
-	{
-		/**SIGNAUX DU CHILD**/
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, signal_bs);
-		if (open_fds(cmd->content) == -1 || (cmd->content->cmd_type == -1 && (!cmd->content->cmd_path || access(cmd->content->cmd_path, F_OK) == -1)))
-		{
-			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
-				ft_error(FILENAME_REQUIRED, ".", 2);
-			else if (cmd->content->cmd_path == NULL || (cmd->content->cmd && (cmd->content->cmd[0][0] == '\0' || ft_strncmp(cmd->content->cmd[0], "..", 2) == 0)))
-				ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127);
-			else
-				ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127);
-			if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
-				exit(2);
-			close_all_pipes(beginning);
-			exit(127);
-		}
-		if (cmd->content->cmd_type == 1 && access(cmd->content->cmd[0], X_OK) == -1)
-		{
-			ft_error(PERMISSION_DENIED, cmd->content->cmd_path, 126);
-			close_all_pipes(beginning);
-			exit(126);
-		}
-		if (cmd->content->input_fd != -2)
-			dup2(cmd->content->input_fd, STDIN_FILENO);
-		else if (cmd->content->pipe[0] != -2)
-			dup2(cmd->content->pipe[0], STDIN_FILENO);
-		if (cmd->content->output_fd != -2)
-			dup2(cmd->content->output_fd, STDOUT_FILENO);
-		else if (cmd->next)
-			dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
-		close_all_pipes(beginning);
-		close_trioput_fd(cmd);
-		if (execve(cmd->content->cmd_path, cmd->content->cmd, 0) == -1)
-			return (ft_error(PERMISSION_DENIED, cmd->content->cmd_path, 126), 1);
-	}
-	else
-		close_main_process(cmd, 0);
 	return (0);
 }
 

@@ -33,5 +33,4 @@ ntan
 
 
 Mini erreurs :
-- echo oui | echo non | echo hola | grep oui
 - ifconfig|grep :

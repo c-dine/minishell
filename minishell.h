@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 12:23:43 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 12:53:42 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,24 @@ int			check_single_quote(char *line);
 void		alias_expansion(char *line, char *res, t_prog *msh);
 
 /** CHECK CMD **/
-void	ft_check_cmds(t_prog *msh);
-int		check_path(char *cmd, int check_type);
-char	*get_absolute_path(char *cmd, char **envp);
-int		check_is_builtin(char *cmd);
-void	ft_get_cmdname(char **cmd);
-char	*ft_get_envp(char **envp);
-char	*ft_strcatcmd(char *s1, char *s2);
-int		ft_findslash(char *s);
-char	**ft_check_split_cmd(char **cmd);
+void		ft_check_cmds(t_prog *msh);
+int			check_path(char *cmd, int check_type);
+char		*get_absolute_path(char *cmd, char **envp);
+int			check_is_builtin(char *cmd);
+void		ft_get_cmdname(char **cmd);
+char		*ft_get_envp(char **envp);
+char		*ft_strcatcmd(char *s1, char *s2);
+int			ft_findslash(char *s);
+char		**ft_check_split_cmd(char **cmd);
 
+/** PROCESS **/
+int			fork_process(t_list *cmd, t_list *beginning);
 
 /** Fonctions utiles **/
 char		**add_to_duotab(char **tab, char *element);
 void		print_duotab(char **tab);
 int			strlen_duotab(char **str);
-char	 	**copy_duotab(char **tab);
+char		**copy_duotab(char **tab);
 int			get_fd(int *fd_tab);
 int			ft_nblen(int nb);
 char		*get_absolute_path(char *cmd, char **envp);

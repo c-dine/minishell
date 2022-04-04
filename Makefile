@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/04 12:21:01 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/04 12:54:19 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS			=	src/main.c \
 					src/signals.c \
 					src/open_all.c \
 					src/destroy.c \
-					src/process_line.c \
+					src/process_line/process_line.c \
+					src/process_line/fork.c \
 					src/check_cmd/check_cmd_utils.c \
 					src/check_cmd/check_cmd.c \
 					src/check_cmd/put_info_check.c \
