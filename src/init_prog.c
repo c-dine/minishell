@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_prog.c                                        :+:      :+:    :+:   */
@@ -6,26 +6,20 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/09 18:58:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:46:54 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int error_code;
+int	error_code;
 
-char **init_export(char **tab)
+void	init_export_2(char **tab, char **res)
 {
-	char 	**res;
-	int		i;
-	int		j;
-	int		k;
+	int	i;
+	int	j;
+	int	k;
 
-	res = NULL;
-	i = 0;
-	while (tab[i])
-		i++;
-	mempush(&res, sizeof(char *), i + 1);
 	i = 0;
 	while (tab[i])
 	{
@@ -41,8 +35,21 @@ char **init_export(char **tab)
 		res[i][k++] = '"';
 		res[i][k] = '\0';
 		i++;
-	}	
+	}
 	res[i] = NULL;
+}
+
+char	**init_export(char **tab)
+{
+	char	**res;
+	int		i;
+
+	res = NULL;
+	i = 0;
+	while (tab[i])
+		i++;
+	mempush(&res, sizeof(char *), i + 1);
+	init_export_2(tab, res);
 	return (res);
 }
 
