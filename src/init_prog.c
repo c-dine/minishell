@@ -6,13 +6,13 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:08:10 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:14:55 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int g_error_code;
+int	g_error_code;
 
 void	init_export2(int *i, char **res, char **tab)
 {

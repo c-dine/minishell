@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:01:13 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:12:39 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 {
 	(void)unused;
 	(void)si;
-
 	if (sig == SIGINT)
 	{
 		if (si->si_pid == getpid())

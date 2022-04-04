@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:24:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:25:10 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:11:03 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_error_file_opening(char *path_file, int option)
 			return (FILE_NOT_FOUND);
 	}
 }
-
 
 int	open_and_close(char **tab, int option)
 {
