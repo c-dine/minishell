@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 11:50:45 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	size_if_dollar_sign(int *i, int *extra_size, t_prog *msh, char *line)
 {
 	if (line[*i + 1] == '?')
 	{
-		*extra_size += - (2 - ft_nblen(error_code));
+		*extra_size += - (2 - ft_nblen(g_error_code));
 		*i += 1;
 	}
 	else if (line[*i + 1] == ' ' || line[*i + 1] == '\0')

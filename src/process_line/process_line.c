@@ -6,28 +6,11 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 12:48:23 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:43:37 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	wait_children(t_prog *msh)
-{
-	t_list	*temp;
-	int		err;
-
-	err = -1;
-	temp = msh->cmds->next;
-	while (temp)
-	{
-		waitpid(temp->content->pid, &err, 0);
-		temp = temp->next;
-	}
-	if (err != -1 && error_code == 0)
-		error_code = WEXITSTATUS(err);
-	return (0);
-}
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
@@ -52,18 +35,9 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 		ft_unset(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 8)
 		print_duotab(msh->envp);
-	close_trioput_fd(cmd);
 	dup2(fd_out, STDOUT_FILENO);
-	close(fd_out);
-	close_main_process(cmd, 1);
-	error_code = 0;
+	ft_close_builtin(fd_out, cmd);
 	return (0);
-}
-
-void	no_cmd(t_list *cmd)
-{
-	open_fds(cmd->content);
-	close_trioput_fd(cmd);
 }
 
 int	ft_processes(t_prog *msh)
@@ -85,39 +59,9 @@ int	ft_processes(t_prog *msh)
 			ft_builtin(temp, msh);
 		temp = temp->next;
 	}
-	// close_all_pipes(beginning, -2, -2);
 	return (0);
 }
 
-int	ft_check_specialchar(char *line)
-{
-	int	i;
-	int	tmp;
-
-	tmp = 0;
-	i = 0;
-	while (line[i])
-	{
-		while (line[i] == ' ')
-			i++;
-		if (line[i] == ':')
-		{
-			tmp++;
-			error_code = 0;
-		}
-		if (line[i] == '!')
-		{
-			tmp++;
-			error_code = 1;
-		}
-		if (line[i])
-			i++;
-	}
-	if (tmp == 1 && line[i] == '\0')
-		return (1);
-	error_code = 0;
-	return (0);
-}
 
 int	ft_process_line(char *line, t_prog *minishell)
 {

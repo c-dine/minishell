@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/04 15:20:36 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/04 15:52:23 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,11 @@ SRCS			=	src/main.c \
 					src/variable/var_utils.c \
 					src/add_put.c \
 					src/signals.c \
-					src/open_all.c \
+					src/open_all/open_all.c \
+					src/open_all/open_other.c \
 					src/destroy.c \
 					src/process_line/process_line.c \
+					src/process_line/process_utils.c \
 					src/process_line/fork.c \
 					src/check_cmd/check_cmd_utils.c \
 					src/check_cmd/check_cmd.c \

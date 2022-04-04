@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:20:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define BASH_WARNING 10
 # define FILENAME_REQUIRED 11
 
-extern int error_code;
+extern int g_error_code;
 
 // STRUCTURE POUR CHAQUE COMMANDE
 // typedef struct	s_block
@@ -85,7 +85,6 @@ typedef struct s_index
 
 /** FONCTION DEMMARAGE ET FIN**/
 void		init_prog(t_prog *minishell, char **envp, struct sigaction *sa);
-int			ft_process_line(char *line, t_prog *minishell);
 void		close_all_pipes(t_list *beg_all_pipes);
 void		close_trioput_fd(t_list *cmd);
 void		close_main_process(t_list *node, int builtin);
@@ -109,6 +108,10 @@ void		signal_bs(int sig);
 /** OPENS FUNCTIONS **/
 int			open_fds(t_block *block);
 int			open_pipes(t_block *block);
+int			open_trioput_file(char **tab, int option);
+int			open_heredoc_fd(t_block *block);
+int			ft_error_file_opening(char *path_file, int option);
+int			open_and_close(char **tab, int option);
 
 /** VARIABLE EXPANSION **/
 char		*get_var_content(char *line, t_prog *msh);
@@ -132,6 +135,15 @@ char		**ft_check_split_cmd(char **cmd);
 
 /** PROCESS **/
 int			fork_process(t_list *cmd, t_list *beginning);
+int			wait_children(t_prog *msh);
+void		ft_close_builtin(int fd_out, t_list *cmd);
+void		no_cmd(t_list *cmd);
+int			ft_check_specialchar(char *line);
+int			ft_process_line(char *line, t_prog *minishell);
+void		dup_pipes(t_list *cmd, t_list *beginning);
+int			cmd_pb(t_list *cmd, t_list *beginning);
+int			permission_denied(t_list *cmd, t_list *beginning);
+
 
 /** Fonctions utiles **/
 char		**add_to_duotab(char **tab, char *element);
@@ -147,13 +159,14 @@ char		*ft_quotes(char *str);
 
 /** ERRORS **/
 void		*ft_error(int code, char *indic, int err_code);
+int			ft_error_file_opening(char *path_file, int option);
 
 /** Builtin **/
 void		ft_echo(char **cmd);
 int			ft_export(char **cmd, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd);
-int			ft_pwd();
+int			ft_pwd(void);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

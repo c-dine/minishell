@@ -1,25 +1,42 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_prog.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/09 18:58:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:52 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int error_code;
+int g_error_code;
 
-char **init_export(char **tab)
+void	init_export2(int *i, char **res, char **tab)
 {
-	char 	**res;
+	int	j;
+	int	k;
+
+	j = 0;
+	k = 0;
+	mempush(&res[*i], sizeof(char), ft_strlen(tab[*i]) + 3);
+	while (tab[*i][j] != '=')
+		res[*i][k++] = tab[*i][j++];
+	res[*i][k++] = tab[*i][j++];
+	res[*i][k++] = '"';
+	while (tab[*i][j])
+		res[*i][k++] = tab[*i][j++];
+	res[*i][k++] = '"';
+	res[*i][k] = '\0';
+	(*i)++;
+}
+
+char	**init_export(char **tab)
+{
+	char	**res;
 	int		i;
-	int		j;
-	int		k;
 
 	res = NULL;
 	i = 0;
@@ -28,20 +45,7 @@ char **init_export(char **tab)
 	mempush(&res, sizeof(char *), i + 1);
 	i = 0;
 	while (tab[i])
-	{
-		mempush(&res[i], sizeof(char), ft_strlen(tab[i]) + 3);
-		j = 0;
-		k = 0;
-		while (tab[i][j] != '=')
-			res[i][k++] = tab[i][j++];
-		res[i][k++] = tab[i][j++];
-		res[i][k++] = '"';
-		while (tab[i][j])
-			res[i][k++] = tab[i][j++];
-		res[i][k++] = '"';
-		res[i][k] = '\0';
-		i++;
-	}	
+		init_export2(&i, res, tab);
 	res[i] = NULL;
 	return (res);
 }
@@ -51,8 +55,8 @@ void	init_prog(t_prog *minishell, char **envp, struct sigaction *sa)
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
-	error_code = 0;
+	g_error_code = 0;
 	sa->sa_flags = SA_SIGINFO;
-    sigemptyset(&sa->sa_mask);
-    sa->sa_sigaction = signal_manager;
+	sigemptyset(&sa->sa_mask);
+	sa->sa_sigaction = signal_manager;
 }

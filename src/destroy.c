@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 12:58:31 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	set_err_status(int code, char *str, char *indic, int indic_type)
 		write(STDERR_FILENO, ": ", ft_strlen(": "));
 	write(STDERR_FILENO, str, ft_strlen(str));
 	write(STDERR_FILENO, "\n", 1);
-	error_code = code;
+	g_error_code = code;
 }
 
 void	*ft_error(int code, char *indic, int err_code)

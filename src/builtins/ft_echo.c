@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:16:21 by cdine             #+#    #+#             */
-/*   Updated: 2022/03/27 20:27:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:37:43 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,23 @@ int	is_line_break_option(char *option)
 	return (1);
 }
 
-char *put_line_together(char **str)
+void	put_line_together2(int *i, int *k, char *res, char **str)
+{
+	int	j;
+
+	j = 0;
+	while (str[*i][j])
+		res[(*k)++] = str[*i][j++];
+	(*i)++;
+	if (str[*i])
+		res[(*k)++] = ' ';
+	else
+		res[*k] = '\0';
+}
+
+char	*put_line_together(char **str)
 {
 	int		i;
-	int		j;
 	int		k;
 	int		size_res;
 	char	*res;
@@ -43,20 +56,10 @@ char *put_line_together(char **str)
 	if (!size_res)
 		return (NULL);
 	mempush(&res, sizeof(char), size_res);
-	// res = malloc(sizeof(char) * size_res);
 	i = 0;
 	k = 0;
 	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-			res[k++] = str[i][j++];
-		i++;
-		if (str[i])
-			res[k++] = ' ';
-		else
-			res[k] = '\0';
-	}
+		put_line_together2(&i, &k, res, str);
 	return (res);
 }
 
@@ -68,7 +71,6 @@ void	ft_display(char *str, int n)
 		write(1, "\n", 1);
 }
 
-// input cmd -> "echo -n -n hello les copains"
 void	ft_echo(char **cmd)
 {
 	int		i;

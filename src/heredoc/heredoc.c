@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 14:19:49 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 		buf = readline("heredoc> ");
 		if (buf == NULL)
 		{
-			if (error_code == 130)
+			if (g_error_code == 130)
 				return (ctrlc_heredoc(save_in));
 			ft_error(BASH_WARNING, hd_error(delim), 0);
 			break ;

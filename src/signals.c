@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 17:19:36 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 {
 	(void)unused;
 	(void)si;
-	
+
 	if (sig == SIGINT)
 	{
 		if (si->si_pid == getpid())
@@ -28,14 +28,14 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 		}
 		else
 			printf("\n");
-		error_code = 130;
+		g_error_code = 130;
 	}
 }
 
 void	signal_bs(int sig)
 {
 	(void)sig;
-	error_code = 131;
+	g_error_code = 131;
 	printf(" \n");
 	signal(SIGQUIT, SIG_DFL);
 }
@@ -44,7 +44,7 @@ void	signal_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		error_code = 130;
+		g_error_code = 130;
 		printf("\n");
 		close(STDIN_FILENO);
 	}
