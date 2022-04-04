@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 12:53:42 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:20:51 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,11 @@ int			ft_parsing(char *line, t_prog *minishell);
 char		*replace_var(char *line, t_prog *msh);
 void		ft_check_cmds(t_prog *msh);
 char		*remove_quotes(char *str);
+void		clean_cmd(t_block *res, char *str);
+int			parse_duoput(t_block *res, char *str, int *i);
+void		init_block(t_block *res);
+int			find_output_type(char *cmd);
+int			find_input_type(char *cmd);
 
 /** LES SIGNAUX **/
 void		signal_manager(int sig, siginfo_t *si, void *unused);
@@ -153,5 +158,10 @@ int			ft_pwd();
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
 void		generate_random_file(char **temp, int *hd_fd);
+char		*hd_strjoin(char const *s1, char const *s2);
+void		rm_end_spaces(char *str);
+char		*find_heredoc(char *str);
+char		*find_delim(char *str);
+char		*hd_error(char *delim);
 
 #endif

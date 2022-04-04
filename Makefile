@@ -6,12 +6,14 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/04 12:54:19 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/04 15:20:36 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
-					src/parsing.c \
+					src/parsing/parsing.c \
+					src/parsing/cleaning.c \
+					src/parsing/multiputing.c \
 					src/init_prog.c \
 					src/variable/alias_expansion.c \
 					src/variable/get_size_vars.c \
@@ -25,7 +27,9 @@ SRCS			=	src/main.c \
 					src/check_cmd/check_cmd_utils.c \
 					src/check_cmd/check_cmd.c \
 					src/check_cmd/put_info_check.c \
-					src/heredoc.c \
+					src/heredoc/heredoc.c \
+					src/heredoc/heredoc_utils.c \
+					src/heredoc/heredoc_parse.c \
 					src/builtins/ft_echo.c \
 					src/builtins/ft_export.c \
 					src/builtins/ft_unset.c \

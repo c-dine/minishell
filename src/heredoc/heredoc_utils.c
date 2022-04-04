@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 23:21:35 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 14:07:36 by ntan             ###   ########.fr       */
+/*   Created: 2022/04/04 14:11:06 by ntan              #+#    #+#             */
+/*   Updated: 2022/04/04 14:14:05 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	rm_end_spaces(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while (i >= 0 && str[i] == ' ')
+	{
+		str[i] = '\0';
+		i--;
+	}
+}
+
+char	*hd_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
 	int		i;
@@ -22,14 +34,32 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	res = NULL;
 	mempush(&res, sizeof(char), ft_strlen((char *)s1)
-		+ ft_strlen((char *)s2) + 1);
-	if (res == NULL)
-		return (NULL);
+		+ 1 + ft_strlen((char *)s2) + 1);
 	while (s1[i])
 		res[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
 		res[j++] = s2[i++];
+	res[j++] = '\n';
 	res[j++] = '\0';
 	return (res);
+}
+
+void	generate_random_file(char **temp, int *hd_fd)
+{
+	char			*name;
+	unsigned int	n;
+	int				fd;
+
+	n = 0;
+	while (1)
+	{
+		name = ft_itoa(n);
+		fd = open(name, O_CREAT | O_EXCL | O_RDWR, 0644);
+		if (fd > 0)
+			break ;
+		n++;
+	}
+	*temp = name;
+	*hd_fd = fd;
 }

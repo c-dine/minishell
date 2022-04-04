@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:02 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 11:55:19 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 12:36:42 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,3 @@ int	ft_nblen(int nb)
 	}
 	return (len);
 }
-
-// void print_block(t_block *block)
-// {
-// 	int i;
-
-// 	printf()
-// 	printf("Input type : %d\n", block->input_type);
-// 	i = -1;
-// 	while (block->input[++i])
-// 		printf("Input : %d\n", block->input);
-// 	printf("Input fd : %d\n", block->input_fd);
-
-// 	printf("Cmd type : %d\n", block->cmd_type);
-// 	i = -1;
-// 	while (block->cmd[++i])
-// 	printf("Cmds : %d\n");
-// }
