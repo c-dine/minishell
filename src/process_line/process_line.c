@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 17:28:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:50:30 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,15 @@ int	ft_processes(t_prog *msh)
 	return (0);
 }
 
-int	ft_process_line(char *line, t_prog *minishell)
+int	ft_process_line(char *rdline, t_prog *minishell)
 {
-	int	tmp;
+	int		tmp;
+	char	*line;
 
+	if (!rdline)
+		return (1);
+	line = ft_strdup(rdline);
+	free(rdline);
 	if (line && ft_strlen(line) != 0)
 		add_history(line);
 	if (line)
