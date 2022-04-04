@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/01 17:19:36 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 15:35:00 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	signal_manager(int sig, siginfo_t *si, void *unused)
 {
 	(void)unused;
 	(void)si;
-	
+
 	if (sig == SIGINT)
 	{
 		if (si->si_pid == getpid())
@@ -36,7 +36,7 @@ void	signal_bs(int sig)
 {
 	(void)sig;
 	error_code = 131;
-	printf(" \n");
+	printf("\n");
 	signal(SIGQUIT, SIG_DFL);
 }
 

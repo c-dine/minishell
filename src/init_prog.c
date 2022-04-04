@@ -53,6 +53,6 @@ void	init_prog(t_prog *minishell, char **envp, struct sigaction *sa)
 	minishell->export = init_export(envp);
 	error_code = 0;
 	sa->sa_flags = SA_SIGINFO;
-    sigemptyset(&sa->sa_mask);
-    sa->sa_sigaction = signal_manager;
+	sigemptyset(&sa->sa_mask);
+	sa->sa_sigaction = signal_manager;
 }

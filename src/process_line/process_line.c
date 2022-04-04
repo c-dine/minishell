@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 12:48:23 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:32:35 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	wait_children(t_prog *msh)
 	{
 		waitpid(temp->content->pid, &err, 0);
 		temp = temp->next;
+	}
+	if (WCOREDUMP(err) && WTERMSIG(err) == 3)
+	{
+		printf("Quit (core dumped)\n");
+		error_code = 131;
 	}
 	if (err != -1 && error_code == 0)
 		error_code = WEXITSTATUS(err);
