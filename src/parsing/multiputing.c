@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiputing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:00:13 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:01:12 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 16:14:37 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_block(t_block *res)
 	res->sig_status = 0;
 }
 
-int find_output_type(char *cmd)
+int	find_output_type(char *cmd)
 {
 	int	i;
 	int	type;
@@ -95,7 +95,7 @@ int find_output_type(char *cmd)
 	return (type);
 }
 
-int find_input_type(char *cmd)
+int	find_input_type(char *cmd)
 {
 	int	i;
 	int	type;
