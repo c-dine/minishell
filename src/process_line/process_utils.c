@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:42:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 17:03:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:05:58 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ int	wait_children(t_prog *msh)
 	{
 		waitpid(temp->content->pid, &err, 0);
 		temp = temp->next;
+	}
+	if (WCOREDUMP(err) && WTERMSIG(err) == 3)
+	{
+		g_error_code = 131;
+		printf("Quit (core dumped)\n");
+	}
+	if (WCOREDUMP(err) && WTERMSIG(err) == 11)
+	{
+		g_error_code = 139;
+		printf("Segmentation fault (core dumped)\n");
 	}
 	if (err != -1 && g_error_code == 0)
 		g_error_code = WEXITSTATUS(err);

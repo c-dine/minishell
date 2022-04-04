@@ -3,43 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/03 11:20:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:22:14 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "libft.h"
 
-static int	ft_count(char const *s, char c)
+void	ft_count_2(const char *s, char c, int *count, int *quote)
 {
 	int	i;
-	int	count;
-	int	quote;
 
 	i = 0;
-	count = 0;
-	quote = 0;
 	while (s[i])
 	{
 		while (s[i] == c && s[i])
 			i++;
 		if (s[i] == '"')
 		{
-			quote++;
+			(*quote)++;
 			i++;
 		}
 		if (s[i])
-			count++;
-		while (((quote % 2 == 0 && s[i] != c) || (quote % 2 == 1 && (s[i] != '"' || s[i] == '\'')) || s[i] == '"' || s[i] == '\'') && s[i])
+			(*count)++;
+		while (((*quote % 2 == 0 && s[i] != c) || (*quote % 2 == 1
+					&& (s[i] != '"' || s[i] == '\'')) || s[i] == '"'
+				|| s[i] == '\'') && s[i])
 		{
 			if (s[i] == '"')
-				quote++;
+				(*quote)++;
 			i++;
 		}
 	}
+}
+
+static int	ft_count(char const *s, char c)
+{
+	int	count;
+	int	quote;
+
+	count = 0;
+	quote = 0;
+	ft_count_2(s, c, &count, &quote);
 	if (quote % 2 == 1)
 		return (-1);
 	return (count);
@@ -81,10 +89,8 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		k;
 
-	// renvoyer erreur de comportement non defini quand renvoie NULL -> quand quote ouverte
 	if (!s || ft_count(s, c) == -1)
 		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1));
-	// result = malloc(sizeof(char *) * (ft_count(s, c) + 1));
 	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
 		return (NULL);
@@ -94,7 +100,6 @@ char	**ft_split(char const *s, char c)
 	{
 		while (s[i] == c && s[i])
 			i++;
-		// result[k] = malloc(sizeof(char) * (ft_sizechain(&s[i], c) + 1));
 		mempush(&result[k], sizeof(char), ft_sizechain(&s[i], c) + 1);
 		if (result[k] == NULL)
 			return (ft_freesplit(result, k));

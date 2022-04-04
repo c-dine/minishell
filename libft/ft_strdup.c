@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 18:53:53 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/21 16:00:29 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:23:20 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*ft_strdup(const char *s)
 
 	size_src = ft_strlen((char *)s);
 	src_copy = NULL;
-	// src_copy = malloc(sizeof(char) * size_src + 1);
 	mempush(&src_copy, sizeof(char), size_src + 1);
 	if (src_copy == NULL)
 		return (NULL);
