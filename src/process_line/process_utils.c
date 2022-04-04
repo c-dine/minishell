@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:42:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:03:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_close_builtin(int fd_out, t_list *cmd)
 	close_trioput_fd(cmd);
 	close(fd_out);
 	close_main_process(cmd, 1);
-	g_error_code = 0;
 }
 
 void	no_cmd(t_list *cmd)
@@ -50,23 +49,21 @@ int	ft_check_specialchar(char *line)
 
 	tmp = 0;
 	i = 0;
-	while (line[i])
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == ':')
 	{
-		while (line[i] == ' ')
-			i++;
-		if (line[i] == ':')
-		{
-			tmp++;
-			g_error_code = 0;
-		}
-		if (line[i] == '!')
-		{
-			tmp++;
-			g_error_code = 1;
-		}
-		if (line[i])
-			i++;
+		tmp++;
+		g_error_code = 0;
 	}
+	if (line[i] == '!')
+	{
+		tmp++;
+		g_error_code = 1;
+	}
+	i++;
+	while (line[i] == ' ')
+		i++;
 	if (tmp == 1 && line[i] == '\0')
 		return (1);
 	return (g_error_code = 0, 0);

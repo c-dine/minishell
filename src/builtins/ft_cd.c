@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:44:40 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:38:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:35:28 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	ft_pwd(void)
 int	ft_cd(char **cmd)
 {
 	DIR	*tmp;
-	int	i;
 
 	if (!cmd[1])
 		return (1);
-	i = 1;
-	while (cmd[++i])
+	if (cmd[2])
 	{
-		cmd[1] = ft_strjoin(cmd[1], " ");
-		cmd[1] = ft_strjoin(cmd[1], cmd[i]);
+		g_error_code = 1;
+		write(STDERR_FILENO, "minishell: cd: too many arguments\n",
+			ft_strlen("minishell: cd: too many arguments\n"));
+		return (1);
 	}
 	if (access(cmd[1], F_OK) == -1)
 	{
@@ -46,10 +46,7 @@ int	ft_cd(char **cmd)
 	}
 	tmp = opendir(cmd[1]);
 	if (!tmp)
-	{
-		ft_error(INVALID_DIRECTORY, ft_strjoin("cd: ", cmd[1]), 1);
-		return (1);
-	}
+		return (ft_error(INVALID_DIRECTORY, ft_strjoin("cd: ", cmd[1]), 1), 1);
 	closedir(tmp);
 	chdir(cmd[1]);
 	return (0);

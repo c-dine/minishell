@@ -1,17 +1,10 @@
-- quand compilation d'un fichier qui segfault -> recuperer signal segfault
-
 Leaks ? :
 - fuites memoire quand exit du process enfant quand probleme de fichier -> CMD : < lolilolol cat
 - leaks getcwd
 
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
-- lors de l'echec d'execve (= execute un fichier existant 	ok
-	non executable), pour quitter il faut exit autant de 
-	fois que d'execve rates
-- 	echo $"HOME" -> echo HOME" -> quote not closed			ok
--	ne repere pas le heredoc place avant la commande		ok
-- dans builtin -> check existance des mots apres commande
+- gcc marche pas
 
 ntan
 -	heredoc se lance sans delim								ok
@@ -22,15 +15,3 @@ ntan
 -	echo salut > "truc"										(askiparait c bon)
 - 	def signaux
 -	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
-
-
-
-
-
-
-
-
-
-
-Mini erreurs :
-- ifconfig|grep :
