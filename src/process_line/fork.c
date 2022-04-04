@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:24:22 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 17:19:23 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 				&& (!cmd->content->cmd_path || access(cmd->content->cmd_path,
 						F_OK) == -1)))
 			exit(cmd_pb(cmd, beginning));
-		if (cmd->content->cmd_type == 1 && access(cmd->content->cmd[0],
+		if (cmd->content->cmd_type == 1 && access(cmd->content->cmd_path,
 				X_OK) == -1)
 			exit(permission_denied(cmd, beginning));
 		dup_pipes(cmd, beginning);
