@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 17:29:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 18:38:40 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int			find_input_type(char *cmd);
 void		signal_manager(int sig, siginfo_t *si, void *unused);
 void		signal_heredoc(int sig);
 void		signal_bs(int sig);
+void		signal_fork(int sig);
 
 /** OPENS FUNCTIONS **/
 int			open_fds(t_block *block);
