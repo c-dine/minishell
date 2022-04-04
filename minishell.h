@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:08:58 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:29:26 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int			ft_findslash(char *s);
 char		**ft_check_split_cmd(char **cmd);
 
 /** PROCESS **/
-int			fork_process(t_list *cmd, t_list *beginning);
+int			fork_process(t_list *cmd, t_list *beginning, t_prog *msh);
 int			wait_children(t_prog *msh);
 void		ft_close_builtin(int fd_out, t_list *cmd);
 void		no_cmd(t_list *cmd);

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 16:40:16 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:28:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_processes(t_prog *msh)
 		if (temp->content->cmd_type == 9)
 			return (1);
 		if (temp->content->cmd_type < 3 && temp->content->cmd_type != -2)
-			fork_process(temp, beginning);
+			fork_process(temp, beginning, msh);
 		else if (temp->content->cmd_type == -2)
 			no_cmd(temp);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 16:26:58 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 17:27:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-int main()
+int main(int ac, char **av, char **envp)
 {
-	char *str;
+	(void) ac;
+	(void) av;
+	char *tmp[] = {"gcc", "test1.c", NULL};
 
-	str[1] = 'y';
-	return 0;
+	execve("/usr/bin/gcc", tmp, envp);
 }

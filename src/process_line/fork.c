@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 17:19:23 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 17:29:47 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	permission_denied(t_list *cmd, t_list *beginning)
 	return (126);
 }
 
-int	fork_process(t_list *cmd, t_list *beginning)
+int	fork_process(t_list *cmd, t_list *beginning, t_prog *msh)
 {
 	cmd->content->pid = fork();
 	if (cmd->content->pid == -1)
@@ -66,7 +66,7 @@ int	fork_process(t_list *cmd, t_list *beginning)
 				X_OK) == -1)
 			exit(permission_denied(cmd, beginning));
 		dup_pipes(cmd, beginning);
-		if (execve(cmd->content->cmd_path, cmd->content->cmd, 0) == -1)
+		if (execve(cmd->content->cmd_path, cmd->content->cmd, msh->envp) == -1)
 			return (ft_error(PERMISSION_DENIED, cmd->content->cmd_path,
 					126), 1);
 	}

@@ -4,14 +4,13 @@ Leaks ? :
 
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas + qund la limite est atteinte quitte minishell devrait redonne un prompt
-- gcc marche pas
 
 ntan
 -	heredoc se lance sans delim								ok
 - 	print error avec ctrl D									ok
 -	heredoc double quote 									(y a moyen c bon)
 -	heredoc expands tester $"HOME" "$HOME"					ca marche ? mais bug sur $"HOME"
-- 	signaux faire des trucs avec l'entree standard
+- 	signaux faire des trucs avec l'entree standard			ok
 -	echo salut > "truc"										(askiparait c bon)
-- 	def signaux
+- 	def signaux												ok
 -	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
