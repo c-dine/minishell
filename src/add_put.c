@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   add_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:02 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/25 15:00:40 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 11:55:19 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **copy_duotab(char **tab)
+char	**copy_duotab(char **tab)
 {
-	char 	**res;
+	char	**res;
 	int		i;
 
 	res = NULL;
@@ -32,16 +32,16 @@ char **copy_duotab(char **tab)
 	return (res);
 }
 
-char **add_to_duotab(char **tab, char *element)
+char	**add_to_duotab(char **tab, char *element)
 {
-	char **res;
-	int i;
+	char	**res;
+	int		i;
 
 	res = NULL;
 	i = 0;
 	while (tab[i])
 		i++;
-	mempush(&res, sizeof(char*), i + 2);
+	mempush(&res, sizeof(char *), i + 2);
 	if (res == NULL)
 		return (NULL);
 	i = -1;
@@ -52,9 +52,9 @@ char **add_to_duotab(char **tab, char *element)
 	return (res);
 }
 
-void print_duotab(char **tab)
+void	print_duotab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -64,9 +64,9 @@ void print_duotab(char **tab)
 	}	
 }
 
-int strlen_duotab(char **str)
+int	strlen_duotab(char **str)
 {
-	int i;
+	int	i;
 
 	if (str == NULL)
 		return (0);
@@ -99,7 +99,7 @@ int	ft_nblen(int nb)
 // void print_block(t_block *block)
 // {
 // 	int i;
-	
+
 // 	printf()
 // 	printf("Input type : %d\n", block->input_type);
 // 	i = -1;

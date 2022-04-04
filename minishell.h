@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/03 15:15:38 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 11:41:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,15 @@ typedef struct	s_prog
 	struct sigaction	sa;
 }				t_prog;
 
+//struct pour faire passer + de parametres dans fonction
+typedef struct s_index
+{
+	int	i;
+	int	j;
+}				t_index;
+
+
+
 /** FONCTION DEMMARAGE ET FIN**/
 void		init_prog(t_prog *minishell, char **envp, struct sigaction *sa);
 int			ft_process_line(char *line, t_prog *minishell);
@@ -96,6 +105,15 @@ void		signal_bs(int sig);
 int			open_fds(t_block *block);
 int			open_pipes(t_block *block);
 
+/** VARIABLE EXPANSION **/
+char		*get_var_content(char *line, t_prog *msh);
+char		*replace_var(char *line, t_prog *msh);
+int			get_size_with_vars(char *line, t_prog *msh);
+int			get_size_var(char *line, t_prog *msh);
+char		*get_var_content(char *line, t_prog *msh);
+int			check_single_quote(char *line);
+void		alias_expansion(char *line, char *res, t_prog *msh);
+
 
 /** Fonctions utiles **/
 char		**add_to_duotab(char **tab, char *element);
@@ -110,7 +128,7 @@ char		*ft_quotes(char *str);
 
 
 /** ERRORS **/
-void	*ft_error(int code, char *indic, int err_code);
+void		*ft_error(int code, char *indic, int err_code);
 
 /** Builtin **/
 void		ft_echo(char **cmd);

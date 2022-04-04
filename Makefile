@@ -6,14 +6,16 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/03/28 18:56:23 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/04 11:00:56 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
 					src/parsing.c \
 					src/init_prog.c \
-					src/variable.c \
+					src/variable/alias_expansion.c \
+					src/variable/get_size_vars.c \
+					src/variable/var_utils.c \
 					src/add_put.c \
 					src/signals.c \
 					src/open_all.c \
