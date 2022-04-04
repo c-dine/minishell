@@ -1,3 +1,5 @@
+declaration vriable globale ?
+
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas +
  qund la limite est atteinte quitte minishell devrait redonne un prompt

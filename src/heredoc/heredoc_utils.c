@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:11:06 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 14:14:05 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 18:43:26 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,11 @@ void	generate_random_file(char **temp, int *hd_fd)
 	}
 	*temp = name;
 	*hd_fd = fd;
+}
+
+int	ctrlc_heredoc(int save_in)
+{
+	dup2(save_in, STDIN_FILENO);
+	close(save_in);
+	return (1);
 }
