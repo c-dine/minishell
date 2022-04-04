@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 11:41:53 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 12:23:43 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,17 @@ int			get_size_var(char *line, t_prog *msh);
 char		*get_var_content(char *line, t_prog *msh);
 int			check_single_quote(char *line);
 void		alias_expansion(char *line, char *res, t_prog *msh);
+
+/** CHECK CMD **/
+void	ft_check_cmds(t_prog *msh);
+int		check_path(char *cmd, int check_type);
+char	*get_absolute_path(char *cmd, char **envp);
+int		check_is_builtin(char *cmd);
+void	ft_get_cmdname(char **cmd);
+char	*ft_get_envp(char **envp);
+char	*ft_strcatcmd(char *s1, char *s2);
+int		ft_findslash(char *s);
+char	**ft_check_split_cmd(char **cmd);
 
 
 /** Fonctions utiles **/
