@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/03/30 12:20:16 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 16:13:10 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,35 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct 	s_heredoc
+typedef struct s_heredoc
 {
-	char		*delim; // mot apres les doubles chevrons
-	char		*temp; // nom du fichier temporaire
-	int			fd;	// fd du fichier temporaire, -1 si pas de heredoc
+	char		*delim;
+	char		*temp;
+	int			fd;
 	char		*str;
 }				t_heredoc;
 
-typedef struct	s_hd_list
+typedef struct s_hd_list
 {
 	t_heredoc			*content;
 	struct s_hd_list	*next;	
 }				t_hd_list;
 
-typedef struct	s_block
+typedef struct s_block
 {
-	// INPUT
-	int			input_type; //1 = input, 2 = heredoc
+	int			input_type;
 	char		**input;
 	int			input_fd;
-	// CMD
 	int			cmd_type;
 	char		**cmd;
 	char		*cmd_path;
-	// OUTPUT
-	int			output_type; //si 1 output, si 2 append
+	int			output_type;
 	char		**output;
 	char		**outputs_append;
 	int			output_fd;
-	
 	int			*pipe;
 	int			pid;
-	int			cmd_i; // index de la commande dans la ligne
-
-	// HEREDOC
+	int			cmd_i;
 	t_heredoc	*heredoc;
 
 	int			sig_status;
@@ -122,13 +116,8 @@ struct	s_memlst
 	t_memlst	*nxt;
 };
 
-// memory allocation
 int		mempush(void *ptr, const size_t byte, const size_t size);
-// memory free
 int		memfree(void *ptr);
-// all memory free
 int		memrelease(void);
-
-/**/
 
 #endif
