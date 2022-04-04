@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 18:38:40 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/04 19:09:56 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
-#include <dirent.h>
+# include <dirent.h>
 # include <sys/wait.h>
 
 # define CMD_NOT_FOUND 0
@@ -39,7 +39,7 @@
 # define BASH_WARNING 10
 # define FILENAME_REQUIRED 11
 
-extern int g_error_code;
+extern int	g_error_code;
 
 // STRUCTURE POUR CHAQUE COMMANDE
 // typedef struct	s_block
@@ -186,5 +186,6 @@ void		rm_end_spaces(char *str);
 char		*find_heredoc(char *str);
 char		*find_delim(char *str);
 char		*hd_error(char *delim);
+int			ctrlc_heredoc(int save_in);
 
 #endif

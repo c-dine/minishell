@@ -6,17 +6,19 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 18:45:33 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ctrlc_heredoc(int save_in)
+char	*free_buf_hd(char *buf)
 {
-	dup2(save_in, STDIN_FILENO);
-	close(save_in);
-	return (1);
+	char	*tmp;
+
+	tmp = ft_strdup(buf);
+	free(buf);
+	return (tmp);
 }
 
 int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
@@ -29,7 +31,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 	res = "";
 	while (1)
 	{
-		buf = readline("heredoc> ");
+		buf = free_buf_hd(readline("heredoc> "));
 		if (buf == NULL)
 		{
 			if (g_error_code == 130)
@@ -44,8 +46,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 		res = hd_strjoin(res, buf);
 	}
 	heredoc->str = res;
-	close(save_in);
-	return (0);
+	return (close(save_in), 0);
 }
 
 void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
