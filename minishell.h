@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:08:58 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);
 char		*ft_quotes(char *str);
 
-
 /** ERRORS **/
 void		*ft_error(int code, char *indic, int err_code);
 int			ft_error_file_opening(char *path_file, int option);
@@ -164,6 +163,16 @@ int			ft_error_file_opening(char *path_file, int option);
 /** Builtin **/
 void		ft_echo(char **cmd);
 int			ft_export(char **cmd, t_prog *msh);
+char		**add_to_env_tab(char **tab, char *var, int tmp);
+char		*ft_unquote(char *var);
+char		*ft_quote(char *var);
+char		*remove_plus(char *var);
+char		**cat_to_env_tab(char **tab, char *var, int tmp);
+int			ft_is_in_tab(char *var, char **tab, int tmp);
+int			ft_is_sort(char **tab);
+void		print_export(char **tab);
+int			ft_show_export(t_prog *msh);
+int			add_empty_var(char *var, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd);
 int			ft_pwd(void);
