@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:42:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 14:11:53 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:02:25 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ int	ft_check_specialchar(char *line)
 		i++;
 	if (tmp == 1 && line[i] == '\0')
 		return (1);
-	return (g_error_code = 0, 0);
+	return (0);
 }

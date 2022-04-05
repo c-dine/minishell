@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_prog.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 15:41:36 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 19:13:33 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ char	**init_export(char **tab)
 	return (res);
 }
 
-void	init_prog(t_prog *minishell, char **envp, struct sigaction *sa)
+void	init_prog(t_prog *minishell, char **envp)
 {
+	minishell->prev_err_code = 0;
+	g_error_code = 0;
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
-	g_error_code = 0;
-	sa->sa_flags = SA_SIGINFO;
-	sigemptyset(&sa->sa_mask);
-	sa->sa_sigaction = signal_manager;
+	// sa->sa_flags = SA_SIGINFO;
+	// sigemptyset(&sa->sa_mask);
+	// sa->sa_sigaction = signal_manager;
 }

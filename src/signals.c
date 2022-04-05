@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 14:35:23 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 19:14:47 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	signal_manager(int sig, siginfo_t *si, void *unused)
+void	signal_manager(int sig)
 {
-	(void)unused;
-	(void)si;
 	if (sig == SIGINT)
 	{
 		printf("\n");

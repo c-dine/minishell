@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 15:15:48 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 19:12:35 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	*ft_heredoc(t_prog *msh)
 	{
 		signal(SIGINT, signal_heredoc);
 		temp2->next = hd_lstnew(add_heredoc(temp, msh));
-		sigaction(SIGINT, &msh->sa, NULL);
+		// sigaction(SIGINT, &msh->sa, NULL);
+		signal(SIGINT, signal_manager);
 		if (temp2->next->content == NULL)
 			return (NULL);
 		temp = temp->next;
