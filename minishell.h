@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 14:42:10 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 15:30:53 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int			ft_show_export(t_prog *msh);
 int			add_empty_var(char *var, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd, t_prog *msh);
-int			ft_pwd(void);
+char		*ft_pwd(void);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
