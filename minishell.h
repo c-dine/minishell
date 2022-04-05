@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 14:42:10 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 15:44:49 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,47 +41,21 @@
 
 extern int	g_error_code;
 
-// STRUCTURE POUR CHAQUE COMMANDE
-// typedef struct	s_block
-// {
-// 	char		**input;
-// 	int			*input_fd;
-// 	char		**cmd;
-// 	char		**output;
-// 	int			*output_fd;
-// 	char		**outputs_append;
-// 	int			*outputs_append_fds;
-// 	int			fd[2];
-// 	int			pid;
-// }				t_block;
-
-// typedef struct s_list
-// {
-// 	void			*content;
-// 	struct s_list	*next;
-// 	struct s_list	*prev;
-// }					t_list;
-/** STRUCTURE DE LA LISTE CHAINEE DANS LA LIBFT **/
-
-// STRUCTURE DU PROGRAMME
 typedef struct	s_prog
 {
 	char 				**envp;
 	char				**export;
-	t_list				*cmds; /** pointe sur des t_block cmds->content = t_block, cmds-next = le prochain chainon **/
+	t_list				*cmds;
 	t_list				*garbage;
 	t_hd_list			*heredocs;
 	struct sigaction	sa;
 }				t_prog;
 
-//struct pour faire passer + de parametres dans fonction
 typedef struct s_index
 {
 	int	i;
 	int	j;
 }				t_index;
-
-
 
 /** FONCTION DEMMARAGE ET FIN**/
 void		init_prog(t_prog *minishell, char **envp, struct sigaction *sa);

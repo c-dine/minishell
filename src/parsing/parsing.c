@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:05:29 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 15:18:06 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,30 @@ int	ft_check_pipe_parse_error(char *line)
 	return (0);
 }
 
+int check_multiple_chevrons(char *line)
+{
+	int	i;
+
+	i = 2;
+	while (line[i])
+	{
+		if ((line[i] == '<' || line[i] == '>')
+			&& (line[i - 1] == '<' || line[i - 1] == '>')
+			&& (line[i - 2] == '<' || line[i - 2] == '>'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_parsing(char *line, t_prog *minishell)
 {
 	char	**split_line;
 	int		i;
 	t_list	*temp;
-
-	if (ft_check_pipe_parse_error(line) == 1)
+ 
+	if (ft_check_pipe_parse_error(line) == 1
+		|| (ft_strlen(line) > 2 && check_multiple_chevrons(line) == 1))
 		return (ft_error(PARSE_ERROR, "minishell", 2), -1);
 	split_line = ft_split(line, '|');
 	if (split_line == NULL)

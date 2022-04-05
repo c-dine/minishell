@@ -3,6 +3,9 @@ declaration vriable globale ?
 cdine:
 - ulimit -n 5 => boucle a l'infini qund 1 piep alors aue devrai pas +
  qund la limite est atteinte quitte minishell devrait redonne un prompt
+ export var="cat Makefile | grep >"
+ export CHEVRON=">" 
+ fork in builtins que quand y a un pipe
 
 ntan
 -	heredoc se lance sans delim								ok
