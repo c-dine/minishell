@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:56:07 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 11:57:47 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 14:53:09 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char	**ft_check_split_cmd(char **cmd)
 
 	i = 0;
 	space = 0;
+	if (!cmd[0])
+		return (NULL);
 	while (cmd[0][i])
 	{
 		if (cmd[0][i] == ' ')
