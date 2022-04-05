@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/04 16:09:07 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/05 14:23:25 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,24 +58,24 @@ $(NAME):		lib $(OBJS)
 				@echo Compiling minishell ....
 				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
 				@echo Minishell compiled.
-				# valgrind --suppressions=./.readline.supp --leak-check=full ./minishell
+				@# valgrind --suppressions=./.readline.supp --leak-check=full ./minishell
 
 lib:			
 				@echo Compiling libft ....
-				@make bonus -C libft
-				@echo Libft compiled.
+				@make bonus -sC libft
+				@echo "Libft compiled.\n"
 
 clean:
 				@echo Cleaning ....
 				@$(RM) $(OBJS)
-				@make clean -C libft
-				@echo Cleaning done.
+				@make clean -sC libft
+				@echo "Cleaning done.\n"
 
 fclean:			
 				@echo Cleaning ....
 				@$(RM) $(OBJS)
 				@$(RM) $(NAME)
-				@make fclean -C libft
-				@echo Cleaning done.
+				@make fclean -sC libft
+				@echo "Cleaning done.\n"
 
 re:				fclean all
