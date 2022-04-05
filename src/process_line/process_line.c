@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 15:50:58 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 16:52:16 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 		ft_echo(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 4)
 		ft_cd(cmd->content->cmd, msh);
-	else if (cmd->content->cmd_type == 5)
-		ft_pwd();
+	else if (cmd->content->cmd_type == 5 && ft_pwd() != NULL)
+		printf("%s\n", ft_pwd());
 	else if (cmd->content->cmd_type == 6)
 		ft_export(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 7)
