@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 17:59:36 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 18:18:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void	*ft_error(int code, char *indic, int err_code)
 		set_err_status(err_code, "", indic, code);
 	else if (code == FILENAME_REQUIRED)
 		set_err_status(err_code, "filename argument required", indic, code);
+	else if (code == NUMERIC_ARGUMENT)
+		set_err_status(err_code, "numeric argument required", indic, code);
 	return (NULL);
 }

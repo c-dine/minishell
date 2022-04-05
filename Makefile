@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/05 15:44:10 by ntan             ###   ########.fr        #
+#    Updated: 2022/04/05 18:20:49 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS			=	src/main.c \
 					src/builtins/ft_export_3.c \
 					src/builtins/ft_unset.c \
 					src/builtins/ft_cd.c \
+					src/builtins/ft_exit.c \
 					src/hd_list/hd_lstnew.c \
 					src/quotes.c
 					# src/pipes.c 

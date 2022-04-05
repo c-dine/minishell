@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 16:52:11 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 18:21:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define TOO_MANY_FDS 9
 # define BASH_WARNING 10
 # define FILENAME_REQUIRED 11
+# define NUMERIC_ARGUMENT 12
 
 extern int	g_error_code;
 
@@ -151,6 +152,7 @@ int			add_empty_var(char *var, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd, t_prog *msh);
 char		*ft_pwd(void);
+int			ft_exit(char **cmd);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
