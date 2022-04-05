@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 18:12:49 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:01:27 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	ft_process_line(char *rdline, t_prog *minishell)
 	free(rdline);
 	if (line && ft_strlen(line) != 0)
 		add_history(line);
-	if (line)
-		line = replace_var(line, minishell);
-	else
-		return (1);
+	// if (line)
+	// 	line = replace_var(line, minishell);
+	// else
+	// 	return (1);
 	if (line == NULL)
 		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1), -1);
 	if (ft_check_specialchar(line) == 1)

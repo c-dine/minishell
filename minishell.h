@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 18:21:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:28:37 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ int			ft_parsing(char *line, t_prog *minishell);
 char		*replace_var(char *line, t_prog *msh);
 void		ft_check_cmds(t_prog *msh);
 char		*remove_quotes(char *str);
-void		clean_cmd(t_block *res, char *str);
-int			parse_duoput(t_block *res, char *str, int *i);
+void		clean_cmd(t_block *res, char *str, t_prog *msh);
+int			parse_duoput(t_block *res, char *str, int *i, t_prog *msh);
 void		init_block(t_block *res);
 int			find_output_type(char *cmd);
 int			find_input_type(char *cmd);
+char		*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str);
+void		quote_to_block(int *i, int *d_quote, int *s_quote, char *str);
 
 /** LES SIGNAUX **/
 void		signal_manager(int sig, siginfo_t *si, void *unused);

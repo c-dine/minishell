@@ -3,56 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 17:54:50 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:28:02 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*cmd_to_block(t_list *cmd)
+char	*cmd_to_block(t_list *cmd, t_prog *msh, int i)
 {
 	t_block	*res;
 	char	*str;
-	int		i;
-	int	s_quote;
-	int	d_quote;
+	int		s_quote;
+	int		d_quote;
 
 	s_quote = 0;
 	d_quote = 0;
 	str = (char *) cmd->content;
-	i = 0;
 	mempush(&res, sizeof(*res), 1);
 	init_block(res);
 	while (str[i])
 	{
-		if (str[i] == '"')
-		{
-			i++;
-			d_quote++;
-		}
-		if (str[i] == '\'')
-		{
-			i++;
-			s_quote++;
-		}
+		quote_to_block(&i, &d_quote, &s_quote, &str[i]);
 		if (d_quote % 2 == 0 && s_quote % 2 == 0
 			&& (str[i] == '<' || str[i] == '>'))
 		{
 			i++;
-			if (parse_duoput(res, str, &i) == 1)
+			if (parse_duoput(res, str, &i, msh) == 1)
 				return (ft_error(PARSE_ERROR, "minishell", 2), NULL);
 		}
 		else if (str[i])
 			i++;
 	}
-	res->input_type = find_input_type(str);
-	res->output_type = find_output_type(str);
-	clean_cmd(res, str);
-	cmd->content = res;
-	return (str);
+	return (final_cmd_block(cmd, res, msh, str));
 }
 
 int	parse_cmd(t_prog *msh)
@@ -60,7 +45,9 @@ int	parse_cmd(t_prog *msh)
 	t_list		*temp;
 	t_hd_list	*temp_hd;
 	int			cmd_i;
+	int			i;
 
+	i = 0;
 	cmd_i = 0;
 	temp = msh->cmds->next;
 	if (ft_heredoc(msh) == NULL)
@@ -68,7 +55,7 @@ int	parse_cmd(t_prog *msh)
 	temp_hd = msh->heredocs->next;
 	while (temp)
 	{
-		if (cmd_to_block(temp) == NULL)
+		if (cmd_to_block(temp, msh, i) == NULL)
 			return (-1);
 		temp->content->cmd_i = cmd_i;
 		if (open_pipes(temp->content) == 1)
