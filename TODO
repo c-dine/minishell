@@ -1,8 +1,8 @@
 declaration vriable globale ?
 
 cdine:
-- export var="cat Makefile | grep >"
-- quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?
 
 ntan
-- fct exit
+- quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?
+- segfault quand affichage de chevrons dans guillemets
+- << EOF"" cat -> ne pas remplacer variables

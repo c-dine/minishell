@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:49:33 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:11:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:28:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_export(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("declare -x ");
+		printf("export ");
 		printf("%s\n", tab[i]);
 		i++;
 	}	
