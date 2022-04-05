@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 18:46:01 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 14:18:14 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,12 @@ int	permission_denied(t_list *cmd, t_list *beginning)
 int	fork_process(t_list *cmd, t_list *beginning, t_prog *msh)
 {
 	signal(SIGINT, signal_fork);
-	signal(SIGQUIT, SIG_DFL);
 	cmd->content->pid = fork();
 	if (cmd->content->pid == -1)
 		return (ft_error(FORK_ERROR, "fork", 1), 1);
 	if (cmd->content->pid == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (open_fds(cmd->content) == -1 || (cmd->content->cmd_type == -1
 				&& (!cmd->content->cmd_path || access(cmd->content->cmd_path,
 						F_OK) == -1)))
