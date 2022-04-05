@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 16:56:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 19:23:16 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,19 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	init_prog(&msh, envp, &msh.sa);
+	init_prog(&msh, envp);
 	rl_outstream = stderr;
 	while (1)
 	{
 		save_in = dup(STDIN_FILENO);
-		sigaction(SIGINT, &msh.sa, NULL);
+		signal(SIGINT, signal_manager);
 		signal(SIGQUIT, SIG_IGN);
-		// printf("\n%d\n", g_error_code);
+		g_error_code = 0;
 		if (ft_process_line(readline("minishell> "), &msh) == 1)
 			break ;
 		if (g_error_code == 130)
-		{
 			dup2(save_in, STDIN_FILENO);
-			// // rl_replace_line("", 0);
-		}
+		msh.prev_err_code = g_error_code;
 		close(save_in);
 	}
 	// printf("BYE MINISHELL\n");

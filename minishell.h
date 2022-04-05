@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 18:21:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:16:16 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_prog
 	t_list				*cmds;
 	t_list				*garbage;
 	t_hd_list			*heredocs;
+	int					prev_err_code;
 	struct sigaction	sa;
 }				t_prog;
 
@@ -59,7 +60,7 @@ typedef struct s_index
 }				t_index;
 
 /** FONCTION DEMMARAGE ET FIN**/
-void		init_prog(t_prog *minishell, char **envp, struct sigaction *sa);
+void		init_prog(t_prog *minishell, char **envp);
 void		close_all_pipes(t_list *beg_all_pipes);
 void		close_trioput_fd(t_list *cmd);
 void		close_main_process(t_list *node, int builtin);
@@ -76,7 +77,7 @@ int			find_output_type(char *cmd);
 int			find_input_type(char *cmd);
 
 /** LES SIGNAUX **/
-void		signal_manager(int sig, siginfo_t *si, void *unused);
+void		signal_manager(int sig);
 void		signal_heredoc(int sig);
 void		signal_bs(int sig);
 void		signal_fork(int sig);
@@ -152,7 +153,7 @@ int			add_empty_var(char *var, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd, t_prog *msh);
 char		*ft_pwd(void);
-int			ft_exit(char **cmd);
+int			ft_exit(char **cmd, t_prog *msh);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

@@ -6,13 +6,13 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 18:40:57 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 19:15:50 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_exit(char **cmd)
+int	ft_exit(char **cmd, t_prog *msh)
 {
 	int	i;
 
@@ -31,5 +31,7 @@ int	ft_exit(char **cmd)
 		}
 		g_error_code = ft_atoi(cmd[1]);
 	}
+	else
+		g_error_code = msh->prev_err_code;
 	return (0);
 }
