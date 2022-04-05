@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:14:14 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 17:53:09 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,28 @@ void	clean_cmd_2(char *str, int *i)
 void	clean_cmd(t_block *res, char *str)
 {
 	int	i;
+	int	s_quote;
+	int	d_quote;
 
+	s_quote = 0;
+	d_quote = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '<' || str[i] == '>')
+		if (str[i] == '"')
+		{
+			i++;
+			d_quote++;
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			s_quote++;
+		}
+		if (d_quote % 2 == 0 && s_quote % 2 == 0
+			&& (str[i] == '<' || str[i] == '>'))
 			clean_cmd_2(str, &i);
-		else
+		else if (str[i])
 			i++;
 	}
 	res->cmd = ft_split(str, ' ');

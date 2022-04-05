@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 15:18:06 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/05 17:54:50 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,35 @@ char	*cmd_to_block(t_list *cmd)
 	t_block	*res;
 	char	*str;
 	int		i;
+	int	s_quote;
+	int	d_quote;
 
+	s_quote = 0;
+	d_quote = 0;
 	str = (char *) cmd->content;
 	i = 0;
 	mempush(&res, sizeof(*res), 1);
 	init_block(res);
 	while (str[i])
 	{
-		if (str[i] == '<' || str[i] == '>')
+		if (str[i] == '"')
+		{
+			i++;
+			d_quote++;
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			s_quote++;
+		}
+		if (d_quote % 2 == 0 && s_quote % 2 == 0
+			&& (str[i] == '<' || str[i] == '>'))
 		{
 			i++;
 			if (parse_duoput(res, str, &i) == 1)
 				return (ft_error(PARSE_ERROR, "minishell", 2), NULL);
 		}
-		else
+		else if (str[i])
 			i++;
 	}
 	res->input_type = find_input_type(str);

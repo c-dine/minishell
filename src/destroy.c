@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:59:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/05 17:59:36 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*ft_error(int code, char *indic, int err_code)
 	else if (code == QUOTE_NOT_CLOSED)
 		set_err_status(err_code, "quote not closed", indic, code);
 	else if (code == PARSE_ERROR)
-		set_err_status(err_code, "parse error", indic, code);
+		set_err_status(err_code, "syntax error near unexpected token", indic, code);
 	else if (code == PERMISSION_DENIED)
 		set_err_status(err_code, "Permission denied", indic, code);
 	else if (code == INVALID_IDENTIFIER)
