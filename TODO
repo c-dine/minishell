@@ -16,3 +16,4 @@ ntan
 -	echo salut > "truc"										(askiparait c bon)
 - 	def signaux												ok
 -	ft_quotes laisse des espaces a la fin parfois			-> fix pour heredoc
+- fct exit
