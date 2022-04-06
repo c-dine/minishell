@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 15:32:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 15:53:47 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int	ft_processes(t_prog *msh)
 	beginning = temp;
 	while (temp)
 	{
+		if (!temp->content->cmd)
+		{
+			temp = temp->next;
+			continue ;
+		}
 		if (temp->content->cmd_type < 3 && temp->content->cmd_type != -2)
 			fork_process(temp, beginning, msh);
 		else if (temp->content->cmd_type == -2)
