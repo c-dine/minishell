@@ -1,6 +1,8 @@
 declaration vriable globale ?
 
 cdine:
+- segfault quand heredoc sans cmd
+- forkbuiltin
 
 ntan
 ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?

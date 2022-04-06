@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 13:28:23 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 15:33:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd, t_prog *msh);
 char		*ft_pwd(void);
 int			ft_exit(char **cmd, t_prog *msh);
+int			ft_fork_builtins(t_list *cmd, t_prog *msh);
+int			ft_builtin(t_list *cmd, t_prog *msh);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/05 19:28:16 by ntan             ###   ########.fr        #
+#    Updated: 2022/04/06 15:33:05 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS			=	src/main.c \
 					src/process_line/process_line.c \
 					src/process_line/process_utils.c \
 					src/process_line/fork.c \
+					src/process_line/fork_builtins.c \
 					src/check_cmd/check_cmd_utils.c \
 					src/check_cmd/check_cmd.c \
 					src/check_cmd/put_info_check.c \
