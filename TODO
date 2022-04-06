@@ -6,3 +6,4 @@ ntan
 ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?
 ok ? - segfault quand affichage de chevrons dans guillemets
 ok - << EOF"" cat -> ne pas remplacer variables
+segf quand heredoc sans commande
