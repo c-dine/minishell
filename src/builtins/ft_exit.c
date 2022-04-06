@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 18:14:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:48:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int	ft_exit(char **cmd, t_prog *msh)
 		return (write(STDERR_FILENO, "minishell: exit: too many arguments\n",
 				ft_strlen("minishell: exit: too many arguments\n")),
 			g_error_code = 1, 1);
-	return (write(STDERR_FILENO, "exit\n", 5), memrelease(), exit(g_error_code), 0);
+	if (ft_count_cmds(msh) == 1)
+		write(STDERR_FILENO, "exit\n", 5);
+	return (memrelease(), exit(g_error_code), 0);
 }

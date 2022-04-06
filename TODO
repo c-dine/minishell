@@ -9,3 +9,4 @@ ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> rem
 ok ? - segfault quand affichage de chevrons dans guillemets
 ok - << EOF"" cat -> ne pas remplacer variables
 segf quand heredoc sans commande
+- output -> executer output et input dans sens de la commande

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:13:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 20:21:36 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_prog(t_prog *minishell, char **envp)
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
+	ft_add_oldpwd(ft_pwd(), minishell);
 	// sa->sa_flags = SA_SIGINFO;
 	// sigemptyset(&sa->sa_mask);
 	// sa->sa_sigaction = signal_manager;

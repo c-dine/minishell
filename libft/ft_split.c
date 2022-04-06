@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 16:22:14 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 19:36:33 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**ft_split(char const *s, char c)
 	int		k;
 
 	if (!s || ft_count(s, c) == -1)
-		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1));
+		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 2));
 	mempush(&result, sizeof(char *), (ft_count(s, c) + 1));
 	if (result == NULL)
 		return (NULL);

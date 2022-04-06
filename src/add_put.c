@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:59:02 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 12:36:42 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 20:34:32 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	print_duotab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("%s\n", tab[i]);
+		write(STDOUT_FILENO, tab[i], ft_strlen(tab[i]));
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}	
 }

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 18:57:30 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:47:33 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int			ft_nblen(int nb);
 char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);
 char		*ft_quotes(char *str);
+int			ft_count_cmds(t_prog *msh);
 
 /** ERRORS **/
 void		*ft_error(int code, char *indic, int err_code);
@@ -163,6 +164,7 @@ int			ft_exit(char **cmd, t_prog *msh);
 int			ft_fork_builtins(t_list *cmd, t_prog *msh);
 int			ft_builtin(t_list *cmd, t_prog *msh);
 int			ft_pwd_builtin(void);
+void		ft_add_oldpwd(char *cmd, t_prog *msh);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

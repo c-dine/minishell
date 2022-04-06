@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 00:14:15 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 17:05:39 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:36:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_process_line(char *rdline, t_prog *minishell)
 	if (!line)
 		return (1);
 	if (check_single_quote(line) == -1)
-		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 1), -1);
+		return (ft_error(QUOTE_NOT_CLOSED, "minishell", 2), -1);
 	if (ft_check_specialchar(line) == 1)
 		return (0);
 	if (ft_parsing(line, minishell) == -1)
