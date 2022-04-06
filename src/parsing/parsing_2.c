@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 16:55:19 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 18:36:38 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	init_block(t_block *res)
 	mempush(&res->output, sizeof(char *), 1);
 	mempush(&res->input, sizeof(char *), 1);
 	mempush(&res->outputs_append, sizeof(char *), 1);
+	mempush(&res->cmd_path, sizeof(char), 1);
+	res->cmd_path[0] = '\0';
 	res->cmd[0] = 0;
 	res->input[0] = 0;
 	res->output[0] = 0;

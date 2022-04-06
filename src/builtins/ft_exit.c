@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 15:20:02 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 18:14:04 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_exit(char **cmd, t_prog *msh)
 	int	i;
 
 	i = 0;
-	write(STDERR_FILENO, "exit\n", 5);
 	if (cmd[1])
 	{
 		if (cmd[1][0] == '+' || cmd[1][0] == '-')
@@ -52,6 +51,8 @@ int	ft_exit(char **cmd, t_prog *msh)
 	else
 		g_error_code = msh->prev_err_code;
 	if (cmd[1] && cmd[2])
-		return (g_error_code = 1, 1);
-	return (memrelease(), exit(g_error_code), 0);
+		return (write(STDERR_FILENO, "minishell: exit: too many arguments\n",
+				ft_strlen("minishell: exit: too many arguments\n")),
+			g_error_code = 1, 1);
+	return (write(STDERR_FILENO, "exit\n", 5), memrelease(), exit(g_error_code), 0);
 }
