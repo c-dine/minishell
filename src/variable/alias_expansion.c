@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:56:11 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 19:24:02 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:20:02 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	if_single_dollar_sign(t_index *i, char *res, char *line, t_prog *msh)
 	}
 }
 
-void	if_dollar_sign(t_index *i, char *res, char *line, t_prog *msh)
+void	if_dollar_sign(t_index *i, char *res, char *line, int open_d_quote)
 {
 	char	*tmp;
 	int		k;
@@ -43,23 +43,25 @@ void	if_dollar_sign(t_index *i, char *res, char *line, t_prog *msh)
 	if (line[i->i + 1] == '?')
 	{
 		k = 0;
-		tmp = ft_itoa(msh->prev_err_code);
-		while (k < ft_nblen(msh->prev_err_code))
+		tmp = ft_itoa(i->msh->prev_err_code);
+		while (k < ft_nblen(i->msh->prev_err_code))
 			res[(i->j)++] = tmp[k++];
 		i->i += 2;
 		free(tmp);
 	}
-	else if (line[i->i + 1] == ' ' || line[i->i + 1] == '\0')
+	else if (line[i->i + 1] == ' ' || line[i->i + 1] == '\0'
+		|| line[i->i + 1] == '+' || line[i->i + 1] == '='
+		|| (open_d_quote % 2 == 1 && line[i->i + 1] == '"'))
 		res[(i->j)++] = line[(i->i)++];
 	else if (line[i->i + 1] == '\'' || line[i->i + 1] == '"')
 		(i->i)++;
 	else if (ft_isalpha(line[i->i + 1]) == 0)
 		i->i += 2;
 	else
-		if_single_dollar_sign(i, res, line, msh);
+		if_single_dollar_sign(i, res, line, i->msh);
 }
 
-int	if_backslash(t_index *i, int *open_d_quote, char *res, char *line)
+int	if_squote(t_index *i, int *open_d_quote, char *res, char *line)
 {
 	res[i->j++] = line[i->i++];
 	if (*open_d_quote % 2 == 1)
@@ -78,6 +80,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 	open_d_quote = 0;
 	i.i = 0;
 	i.j = 0;
+	i.msh = msh;
 	while (line[i.i])
 	{
 		if (line[i.i] == '"')
@@ -86,9 +89,9 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 			res[i.j++] = line[i.i++];
 		}
 		else if (line[i.i] == '\'')
-			if_backslash(&i, &open_d_quote, res, line);
+			if_squote(&i, &open_d_quote, res, line);
 		else if (line[i.i] == '$')
-			if_dollar_sign(&i, res, line, msh);
+			if_dollar_sign(&i, res, line, open_d_quote);
 		else if (line[i.i])
 			res[i.j++] = line[i.i++];
 	}

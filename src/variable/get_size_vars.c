@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 19:24:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:23:51 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ void	size_if_dollar_sign(int *i, int *extra_size, t_prog *msh, char *line)
 		*extra_size += - (2 - ft_nblen(msh->prev_err_code));
 		*i += 1;
 	}
-	else if (line[*i + 1] == ' ' || line[*i + 1] == '\0')
+	else if (line[*i + 1] == ' ' || line[*i + 1] == '\0' || line[*i + 1] == '"')
 		(*i)++;
+	else if (line[*i + 1] == '+' || line[*i + 1] == '=')
+		(*i) += 2;
 	else if (line[*i + 1] == '\'' || line[*i + 1] == '"')
 	{
 		(*i)++;
 		(*extra_size)--;
 	}
 	else if (ft_isalpha(line[*i + 1]) == 0)
-	{
-		*extra_size = -2;
 		*i += 2;
-	}
 	else
 	{
 		*extra_size += get_size_var(&line[*i], msh);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 17:58:19 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 18:57:30 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ typedef struct	s_prog
 
 typedef struct s_index
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_prog	*msh;
 }				t_index;
 
 /** FONCTION DEMMARAGE ET FIN**/
