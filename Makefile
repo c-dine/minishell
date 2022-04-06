@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
+#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/06 15:33:05 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/06 16:58:33 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS			=	src/main.c \
 					src/parsing/parsing.c \
 					src/parsing/parsing_2.c \
 					src/parsing/cleaning.c \
+					src/parsing/cleaning_2.c \
 					src/parsing/multiputing.c \
 					src/init_prog.c \
 					src/variable/alias_expansion.c \

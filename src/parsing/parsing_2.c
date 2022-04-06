@@ -6,11 +6,26 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 15:49:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 16:55:19 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	init_block(t_block *res)
+{
+	mempush(&res->cmd, sizeof(char *), 1);
+	mempush(&res->output, sizeof(char *), 1);
+	mempush(&res->input, sizeof(char *), 1);
+	mempush(&res->outputs_append, sizeof(char *), 1);
+	res->cmd[0] = 0;
+	res->input[0] = 0;
+	res->output[0] = 0;
+	res->outputs_append[0] = 0;
+	res->input_fd = -2;
+	res->output_fd = -2;
+	res->sig_status = 0;
+}
 
 int	cmd_to_block_2(char *str, t_block *res, t_prog *msh, int i)
 {
@@ -48,18 +63,4 @@ char	*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str)
 	clean_cmd(res, str, msh);
 	cmd->content = res;
 	return (str);
-}
-
-void	quote_to_block(int *i, int *d_quote, int *s_quote, char *str)
-{
-	if (str[*i] == '"')
-	{
-		(*i)++;
-		(*d_quote)++;
-	}
-	else if (str[*i] == '\'')
-	{
-		(*i)++;
-		(*s_quote)++;
-	}
 }
