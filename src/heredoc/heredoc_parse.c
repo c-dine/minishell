@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:13:38 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 14:26:03 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 13:50:20 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,26 @@ char	*find_heredoc(char *str)
 	return (NULL);
 }
 
-char	*find_delim_2(char *str, int i, int marker)
+char	*find_delim_2(char *str, int i, int marker, t_heredoc *heredoc)
 {
 	char	*res;
+	char	*temp;
 
 	while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != ' ')
 		i++;
 	mempush(&res, sizeof(char), i - marker + 1);
 	ft_strlcpy(res, &str[marker], i - marker + 1);
-	res = ft_quotes(res);
-	return (res);
+	temp = ft_quotes(res);
+	if (ft_strncmp(temp, res, ft_strlen(res)) != 0)
+		heredoc->expand = 0;
+	return (temp);
 }
 
-char	*find_delim(char *str)
+char	*find_delim(char *str, t_heredoc *heredoc)
 {
 	int		i;
 	int		marker;
+	char	*temp;
 
 	i = 0;
 	if (str[i] == '<')
@@ -58,10 +62,12 @@ char	*find_delim(char *str)
 		str = ft_split(str, '>')[0];
 	}
 	else
-		return (find_delim_2(str, i, marker));
-	str = ft_quotes(str);
-	rm_end_spaces(str);
-	return (str);
+		return (find_delim_2(str, i, marker, heredoc));
+	temp = ft_quotes(str);
+	if (ft_strncmp(temp, str, ft_strlen(str) != 0))
+		heredoc->expand = 0;
+	rm_end_spaces(temp);
+	return (temp);
 }
 
 char	*hd_error(char *delim)

@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:28:03 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 13:10:04 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	quote_to_block(int *i, int *d_quote, int *s_quote, char *str)
 		(*i)++;
 		(*d_quote)++;
 	}
-	if (str[*i] == '\'')
+	else if (str[*i] == '\'')
 	{
 		(*i)++;
 		(*s_quote)++;

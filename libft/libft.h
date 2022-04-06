@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:13:10 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 13:26:36 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_heredoc
 	char		*temp;
 	int			fd;
 	char		*str;
+	int			expand; // 0 non 1 oui
 }				t_heredoc;
 
 typedef struct s_hd_list

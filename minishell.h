@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:29:48 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 13:28:23 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void		generate_random_file(char **temp, int *hd_fd);
 char		*hd_strjoin(char const *s1, char const *s2);
 void		rm_end_spaces(char *str);
 char		*find_heredoc(char *str);
-char		*find_delim(char *str);
+char		*find_delim(char *str, t_heredoc *heredoc);
 char		*hd_error(char *delim);
 int			ctrlc_heredoc(int save_in);
 

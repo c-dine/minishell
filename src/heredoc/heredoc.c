@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:12:35 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 13:43:03 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 			ft_error(BASH_WARNING, hd_error(delim), 0);
 			break ;
 		}
+		buf = free_buf_hd(buf);
 		if (ft_strncmp(delim, buf, ft_strlen(buf)) == 0
 			&& ft_strlen(buf) == ft_strlen(delim))
 			break ;
-		buf = replace_var(buf, msh);
+		if (heredoc->expand == 1)
+			buf = replace_var(buf, msh);
 		res = hd_strjoin(res, buf);
-		// free_buf_hd(buf);
 	}
 	heredoc->str = res;
 	return (close(save_in), 0);
@@ -61,7 +62,7 @@ void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)
 	{
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
-			delim = find_delim(&str[i]);
+			delim = find_delim(&str[i], heredoc);
 			rm_end_spaces(delim);
 			if (delim == NULL)
 				return (ft_error(PARSE_ERROR,
@@ -81,6 +82,7 @@ t_heredoc	*add_heredoc(t_list *cmd, t_prog *msh)
 
 	mempush(&heredoc, sizeof(*heredoc), 1);
 	heredoc->fd = -1;
+	heredoc->expand = 1;
 	hd_pos = find_heredoc((char *)cmd->content);
 	if (hd_pos == NULL)
 		return (heredoc);
@@ -101,7 +103,6 @@ void	*ft_heredoc(t_prog *msh)
 	{
 		signal(SIGINT, signal_heredoc);
 		temp2->next = hd_lstnew(add_heredoc(temp, msh));
-		// sigaction(SIGINT, &msh->sa, NULL);
 		signal(SIGINT, signal_manager);
 		if (temp2->next->content == NULL)
 			return (NULL);
