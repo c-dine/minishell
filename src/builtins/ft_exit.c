@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 20:13:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 15:20:02 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	ft_exit(char **cmd, t_prog *msh)
 		g_error_code = msh->prev_err_code;
 	if (cmd[1] && cmd[2])
 		return (g_error_code = 1, 1);
-	return (0);
+	return (memrelease(), exit(g_error_code), 0);
 }
