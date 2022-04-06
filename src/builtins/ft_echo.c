@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:16:21 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:37:43 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 16:40:28 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_display(char *str, int n)
 		write(1, "\n", 1);
 }
 
-void	ft_echo(char **cmd)
+int	ft_echo(char **cmd)
 {
 	int		i;
 	int		n;
@@ -93,4 +93,5 @@ void	ft_echo(char **cmd)
 	}
 	str = put_line_together(&cmd[i]);
 	ft_display(str, n);
+	return (0);
 }

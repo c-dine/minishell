@@ -6,7 +6,7 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/06 15:33:05 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/06 16:53:56 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS			=	src/main.c \
 					src/heredoc/heredoc_utils.c \
 					src/heredoc/heredoc_parse.c \
 					src/builtins/ft_echo.c \
+					src/builtins/ft_pwd.c \
 					src/builtins/ft_export.c \
 					src/builtins/ft_export_2.c \
 					src/builtins/ft_export_3.c \
