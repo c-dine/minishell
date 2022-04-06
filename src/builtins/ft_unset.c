@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:08:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 15:39:14 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 17:00:11 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,16 @@ void	remove_from_tab(char **tab, char *var)
 int	ft_unset(char **cmd, t_prog *msh)
 {
 	int	i;
+	int	ret;
 
+	ret = 0;
 	i = 1;
 	while (cmd[i])
 	{
 		if (ft_invalid_identifier_export(cmd[i]) == 1)
 		{
-			ft_error(INVALID_IDENTIFIER, cmd[i], 1);
+			ft_error(INVALID_IDENTIFIER, ft_strjoin("export: `", cmd[i]), 1);
+			ret = 1;
 			i++;
 			continue ;
 		}
@@ -76,5 +79,5 @@ int	ft_unset(char **cmd, t_prog *msh)
 		remove_from_tab(msh->export, cmd[i]);
 		i++;
 	}
-	return (0);
+	return (ret);
 }

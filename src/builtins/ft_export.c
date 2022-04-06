@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/05 17:31:32 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/06 16:47:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,19 @@ int	ft_invalid_identifier(char *str)
 	return (0);
 }
 
-void	ft_export_2(char **cmd, int i, t_prog *msh)
+int	ft_export_2(char **cmd, int i, t_prog *msh)
 {
 	int	j;
 	int	tmp;
+	int	ret;
 
+	ret = 0;
 	while (cmd[i])
 	{
 		if (ft_invalid_identifier(cmd[i]) == 1)
 		{
 			ft_error(INVALID_IDENTIFIER, ft_strjoin("export: `", cmd[i]), 1);
+			ret = 1;
 			i++;
 			continue ;
 		}
@@ -104,6 +107,7 @@ void	ft_export_2(char **cmd, int i, t_prog *msh)
 		ft_add_to_env(cmd[i], msh, tmp);
 		i++;
 	}
+	return (ret);
 }
 
 int	ft_export(char **cmd, t_prog *msh)
@@ -116,6 +120,5 @@ int	ft_export(char **cmd, t_prog *msh)
 		return (0);
 	}
 	i = 1;
-	ft_export_2(cmd, i, msh);
-	return (0);
+	return (ft_export_2(cmd, i, msh));
 }
