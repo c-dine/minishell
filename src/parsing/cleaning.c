@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 16:57:20 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 17:58:34 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 	while (res->cmd[i])
 	{
 		res->cmd[i] = ft_quotes(replace_var(res->cmd[i], msh));
+		// printf("av |%s|\n", res->cmd[i]);
 		i++;
 	}
 	res->cmd = remove_empty_cmd(res->cmd, i);

@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 17:03:17 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 17:58:19 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char		*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str);
 void		quote_to_block(int *i, int *d_quote, int *s_quote, char *str);
 int			cmd_to_block_2(char *str, t_block *res, t_prog *msh, int i);
 char		*copy_no_quotes(char *str, int size);
-char		**remove_empty_cmd(char **tab, int n);
+char		**remove_empty_cmd(char **tab, int i);
 
 /** LES SIGNAUX **/
 void		signal_manager(int sig);
