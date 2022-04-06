@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 16:55:19 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 18:32:47 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ char	*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str)
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str, msh);
 	cmd->content = res;
+	// printf("|%s|\n", cmd->content->cmd[0]);
 	return (str);
 }

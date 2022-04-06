@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 17:58:34 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/06 18:37:51 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@ void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 	i = 0;
 	while (res->cmd[i])
 	{
-		res->cmd[i] = ft_quotes(replace_var(res->cmd[i], msh));
-		// printf("av |%s|\n", res->cmd[i]);
+		res->cmd[i] = replace_var(res->cmd[i], msh);
 		i++;
 	}
 	res->cmd = remove_empty_cmd(res->cmd, i);
+	i = 0;
+	while (res->cmd[i])
+	{
+		res->cmd[i] = ft_quotes(res->cmd[i]);
+		i++;
+	}
 }
 
 void	clean_cmd_2(char *str, int *i)
@@ -74,16 +79,6 @@ void	clean_cmd(t_block *res, char *str, t_prog *msh)
 				s_quote++;
 			i++;
 		}
-		// if (str[i] == '"')
-		// {
-		// 	i++;
-		// 	d_quote++;
-		// }
-		// if (str[i] == '\'')
-		// {
-		// 	i++;
-		// 	s_quote++;
-		// }
 		if (d_quote % 2 == 0 && s_quote % 2 == 0
 			&& (str[i] == '<' || str[i] == '>'))
 			clean_cmd_2(str, &i);
@@ -91,12 +86,4 @@ void	clean_cmd(t_block *res, char *str, t_prog *msh)
 			i++;
 	}
 	clean_cmd_3(res, msh, str);
-	// res->cmd = ft_split(str, ' ');
-	// i = 0;
-	// while (res->cmd[i])
-	// {
-	// 	res->cmd[i] = ft_quotes(replace_var(res->cmd[i], msh));
-	// 	i++;
-	// }
-	// res->cmd = remove_empty_cmd(res->cmd, i);
 }
