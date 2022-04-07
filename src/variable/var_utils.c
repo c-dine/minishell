@@ -6,11 +6,38 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:59:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 18:30:15 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 23:00:30 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*remove_first_spaces(char *str)
+{
+	int		i;
+	int		j;
+	int		d_quote;
+	char	*res;
+
+	res = ft_strdup(str);
+	i = 0;
+	j = 0;
+	d_quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			d_quote++;
+		if (str[i] == ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0')
+			&& d_quote % 2 == 0)
+			i++;
+		else
+			res[j++] = str[i++];
+	}
+	res[j] = '\0';
+	if (res[0] == ' ')
+		return (&res[1]);
+	return (res);
+}
 
 char	*replace_var(char *line, t_prog *msh)
 {
@@ -20,7 +47,7 @@ char	*replace_var(char *line, t_prog *msh)
 		return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 1);
 	alias_expansion(line, res, msh);
-	return (res);
+	return (remove_first_spaces(res));
 }
 
 int	check_single_quote(char *line)

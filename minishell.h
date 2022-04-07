@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 21:48:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:58:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ char		*get_var_content(char *line, t_prog *msh);
 char		*replace_var(char *line, t_prog *msh);
 int			get_size_with_vars(char *line, t_prog *msh);
 int			get_size_var(char *line, t_prog *msh);
-char		*get_var_content(char *line, t_prog *msh);
 int			check_single_quote(char *line);
 void		alias_expansion(char *line, char *res, t_prog *msh);
 

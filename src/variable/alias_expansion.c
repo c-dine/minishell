@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:56:11 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 18:34:36 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:54:19 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	if_dollar_sign(t_index *i, char *res, char *line, int open_d_quote)
 		while (k < ft_nblen(i->msh->prev_err_code))
 			res[(i->j)++] = tmp[k++];
 		i->i += 2;
-		free(tmp);
 	}
 	else if (line[i->i + 1] == ' ' || line[i->i + 1] == '\0'
 		|| line[i->i + 1] == '+' || line[i->i + 1] == '='
