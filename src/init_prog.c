@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 21:50:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 23:32:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,14 @@ void	ft_shlvl(t_prog *msh, int add)
 	shlvl = ft_atoi(get_var_content("$SHLVL", msh));
 	if (add == 1)
 		shlvl++;
-	else
+	else if (shlvl > 0)
 		shlvl--;
-	if (shlvl >= 0)
-	{
-		tmp = NULL;
-		mempush(&tmp, sizeof(char *), 3);
-		tmp[0] = ft_strdup("export");
-		tmp[1] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-		tmp[2] = NULL;
-		ft_export(tmp, msh);
-	}
+	tmp = NULL;
+	mempush(&tmp, sizeof(char *), 3);
+	tmp[0] = ft_strdup("export");
+	tmp[1] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+	tmp[2] = NULL;
+	ft_export(tmp, msh);
 }
 
 void	init_prog(t_prog *minishell, char **envp)
@@ -86,6 +83,5 @@ void	init_prog(t_prog *minishell, char **envp)
 	minishell->envp = envp;
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
-	ft_add_oldpwd(ft_pwd(), minishell);
 	ft_shlvl(minishell, 1);
 }

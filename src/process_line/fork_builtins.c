@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:21:43 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 21:48:49 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 23:18:23 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int	ft_fork_builtins(t_list *cmd, t_prog *msh)
 {
 	if (ft_count_cmds(msh) > 1)
 	{
-		ft_shlvl(msh, 0);
 		signal(SIGINT, signal_fork);
 		cmd->content->pid = fork();
 		if (cmd->content->pid == -1)
 			return (ft_error(FORK_ERROR, "fork", 1), 1);
 		if (cmd->content->pid == 0)
 		{
+			ft_shlvl(msh, 0);
 			signal(SIGQUIT, SIG_DFL);
 			exit(ft_builtin(cmd, msh));
 		}
