@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 19:36:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 19:45:06 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ft_sizechain(const char *s, char c)
 	{
 		if (*s == '"' || *s == '\'')
 			nb_quotes++;
-		if (*s == c && (nb_quotes == 2 || nb_quotes == 0))
+		if (*s == c && (nb_quotes % 2 == 0))
 			break ;
 		size++;
 		s++;
