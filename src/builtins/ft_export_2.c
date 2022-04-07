@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:49:33 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:28:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 20:46:55 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ void	print_export(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("export ");
-		printf("%s\n", tab[i]);
+		write(STDOUT_FILENO, "export ", ft_strlen("export "));
+		write(STDOUT_FILENO, tab[i], ft_strlen(tab[i]));
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
-	}	
+	}
 }
 
 int	ft_show_export(t_prog *msh)

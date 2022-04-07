@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 18:15:28 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 19:51:31 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int	ft_add_to_env(char *var, t_prog *msh, int tmp)
 {
 	if (tmp == 1)
 	{
+		if (ft_strncmp(var, "_=", 2) != 0)
+			msh->export = add_to_env_tab(msh->export, ft_quote(var), tmp);
 		msh->envp = add_to_env_tab(msh->envp, ft_unquote(var), tmp);
-		msh->export = add_to_env_tab(msh->export, ft_quote(var), tmp);
 	}
 	else if (tmp == 2)
 	{
