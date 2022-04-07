@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 20:58:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:50:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,25 @@ char	**init_export(char **tab)
 	return (res);
 }
 
-void	ft_shlvl(t_prog *msh)
+void	ft_shlvl(t_prog *msh, int add)
 {
 	char	**tmp;
 	int		shlvl;
 
 	shlvl = ft_atoi(get_var_content("$SHLVL", msh));
-	shlvl++;
-	tmp = NULL;
-	mempush(&tmp, sizeof(char *), 3);
-	tmp[0] = ft_strdup("export");
-	tmp[1] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
-	tmp[2] = NULL;
-	ft_export(tmp, msh);
+	if (add == 1)
+		shlvl++;
+	else
+		shlvl--;
+	if (shlvl >= 0)
+	{
+		tmp = NULL;
+		mempush(&tmp, sizeof(char *), 3);
+		tmp[0] = ft_strdup("export");
+		tmp[1] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+		tmp[2] = NULL;
+		ft_export(tmp, msh);
+	}
 }
 
 void	init_prog(t_prog *minishell, char **envp)
@@ -81,5 +87,5 @@ void	init_prog(t_prog *minishell, char **envp)
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
 	ft_add_oldpwd(ft_pwd(), minishell);
-	ft_shlvl(minishell);
+	ft_shlvl(minishell, 1);
 }

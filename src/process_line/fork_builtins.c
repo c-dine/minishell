@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:21:43 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 16:53:37 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:48:49 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	else if (cmd->content->cmd_type == 7)
 		ret = ft_unset(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 8)
-		print_duotab(msh->envp);
+		ft_env(msh);
 	else if (cmd->content->cmd_type == 9)
 		ret = ft_exit(cmd->content->cmd, msh);
 	return (dup2(fd_out, STDOUT_FILENO), ft_close_builtin(fd_out, cmd), ret);
@@ -61,6 +61,7 @@ int	ft_fork_builtins(t_list *cmd, t_prog *msh)
 {
 	if (ft_count_cmds(msh) > 1)
 	{
+		ft_shlvl(msh, 0);
 		signal(SIGINT, signal_fork);
 		cmd->content->pid = fork();
 		if (cmd->content->pid == -1)

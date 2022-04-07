@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 19:59:01 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/07 21:48:33 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char		*get_absolute_path(char *cmd, char **envp);
 t_hd_list	*hd_lstnew(void *content);
 char		*ft_quotes(char *str);
 int			ft_count_cmds(t_prog *msh);
+void		ft_shlvl(t_prog *msh, int add);
 
 /** ERRORS **/
 void		*ft_error(int code, char *indic, int err_code);
@@ -166,6 +167,8 @@ int			ft_fork_builtins(t_list *cmd, t_prog *msh);
 int			ft_builtin(t_list *cmd, t_prog *msh);
 int			ft_pwd_builtin(void);
 void		ft_add_oldpwd(char *cmd, t_prog *msh);
+void		ft_env(t_prog *msh);
+void		ft_add_oldcmd(char *cmd, t_prog *msh);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);

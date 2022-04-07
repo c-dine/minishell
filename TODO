@@ -1,9 +1,6 @@
 declaration vriable globale ?
 
 cdine:
-- segfault quand heredoc sans cmd
-- forkbuiltin
-- _= 1 cmd ou env
 - SHLVL-- dans process enfant sauf si = 0
 
 ntan

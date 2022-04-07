@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 18:44:09 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:30:26 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_add_oldcmd(char *cmd, t_prog *msh)
 {
 	char	**tmp;
 
-	if (cmd)
+	if (cmd && ft_count_cmds(msh) == 1)
 	{
 		tmp = NULL;
 		mempush(&tmp, sizeof(char *), 3);
@@ -46,10 +46,10 @@ void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 		res->cmd[i] = ft_quotes(res->cmd[i]);
 		i++;
 	}
-	if (res->cmd[0] && ft_strncmp(res->cmd[0], "echo", 4) != 0)
-		ft_add_oldcmd(res->cmd[0], msh);
-	else if (i > 0)
+	if (i > 0)
 		ft_add_oldcmd(res->cmd[i - 1], msh);
+	else if (res->cmd[0])
+		ft_add_oldcmd(res->cmd[0], msh);
 }
 
 void	clean_cmd_2(char *str, int *i)

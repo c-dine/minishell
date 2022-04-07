@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:29:04 by ntan              #+#    #+#             */
-/*   Updated: 2021/12/02 17:17:46 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/07 21:20:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*rev_char(char *str)
 	i = 0;
 	size = 0;
 	size = ft_strlen(str) - 1;
-	rev = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	mempush(&rev, sizeof(char), ft_strlen(str) + 1);
 	if (rev == NULL)
 		return (NULL);
 	while (str[i])
