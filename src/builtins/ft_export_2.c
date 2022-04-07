@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:49:33 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 20:46:55 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 23:46:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,12 @@ int	add_empty_var(char *var, t_prog *msh)
 		tmp[i] = var[i];
 		i++;
 	}
-	tmp[i++] = '=';
-	tmp[i++] = '"';
-	tmp[i++] = '"';
+	if (var[i] == '=')
+	{
+		tmp[i++] = '=';
+		tmp[i++] = '"';
+		tmp[i++] = '"';
+	}
 	tmp[i++] = '\0';
 	msh->export = add_to_duotab(msh->export, tmp);
 	return (0);
