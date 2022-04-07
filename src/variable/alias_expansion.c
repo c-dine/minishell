@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:56:11 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 19:20:02 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:34:36 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	if_single_dollar_sign(t_index *i, char *res, char *line, t_prog *msh)
 		while (tmp[k])
 			res[(i->j)++] = tmp[k++];
 		(i->i)++;
-		while (line[i->i] && ft_isalnum(line[i->i]) == 1)
+		while (line[i->i] && (ft_isalnum(line[i->i]) == 1 || line[i->i] == '_'))
 			(i->i)++;
 	}
 }
@@ -55,7 +55,7 @@ void	if_dollar_sign(t_index *i, char *res, char *line, int open_d_quote)
 		res[(i->j)++] = line[(i->i)++];
 	else if (line[i->i + 1] == '\'' || line[i->i + 1] == '"')
 		(i->i)++;
-	else if (ft_isalpha(line[i->i + 1]) == 0)
+	else if (ft_isalpha(line[i->i + 1]) == 0 && line[i->i + 1] != '_')
 		i->i += 2;
 	else
 		if_single_dollar_sign(i, res, line, i->msh);

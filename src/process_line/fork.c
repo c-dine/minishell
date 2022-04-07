@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 19:53:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 17:40:03 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	cmd_pb(t_list *cmd, t_list *beginning)
 			&& (cmd->content->cmd[0][0] == '\0'
 			|| ft_strncmp(cmd->content->cmd[0], "..", 2) == 0)))
 		ft_error(CMD_NOT_FOUND, cmd->content->cmd[0], 127);
-	else
+	else if (access(cmd->content->cmd_path, F_OK) != -1
+		&& access(cmd->content->cmd_path, X_OK) == -1)
 		ft_error(FILE_NOT_FOUND, cmd->content->cmd_path, 127);
 	close_all_pipes(beginning);
 	if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
@@ -58,7 +59,9 @@ int	fork_process(t_list *cmd, t_list *beginning, t_prog *msh)
 	if (cmd->content->pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		if (open_fds(cmd->content) == -1 || (cmd->content->cmd_type == -1
+		if (open_fds(cmd->content) == -1)
+			exit(1);
+		if ((cmd->content->cmd_type == -1
 				&& (!cmd->content->cmd_path || access(cmd->content->cmd_path,
 						F_OK) == -1)))
 			exit(cmd_pb(cmd, beginning));

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 19:48:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 17:14:34 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_exit(char **cmd, t_prog *msh)
 		{
 			if (ft_isdigit(cmd[1][i]) == 0)
 				return (ft_error(NUMERIC_ARGUMENT, ft_strjoin("exit: ",
-							cmd[1]), 2), 1);
+							cmd[1]), 2), 2);
 			i++;
 		}
 		if (check_long_long(cmd[1]) == 1)

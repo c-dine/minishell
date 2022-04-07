@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 16:47:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:15:28 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int	ft_invalid_identifier(char *str)
 {
 	int	i;
 
-	if (ft_isalpha(str[0]) == 0)
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
 		return (1);
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '=' || (str[i] == '+' && str[i + 1] == '='))
 			break ;
-		if (ft_isalnum(str[i]) == 0)
+		if (ft_isalnum(str[i]) == 0 && str[0] != '_')
 			return (1);
 		i++;
 	}

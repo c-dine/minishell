@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:59:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/04 11:06:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:30:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_var_content(char *line, t_prog *msh)
 	int	size_var;
 
 	size_var = 1;
-	while (line[size_var] && ft_isalnum(line[size_var]) == 1)
+	while (line[size_var] && (ft_isalnum(line[size_var]) == 1 || line[1] == '_'))
 		size_var++;
 	i = -1;
 	while (msh->envp[++i])
@@ -62,7 +62,7 @@ char	*get_var_content(char *line, t_prog *msh)
 		j = 0;
 		k = 1;
 		while (msh->envp[i][j] && msh->envp[i][j] != '='
-			&& ft_isalnum(line[k]) == 1)
+			&& (ft_isalnum(line[k]) == 1 || line[1] == '_'))
 		{
 			if (ft_strncmp(msh->envp[i], &line[1], k) != 0)
 				break ;

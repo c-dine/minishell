@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:08:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 17:00:11 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:49:23 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	ft_invalid_identifier_export(char *str)
 {
 	int	i;
 
-	if (ft_isalpha(str[0]) == 0)
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
 		return (1);
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) == 0)
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (1);
 		i++;
 	}
