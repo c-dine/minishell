@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 19:33:35 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 20:00:57 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
 
 char	*cmd_to_block(t_list *cmd, t_prog *msh, int i)
 {
@@ -19,7 +20,7 @@ char	*cmd_to_block(t_list *cmd, t_prog *msh, int i)
 
 	str = (char *) cmd->content;
 	mempush(&res, sizeof(*res), 1);
-	init_block(res);
+	init_block(res, str);
 	if (cmd_to_block_2(str, res, msh, i) == 0)
 		return (NULL);
 	return (final_cmd_block(cmd, res, msh, str));

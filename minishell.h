@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 14:20:57 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/07 19:59:01 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		ft_check_cmds(t_prog *msh);
 char		*remove_quotes(char *str);
 void		clean_cmd(t_block *res, char *str, t_prog *msh);
 int			parse_duoput(t_block *res, char *str, int *i, t_prog *msh);
-void		init_block(t_block *res);
+void		init_block(t_block *res, char *str);
 int			find_output_type(char *cmd);
 int			find_input_type(char *cmd);
 char		*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str);
@@ -81,6 +81,7 @@ void		quote_to_block(int *i, int *d_quote, int *s_quote, char *str);
 int			cmd_to_block_2(char *str, t_block *res, t_prog *msh, int i);
 char		*copy_no_quotes(char *str, int size);
 char		**remove_empty_cmd(char **tab, int i);
+int			chevrons_count(char *str);
 
 /** LES SIGNAUX **/
 void		signal_manager(int sig);
