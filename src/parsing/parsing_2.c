@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 18:40:29 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/07 16:27:56 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_block(t_block *res)
 	mempush(&res->input, sizeof(char *), 1);
 	mempush(&res->outputs_append, sizeof(char *), 1);
 	mempush(&res->cmd_path, sizeof(char), 1);
+	mempush(&res->t_fd, sizeof(*res->t_fd), 1);
+	mempush(&res->t_fd->tab, sizeof(int *), 100); //compter le nombre de chevron ?
 	res->cmd_path[0] = '\0';
 	res->cmd[0] = 0;
 	res->input[0] = 0;
@@ -26,7 +28,11 @@ void	init_block(t_block *res)
 	res->outputs_append[0] = 0;
 	res->input_fd = -2;
 	res->output_fd = -2;
-	res->sig_status = 0;
+	res->t_fd->i = 0;
+	res->t_fd->in = 0;
+	res->t_fd->out = 0;
+	res->t_fd->hd = 0;
+	res->t_fd->append = 0;
 }
 
 int	cmd_to_block_2(char *str, t_block *res, t_prog *msh, int i)
@@ -64,6 +70,5 @@ char	*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str)
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str, msh);
 	cmd->content = res;
-	// printf("|%s|\n", cmd->content->cmd[0]);
 	return (str);
 }

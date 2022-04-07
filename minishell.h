@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 19:47:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 14:20:57 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		signal_fork(int sig);
 /** OPENS FUNCTIONS **/
 int			open_fds(t_block *block);
 int			open_pipes(t_block *block);
-int			open_trioput_file(char **tab, int option);
+int			open_trioput_file(char **tab, int option, int i);
 int			open_heredoc_fd(t_block *block);
 int			ft_error_file_opening(char *path_file, int option);
 int			open_and_close(char **tab, int option);

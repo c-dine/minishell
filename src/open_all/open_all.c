@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   open_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 15:26:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/07 16:26:25 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	open_trioput_file(char **tab, int option)
+int	open_trioput_file(char **tab, int option, int i)
 {
-	int	i;
+	// int	i;
 	int	fd;
 
 	fd = -2;
-	i = 0;
-	while (tab[i])
-	{
+	// i = 0;
+	// while (tab[i])
+	// {
 		if (option == 1)
 			fd = open(tab[i], O_RDWR);
 		else if (option == 2)
@@ -34,8 +34,8 @@ int	open_trioput_file(char **tab, int option)
 		}
 		if (tab[i + 1] != NULL)
 			close(fd);
-		i++;
-	}
+	// 	i++;
+	// }
 	return (fd);
 }
 
@@ -51,24 +51,34 @@ int	open_heredoc_fd(t_block *block)
 int	open_fds(t_block *block)
 {
 	int	tmp;
+	int	i;
 
-	if (block->input_type == 1)
-		block->input_fd = open_trioput_file(block->input, 1);
-	else if (block->input_type == 2)
-		block->input_fd = open_heredoc_fd(block);
-	if (block->input_fd == -1)
-		return (-1);
-	tmp = -2;
-	if (block->output_type == 1)
-		block->output_fd = open_trioput_file(block->output, 2);
-	else if (block->output_type == 2)
-		block->output_fd = open_trioput_file(block->outputs_append, 3);
-	if (block->output_type == 1)
-		tmp = open_and_close(block->outputs_append, 3);
-	else if (block->output_type == 2)
-		tmp = open_and_close(block->output, 2);
-	if (block->output_fd == -1 || tmp == -1)
-		return (-1);
+	i = 0;
+	while (i < block->t_fd->i)
+	{
+		printf("%s\n", block->input[block->t_fd->in]);
+		if (block->t_fd->tab[i] == 1)
+			block->input_fd = open_trioput_file(block->input, 1, block->t_fd->in++);
+		else if (block->t_fd->tab[i] == 4 && block->input_type == 2)
+			block->input_fd = open_heredoc_fd(block);
+		if (block->input_fd == -1)
+			return (-1);
+		tmp = -2;
+
+		if (block->t_fd->tab[i] == 2)
+			block->output_fd = open_trioput_file(block->output, 2, block->t_fd->out++);
+		else if (block->t_fd->tab[i] == 3)
+			block->output_fd = open_trioput_file(block->outputs_append, 3, block->t_fd->append++);
+
+		if (block->output_type == 1)
+			tmp = open_and_close(block->outputs_append, 3);
+		else if (block->output_type == 2)
+			tmp = open_and_close(block->output, 2);
+
+		if (block->output_fd == -1 || tmp == -1)
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
