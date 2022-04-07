@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:45:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 16:26:25 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/07 16:33:19 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	open_fds(t_block *block)
 	i = 0;
 	while (i < block->t_fd->i)
 	{
-		printf("%s\n", block->input[block->t_fd->in]);
+		// printf("%s\n", block->input[block->t_fd->in]);
 		if (block->t_fd->tab[i] == 1)
 			block->input_fd = open_trioput_file(block->input, 1, block->t_fd->in++);
 		else if (block->t_fd->tab[i] == 4 && block->input_type == 2)
