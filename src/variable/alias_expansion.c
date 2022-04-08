@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:56:11 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 16:01:56 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:32:06 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 			if_dollar_sign(&i, res, line, open_d_quote);
 		else if (line[i.i])
 			res[i.j++] = line[i.i++];
+		if (i.i > 0 && !line[i.i - 1])
+			break ;
 	}
 	res[i.j] = '\0';
 }
