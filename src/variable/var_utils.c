@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:59:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 12:25:39 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:52:09 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	check_single_quote(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'')
+		if (line[i] == '\'' && d_quote % 2 == 0)
 			s_quote++;
-		if (line[i] == '"')
+		if (line[i] == '"' && s_quote % 2 == 0)
 			d_quote++;
 		i++;
 	}
