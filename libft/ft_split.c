@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 15:38:25 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:38:12 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,24 @@ static int	ft_count(char const *s, char c)
 	int	quote;
 	int s_quotes;
 	int d_quotes;
+	int	i;
 
+	i = 0;
 	count = 0;
 	quote = 0;
 	s_quotes = 0;
 	d_quotes = 0;
 	ft_count_2(s, c, &count, &quote);
-	while (*s)
+	while (s[i])
 	{
-		if (*s == '"' || *s == '\'')
+		if (s[i] == '"' || s[i] == '\'')
 		{
-			if (*s == '"' && s_quotes % 2 == 0)
+			if (s[i] == '"' && s_quotes % 2 == 0)
 				d_quotes++;
-			else if (*s == '\'' && d_quotes % 2 == 0)
+			else if (s[i] == '\'' && d_quotes % 2 == 0)
 				s_quotes++;
 		}
-		s++;
+		i++;
 	}
 	if (d_quotes % 2 == 1 || s_quotes % 2 == 1)
 		return (-1);
@@ -84,23 +86,25 @@ static int	ft_sizechain(const char *s, char c)
 	int	size;
 	int	d_quotes;
 	int	s_quotes;
-	
+	int	i;
+
+	i = 0;
 	size = 0;
 	s_quotes = 0;
 	d_quotes = 0;
-	while (*s)
+	while (s[i])
 	{
-		if (*s == '"' || *s == '\'')
+		if (s[i] == '"' || s[i] == '\'')
 		{
-			if (*s == '"' && d_quotes % 2 == 0)
+			if (s[i] == '"' && (s_quotes % 2 == 0))
 				d_quotes++;
-			else if (*s == '\'' && s_quotes % 2 == 0)
+			else if (s[i] == '\'' && (d_quotes % 2 == 0))
 				s_quotes++;
 		}
-		if (*s == c && (s_quotes % 2 == 0) && (d_quotes % 2 == 0))
+		if (s[i] == c && (s_quotes % 2 == 0) && (d_quotes % 2 == 0))
 			break ;
 		size++;
-		s++;
+		i++;
 	}
 	return (size);
 }
