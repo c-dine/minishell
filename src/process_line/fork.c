@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 17:40:03 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:45:31 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ int	permission_denied(t_list *cmd, t_list *beginning)
 	return (126);
 }
 
+void	ft_exit_fork_process(t_list *cmd, t_list *beginning, int which)
+{
+	close_all_pipes(beginning);
+	close_trioput_fd(cmd);
+	if (which == 0)
+		exit(cmd_pb(cmd, beginning));
+	else
+		exit(permission_denied(cmd, beginning));
+}
+
 int	fork_process(t_list *cmd, t_list *beginning, t_prog *msh)
 {
 	signal(SIGINT, signal_fork);
@@ -64,10 +74,10 @@ int	fork_process(t_list *cmd, t_list *beginning, t_prog *msh)
 		if ((cmd->content->cmd_type == -1
 				&& (!cmd->content->cmd_path || access(cmd->content->cmd_path,
 						F_OK) == -1)))
-			exit(cmd_pb(cmd, beginning));
+			ft_exit_fork_process(cmd, beginning, 0);
 		if (cmd->content->cmd_type == 1 && access(cmd->content->cmd_path,
 				X_OK) == -1)
-			exit(permission_denied(cmd, beginning));
+			ft_exit_fork_process(cmd, beginning, 1);
 		dup_pipes(cmd, beginning);
 		if (execve(cmd->content->cmd_path, cmd->content->cmd, msh->envp) == -1)
 			return (ft_error(PERMISSION_DENIED, cmd->content->cmd_path,
