@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:17:48 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 16:07:03 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ char	*free_buf_hd(char *buf)
 	tmp = ft_strdup(buf);
 	free(buf);
 	return (tmp);
+}
+
+char	*replace_var_hd(char *line, t_prog *msh)
+{
+	char	*res;
+
+	// if (check_single_quote(line) == -1)
+	// 	return (NULL);
+	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 2);
+	alias_expansion(line, res, msh);
+	return (remove_first_spaces(res));
 }
 
 int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
@@ -44,7 +55,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 			&& ft_strlen(buf) == ft_strlen(delim))
 			break ;
 		if (heredoc->expand == 1)
-			buf = replace_var(buf, msh);
+			buf = replace_var_hd(buf, msh);
 		res = hd_strjoin(res, buf);
 	}
 	return (heredoc->str = res, close(save_in), 0);

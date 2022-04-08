@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:51:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 15:33:02 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_add_oldcmd(char *cmd, t_prog *msh)
 void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 {
 	int	i;
-
+		
 	res->cmd = ft_split(str, ' ');
 	i = 0;
 	while (res->cmd[i])
@@ -94,7 +94,7 @@ void	clean_cmd(t_block *res, char *str, t_prog *msh)
 		{
 			if (str[i] == '"' && s_quote % 2 == 0)
 				d_quote++;
-			else if (str[i] == '\'' && s_quote % 2 == 0)
+			else if (str[i] == '\'' && d_quote % 2 == 0)
 				s_quote++;
 			i++;
 		}

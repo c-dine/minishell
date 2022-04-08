@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipe_parse_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:43:04 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 12:50:51 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:18:09 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	if_quotes(int *s_quote, int *d_quote, char *line, int *i)
 {
-	if (line[*i] == '"')
+	if (line[*i] == '"' && *s_quote % 2 == 0)
 		(*d_quote)++;
-	else if (line[*i] == '\'')
+	else if (line[*i] == '\'' && *d_quote % 2 == 0)
 		(*s_quote)++;
 	(*i)++;
 }

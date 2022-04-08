@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 13:49:08 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 15:38:25 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ static int	ft_sizechain(const char *s, char c)
 	{
 		if (*s == '"' || *s == '\'')
 		{
-			if (*s == '"')
+			if (*s == '"' && d_quotes % 2 == 0)
 				d_quotes++;
-			else if (*s == '\'')
+			else if (*s == '\'' && s_quotes % 2 == 0)
 				s_quotes++;
 		}
 		if (*s == c && (s_quotes % 2 == 0) && (d_quotes % 2 == 0))

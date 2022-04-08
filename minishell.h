@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 14:13:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:57:45 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int			get_size_with_vars(char *line, t_prog *msh);
 int			get_size_var(char *line, t_prog *msh);
 int			check_single_quote(char *line);
 void		alias_expansion(char *line, char *res, t_prog *msh);
+char		*remove_first_spaces(char *str);
 
 /** CHECK CMD **/
 void		ft_check_cmds(t_prog *msh);
