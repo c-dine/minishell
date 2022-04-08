@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:52:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:17:07 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_prog	msh;
-	int		save_in;
 
 	(void)argc;
 	(void)argv;
@@ -23,20 +22,20 @@ int	main(int argc, char **argv, char **envp)
 	rl_outstream = stderr;
 	while (1)
 	{
-		save_in = dup(STDIN_FILENO);
+		msh.fd_to_close_1 = dup(STDIN_FILENO);
 		signal(SIGINT, signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		g_error_code = 0;
 		if (ft_process_line(readline("minishell> "), &msh) == 1)
 			break ;
 		if (g_error_code == 130)
-			dup2(save_in, STDIN_FILENO);
+			dup2(msh.fd_to_close_1, STDIN_FILENO);
 		msh.prev_err_code = g_error_code;
-		close(save_in);
+		close(msh.fd_to_close_1);
 	}
 	// printf("BYE MINISHELL\n");
 	rl_clear_history();
 	memrelease();
-	close(save_in);
+	close_fds_to_close(&msh);
 	return (g_error_code);
 }

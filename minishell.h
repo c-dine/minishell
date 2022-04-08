@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 14:13:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:18:45 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct	s_prog
 	t_list				*garbage;
 	t_hd_list			*heredocs;
 	int					prev_err_code;
+	int					fd_to_close_1;
+	int					fd_to_close_2;
 	struct sigaction	sa;
 }				t_prog;
 
@@ -68,6 +70,7 @@ void		close_trioput_fd(t_list *cmd);
 void		close_main_process(t_list *node, int builtin);
 void		parse_duoput_3(int tmp, t_prog *msh, t_block *res, char *temp);
 int			ft_check_pipe_parse_error(char *line);
+void		close_fds_to_close(t_prog *msh);
 
 /** FONCTIONS DE PARSING **/
 int			ft_parsing(char *line, t_prog *minishell);

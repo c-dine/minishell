@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:35:12 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:32:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:24:09 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	close_trioput_fd(t_list *cmd)
 		close(cmd->content->output_fd);
 	if (cmd->content->input_type == 2)
 		unlink(cmd->content->heredoc->temp);
+}
+
+void	close_fds_to_close(t_prog *msh)
+{
+	if (msh->fd_to_close_1 >= 0)
+		close(msh->fd_to_close_1);
+	if (msh->fd_to_close_2 >= 0)
+		close(msh->fd_to_close_2);
+	msh->fd_to_close_1 = -2;
+	msh->fd_to_close_2 = -2;
 }

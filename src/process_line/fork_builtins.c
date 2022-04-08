@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:21:43 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 12:29:35 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:23:46 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ void	dup_stdout(t_list *cmd)
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
-	int	fd_out;
 	int	ret;
 
 	ret = 0;
-	fd_out = dup(STDOUT_FILENO);
+	msh->fd_to_close_2 = dup(STDOUT_FILENO);
 	if (open_fds(cmd->content) == -1)
 		return (-1);
 	dup_stdout(cmd);
@@ -44,7 +43,8 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 		ft_env(msh);
 	else if (cmd->content->cmd_type == 9)
 		ret = ft_exit(cmd->content->cmd, msh);
-	return (dup2(fd_out, STDOUT_FILENO), ft_close_builtin(fd_out, cmd), ret);
+	return (dup2(msh->fd_to_close_2, STDOUT_FILENO),
+		ft_close_builtin(msh->fd_to_close_2, cmd), ret);
 }
 
 int	ft_count_cmds(t_prog *msh)

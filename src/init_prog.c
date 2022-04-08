@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 23:32:07 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:15:01 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,6 @@ void	init_prog(t_prog *minishell, char **envp)
 	minishell->garbage = ft_lstnew(0);
 	minishell->export = init_export(envp);
 	ft_shlvl(minishell, 1);
+	minishell->fd_to_close_1 = -2;
+	minishell->fd_to_close_2 = -2;
 }
