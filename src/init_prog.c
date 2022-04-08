@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 17:56:33 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:36:26 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	ft_shlvl(t_prog *msh, int add)
 	char	**tmp;
 	int		shlvl;
 
-	shlvl = ft_atoi(get_var_content("$SHLVL", msh));
+	if (get_var_content("$SHLVL", msh))
+		shlvl = ft_atoi(get_var_content("$SHLVL", msh));
+	else
+		shlvl = 1;
 	if (add == 1)
 		shlvl++;
 	else if (shlvl > 0)

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:50:53 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 18:03:56 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:46:22 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ char	*ft_pwd(t_prog *msh)
 {
 	char	*path;
 	char	*tmp;
+	int		temp;
 
+	temp = 0;
 	tmp = getcwd(NULL, 0);
 	if (tmp == NULL)
 	{
-		ft_error(PATH_CORRUPTED, "pwd", 1);
-		return (NULL);
+		temp = 1;
+		tmp = get_var_content("$PWD", msh);
+		if (!tmp)
+			return (ft_error(PATH_CORRUPTED, "pwd", 1), NULL);
 	}
 	path = ft_strdup(tmp);
 	if (msh->double_slash == 1)
 		path = ft_strjoin("/", path);
-	free(tmp);
+	if (temp == 0)
+		free(tmp);
 	return (path);
 }
 
