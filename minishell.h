@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:50:44 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 17:35:54 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 
 extern int	g_error_code;
 
-typedef struct	s_prog
+typedef struct s_prog
 {
-	char 				**envp;
+	char				**envp;
 	char				**export;
 	t_list				*cmds;
 	t_list				*garbage;
@@ -110,6 +110,7 @@ int			get_size_var(char *line, t_prog *msh);
 int			check_single_quote(char *line);
 void		alias_expansion(char *line, char *res, t_prog *msh, int heredoc);
 char		*remove_first_spaces(char *str);
+char		*replace_var_hd(char *line, t_prog *msh);
 
 /** CHECK CMD **/
 void		ft_check_cmds(t_prog *msh);

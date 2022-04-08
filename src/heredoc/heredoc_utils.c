@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:11:06 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:07:55 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 17:30:58 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	rm_end_spaces(char *str)
 		str[i] = '\0';
 		i--;
 	}
+}
+
+char	*replace_var_hd(char *line, t_prog *msh)
+{
+	char	*res;
+
+	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 2);
+	alias_expansion(line, res, msh, 1);
+	return (remove_first_spaces(res));
 }
 
 char	*hd_strjoin(char const *s1, char const *s2)

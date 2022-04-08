@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 16:38:12 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 17:39:52 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,29 @@ void	ft_count_2(const char *s, char c, int *count, int *quote)
 
 static int	ft_count(char const *s, char c)
 {
-	int	count;
-	int	quote;
-	int s_quotes;
-	int d_quotes;
-	int	i;
+	int		count;
+	int		quote;
+	t_index	quotes;
+	int		i;
 
 	i = 0;
 	count = 0;
 	quote = 0;
-	s_quotes = 0;
-	d_quotes = 0;
+	quotes.i = 0;
+	quotes.j = 0;
 	ft_count_2(s, c, &count, &quote);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{
-			if (s[i] == '"' && s_quotes % 2 == 0)
-				d_quotes++;
-			else if (s[i] == '\'' && d_quotes % 2 == 0)
-				s_quotes++;
+			if (s[i] == '"' && quotes.i % 2 == 0)
+				quotes.j++;
+			else if (s[i] == '\'' && quotes.j % 2 == 0)
+				quotes.i++;
 		}
 		i++;
 	}
-	if (d_quotes % 2 == 1 || s_quotes % 2 == 1)
+	if (quotes.j % 2 == 1 || quotes.i % 2 == 1)
 		return (-1);
 	return (count);
 }

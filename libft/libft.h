@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:47:57 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 13:12:46 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 17:37:24 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_heredoc
 	char		*temp;
 	int			fd;
 	char		*str;
-	int			expand; // 0 non 1 oui
+	int			expand;
 }				t_heredoc;
 
 typedef struct s_hd_list
@@ -32,13 +32,14 @@ typedef struct s_hd_list
 	struct s_hd_list	*next;	
 }				t_hd_list;
 
+// tab: 1 = in, 2 = out, 3 = append, 4 = heredoc
 typedef struct s_fd_order
 {
 	int			in;
 	int			out;
 	int			hd;
 	int			append;
-	int			*tab; // 1 = in, 2 = out, 3 = append, 4 = heredoc
+	int			*tab;
 	int			i;
 }				t_fd_order;
 

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:51:40 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 17:32:01 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_add_oldcmd(char *cmd, t_prog *msh)
 void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 {
 	int	i;
-		
+
 	res->cmd = ft_split(str, ' ');
 	i = 0;
 	while (res->cmd[i])

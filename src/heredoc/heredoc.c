@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:52:20 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 17:30:52 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ char	*free_buf_hd(char *buf)
 	tmp = ft_strdup(buf);
 	free(buf);
 	return (tmp);
-}
-
-char	*replace_var_hd(char *line, t_prog *msh)
-{
-	char	*res;
-
-	// if (check_single_quote(line) == -1)
-	// 	return (NULL);
-	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 2);
-	alias_expansion(line, res, msh, 1);
-	return (remove_first_spaces(res));
 }
 
 int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
