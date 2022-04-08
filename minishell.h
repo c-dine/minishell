@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:09:08 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:50:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void		close_fds_to_close(t_prog *msh);
 
 /** FONCTIONS DE PARSING **/
 int			ft_parsing(char *line, t_prog *minishell);
-char		*replace_var(char *line, t_prog *msh);
 void		ft_check_cmds(t_prog *msh);
 char		*remove_quotes(char *str);
 void		clean_cmd(t_block *res, char *str, t_prog *msh);
@@ -105,11 +104,11 @@ int			open_and_close(char **tab, int option);
 
 /** VARIABLE EXPANSION **/
 char		*get_var_content(char *line, t_prog *msh);
-char		*replace_var(char *line, t_prog *msh);
+char		*replace_var(char *line, t_prog *msh, int heredoc);
 int			get_size_with_vars(char *line, t_prog *msh);
 int			get_size_var(char *line, t_prog *msh);
 int			check_single_quote(char *line);
-void		alias_expansion(char *line, char *res, t_prog *msh);
+void		alias_expansion(char *line, char *res, t_prog *msh, int heredoc);
 char		*remove_first_spaces(char *str);
 
 /** CHECK CMD **/

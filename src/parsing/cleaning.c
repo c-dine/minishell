@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 15:33:02 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:51:40 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	clean_cmd_3(t_block *res, t_prog *msh, char *str)
 	i = 0;
 	while (res->cmd[i])
 	{
-		res->cmd[i] = replace_var(res->cmd[i], msh);
+		res->cmd[i] = replace_var(res->cmd[i], msh, 0);
 		i++;
 	}
 	res->cmd = remove_empty_cmd(res->cmd, i);

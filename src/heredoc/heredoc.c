@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 16:11:30 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:52:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*replace_var_hd(char *line, t_prog *msh)
 	// if (check_single_quote(line) == -1)
 	// 	return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 2);
-	alias_expansion(line, res, msh);
+	alias_expansion(line, res, msh, 1);
 	return (remove_first_spaces(res));
 }
 

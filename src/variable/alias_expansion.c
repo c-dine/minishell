@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:56:11 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 16:32:06 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 16:49:35 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	if_squote(t_index *i, int *open_d_quote, char *res, char *line)
 	return (0);
 }
 
-void	alias_expansion(char *line, char *res, t_prog *msh)
+void	alias_expansion(char *line, char *res, t_prog *msh, int heredoc)
 {
 	t_index	i;
 	int		open_d_quote;
@@ -87,7 +87,7 @@ void	alias_expansion(char *line, char *res, t_prog *msh)
 			open_d_quote++;
 			res[i.j++] = line[i.i++];
 		}
-		else if (line[i.i] == '\'')
+		else if (line[i.i] == '\'' && heredoc == 0)
 			if_squote(&i, &open_d_quote, res, line);
 		else if (line[i.i] == '$')
 			if_dollar_sign(&i, res, line, open_d_quote);

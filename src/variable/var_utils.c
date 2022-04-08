@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:59:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 13:52:09 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 16:48:47 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*remove_first_spaces(char *str)
 	return (res);
 }
 
-char	*replace_var(char *line, t_prog *msh)
+char	*replace_var(char *line, t_prog *msh, int heredoc)
 {
 	char	*res;
 
 	if (check_single_quote(line) == -1)
 		return (NULL);
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 1);
-	alias_expansion(line, res, msh);
+	alias_expansion(line, res, msh, heredoc);
 	return (remove_first_spaces(res));
 }
 

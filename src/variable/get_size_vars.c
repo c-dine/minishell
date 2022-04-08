@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 01:18:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 18:32:19 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 16:48:20 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ void	size_if_dollar_sign(int *i, int *extra_size, t_prog *msh, char *line)
 	}
 }
 
-int	size_if_backslash(int *open_d_quote, int *i, char *line)
-{
-	(*i)++;
-	if (*open_d_quote % 2 == 1)
-		return (0);
-	while (line[*i] && line[*i] != '\'')
-		(*i)++;
-	if (line[*i] != '\'')
-		return (-1);
-	(*i)++;
-	return (0);
-}
+// int	size_if_backslash(int *open_d_quote, int *i, char *line)
+// {
+// 	(*i)++;
+// 	if (*open_d_quote % 2 == 1)
+// 		return (0);
+// 	while (line[*i] && line[*i] != '\'')
+// 		(*i)++;
+// 	if (line[*i] != '\'')
+// 		return (-1);
+// 	(*i)++;
+// 	return (0);
+// }
 
 // donne taille TOTALE a malloc pour la nouvelle chaine de char avec les vars
 int	get_size_with_vars(char *line, t_prog *msh)
@@ -70,7 +70,7 @@ int	get_size_with_vars(char *line, t_prog *msh)
 			i++;
 		}
 		else if (line[i] == '\'')
-			size_if_backslash(&open_d_quote, &i, line);
+			i++;
 		else if (line[i] == '$')
 			size_if_dollar_sign(&i, &extra_size, msh, line);
 		else
