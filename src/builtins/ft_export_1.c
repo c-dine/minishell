@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_export_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 23:18:02 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 19:51:31 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:29:13 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,49 +77,4 @@ int	ft_invalid_identifier(char *str)
 		i++;
 	}
 	return (0);
-}
-
-int	ft_export_2(char **cmd, int i, t_prog *msh)
-{
-	int	j;
-	int	tmp;
-	int	ret;
-
-	ret = 0;
-	while (cmd[i])
-	{
-		if (ft_invalid_identifier(cmd[i]) == 1)
-		{
-			ft_error(INVALID_IDENTIFIER, ft_strjoin("export: `", cmd[i]), 1);
-			ret = 1;
-			i++;
-			continue ;
-		}
-		tmp = 0;
-		j = 0;
-		while (cmd[i][j])
-		{
-			if (cmd[i][j] == '+' && cmd[i][j + 1] == '=')
-				tmp = 2;
-			if (cmd[i][j] != '+' && cmd[i][j + 1] == '=')
-				tmp = 1;
-			j++;
-		}
-		ft_add_to_env(cmd[i], msh, tmp);
-		i++;
-	}
-	return (ret);
-}
-
-int	ft_export(char **cmd, t_prog *msh)
-{
-	int	i;
-
-	if (cmd[1] == NULL)
-	{
-		ft_show_export(msh);
-		return (0);
-	}
-	i = 1;
-	return (ft_export_2(cmd, i, msh));
 }

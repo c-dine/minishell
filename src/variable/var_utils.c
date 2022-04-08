@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 10:59:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 13:41:24 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:52:09 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,29 @@ int	check_single_quote(char *line)
 // renvoie contenu de la variable depuis env
 char	*get_var_content(char *line, t_prog *msh)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	size_var;
+	t_index	i;
+	int		k;
+	int		size_var;
 
 	size_var = 1;
-	while (line[size_var] && (ft_isalnum(line[size_var]) == 1 || line[1] == '_'))
+	while (line[size_var] && (ft_isalnum(line[size_var]) == 1
+			|| line[1] == '_'))
 		size_var++;
-	i = -1;
-	while (msh->envp[++i])
+	i.i = -1;
+	while (msh->envp[++i.i])
 	{
-		j = 0;
+		i.j = 0;
 		k = 1;
-		while (msh->envp[i][j] && msh->envp[i][j] != '='
+		while (msh->envp[i.i][i.j] && msh->envp[i.i][i.j] != '='
 			&& (ft_isalnum(line[k]) == 1 || line[1] == '_'))
 		{
-			if (ft_strncmp(msh->envp[i], &line[1], k) != 0)
+			if (ft_strncmp(msh->envp[i.i], &line[1], k) != 0)
 				break ;
 			k++;
-			j++;
+			i.j++;
 		}
-		if (msh->envp[i][j] == '=' && j == size_var - 1)
-			return (&msh->envp[i][size_var]);
+		if (msh->envp[i.i][i.j] == '=' && i.j == size_var - 1)
+			return (&msh->envp[i.i][size_var]);
 	}
 	return (NULL);
 }

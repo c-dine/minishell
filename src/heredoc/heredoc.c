@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:19:17 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 13:43:03 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:17:48 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ int	heredoc_prompt(t_heredoc *heredoc, char *delim, t_prog *msh)
 			buf = replace_var(buf, msh);
 		res = hd_strjoin(res, buf);
 	}
-	heredoc->str = res;
-	return (close(save_in), 0);
+	return (heredoc->str = res, close(save_in), 0);
 }
 
 void	*print_heredoc(char *str, t_heredoc *heredoc, t_prog *msh)

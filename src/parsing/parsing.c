@@ -6,12 +6,11 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:45:21 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:51:58 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 char	*cmd_to_block(t_list *cmd, t_prog *msh, int i)
 {

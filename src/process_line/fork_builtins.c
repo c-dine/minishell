@@ -6,11 +6,19 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:21:43 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 23:18:23 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 12:29:35 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	dup_stdout(t_list *cmd)
+{
+	if (cmd->content->output_fd != -2)
+		dup2(cmd->content->output_fd, STDOUT_FILENO);
+	else if (cmd->next)
+		dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
+}
 
 int	ft_builtin(t_list *cmd, t_prog *msh)
 {
@@ -21,10 +29,7 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 	fd_out = dup(STDOUT_FILENO);
 	if (open_fds(cmd->content) == -1)
 		return (-1);
-	if (cmd->content->output_fd != -2)
-		dup2(cmd->content->output_fd, STDOUT_FILENO);
-	else if (cmd->next)
-		dup2(cmd->next->content->pipe[1], STDOUT_FILENO);
+	dup_stdout(cmd);
 	if (cmd->content->cmd_type == 3)
 		ret = ft_echo(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 4)
