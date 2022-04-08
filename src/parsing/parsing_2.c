@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:27:45 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:46:08 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 14:22:43 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,5 @@ char	*final_cmd_block(t_list *cmd, t_block *res, t_prog *msh, char *str)
 	res->output_type = find_output_type(str);
 	clean_cmd(res, str, msh);
 	cmd->content = res;
-	// int i = -1;
-	// while (res->cmd[++i])
-	// 	printf("%d : |%s|\n", i, res->cmd[i]);
 	return (str);
 }
