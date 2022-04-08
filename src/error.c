@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:32:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 13:35:01 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:14:35 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_error2(int code, char *indic, int err_code)
 		set_err_status(err_code, "filename argument required", indic, code);
 	else if (code == NUMERIC_ARGUMENT)
 		set_err_status(err_code, "numeric argument required", indic, code);
+	else if (code == IS_A_DIRECTORY)
+		set_err_status(err_code, "Is a directory", indic, code);
 }
 
 void	*ft_error(int code, char *indic, int err_code)

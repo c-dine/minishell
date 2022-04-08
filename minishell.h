@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 13:30:29 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:13:44 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define BASH_WARNING 10
 # define FILENAME_REQUIRED 11
 # define NUMERIC_ARGUMENT 12
+# define IS_A_DIRECTORY 13
 
 extern int	g_error_code;
 
