@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:30:54 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/04 16:11:37 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 14:32:10 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ int	mempush(void *ptr, const size_t byte, const size_t size)
 	*(void **)ptr = NULL;
 	elm = malloc(sizeof(t_memlst));
 	if (!elm || !byte || !size)
+	{
+		printf("ALLOC ERROR, EXIT\n");
+		memrelease();
+		exit(1);
 		return (ERROR);
+	}
 	elm->address = malloc(byte * size);
 	if (!elm->address)
 		return (free(elm), ERROR);
