@@ -6,12 +6,11 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 21:30:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 12:36:10 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 void	ft_add_oldcmd(char *cmd, t_prog *msh)
 {

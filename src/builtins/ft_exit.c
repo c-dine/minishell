@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 17:14:34 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:21:21 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ int	check_long_long(char *cmd)
 	return (0);
 }
 
+void	ft_set_exit_err_code(char **cmd)
+{
+	if (check_long_long(cmd[1]) == 1)
+		g_error_code = 2;
+	else
+		g_error_code = ft_atoi(cmd[1]);
+}
+
 int	ft_exit(char **cmd, t_prog *msh)
 {
 	int	i;
@@ -43,10 +51,7 @@ int	ft_exit(char **cmd, t_prog *msh)
 							cmd[1]), 2), 2);
 			i++;
 		}
-		if (check_long_long(cmd[1]) == 1)
-			g_error_code = 2;
-		else
-			g_error_code = ft_atoi(cmd[1]);
+		ft_set_exit_err_code(cmd);
 	}
 	else
 		g_error_code = msh->prev_err_code;

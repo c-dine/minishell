@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_info_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:00:08 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 18:36:10 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:08:05 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ft_check_cmds(t_prog *msh)
 	temp = msh->cmds->next;
 	while (temp)
 	{
-		// temp->content->cmd = ft_check_split_cmd(temp->content->cmd);
 		if (!temp->content->cmd)
 		{
 			temp = temp->next;

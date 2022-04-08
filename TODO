@@ -1,7 +1,7 @@
 declaration vriable globale ?
 
 cdine:
-- SHLVL-- dans process enfant sauf si = 0
+- quand heredoc avec commmande qui existe pas, supprime pas le fichier temporaire
 
 ntan
 ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?

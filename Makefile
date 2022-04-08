@@ -6,23 +6,27 @@
 #    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/07 21:31:52 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/08 13:33:09 by cdine            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	src/main.c \
 					src/parsing/parsing.c \
+					src/parsing/check_pipe_parse_error.c \
 					src/parsing/parsing_2.c \
 					src/parsing/cleaning.c \
 					src/parsing/cleaning_2.c \
 					src/parsing/multiputing.c \
+					src/parsing/multiputing_2.c \
 					src/init_prog.c \
+					src/error.c \
 					src/variable/alias_expansion.c \
 					src/variable/get_size_vars.c \
 					src/variable/var_utils.c \
 					src/add_put.c \
 					src/signals.c \
 					src/open_all/open_all.c \
+					src/open_all/open_fds.c \
 					src/open_all/open_other.c \
 					src/destroy.c \
 					src/process_line/process_line.c \
@@ -38,7 +42,8 @@ SRCS			=	src/main.c \
 					src/builtins/ft_echo.c \
 					src/builtins/ft_pwd.c \
 					src/builtins/ft_env.c \
-					src/builtins/ft_export.c \
+					src/builtins/ft_export_0.c \
+					src/builtins/ft_export_1.c \
 					src/builtins/ft_export_2.c \
 					src/builtins/ft_export_3.c \
 					src/builtins/ft_unset.c \

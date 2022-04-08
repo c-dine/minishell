@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 20:00:57 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 12:43:54 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 char	*cmd_to_block(t_list *cmd, t_prog *msh, int i)
 {
@@ -51,43 +50,6 @@ int	parse_cmd(t_prog *msh)
 		temp_hd = temp_hd->next;
 		temp = temp->next;
 		cmd_i++;
-	}
-	return (0);
-}
-
-int	ft_check_pipe_parse_error(char *line)
-{
-	int	i;
-	int	tmp;
-	int	pipe;
-	int	s_quote;
-	int	d_quote;
-
-	s_quote = 0;
-	d_quote = 0;
-	i = 0;
-	pipe = 0;
-	tmp = 0;
-	while (line[i])
-	{
-		if (line[i] == '"' || line[i] == '\'')
-		{
-			if (line[i] == '"')
-				d_quote++;
-			else if (line[i] == '\'')
-				s_quote++;
-			i++;
-		}
-		if (line[i] != ' ' && line[i] != '|')
-			tmp++;
-		if (line[i] == '|' && pipe == 0)
-			pipe++;
-		if (line[i] == '|' && pipe == 1 && tmp == 0 && s_quote % 2 == 0 && d_quote % 2 == 0)
-			return (1);
-		else if (line[i] == '|' && pipe == 1 && tmp != 0)
-			tmp = 0;
-		if (line[i])
-			i++;
 	}
 	return (0);
 }

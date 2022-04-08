@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 21:58:15 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:30:29 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void		init_prog(t_prog *minishell, char **envp);
 void		close_all_pipes(t_list *beg_all_pipes);
 void		close_trioput_fd(t_list *cmd);
 void		close_main_process(t_list *node, int builtin);
+void		parse_duoput_3(int tmp, t_prog *msh, t_block *res, char *temp);
+int			ft_check_pipe_parse_error(char *line);
 
 /** FONCTIONS DE PARSING **/
 int			ft_parsing(char *line, t_prog *minishell);
@@ -127,7 +129,6 @@ void		dup_pipes(t_list *cmd, t_list *beginning);
 int			cmd_pb(t_list *cmd, t_list *beginning);
 int			permission_denied(t_list *cmd, t_list *beginning);
 
-
 /** Fonctions utiles **/
 char		**add_to_duotab(char **tab, char *element);
 void		print_duotab(char **tab);
@@ -168,6 +169,8 @@ int			ft_pwd_builtin(void);
 void		ft_add_oldpwd(char *cmd, t_prog *msh);
 void		ft_env(t_prog *msh);
 void		ft_add_oldcmd(char *cmd, t_prog *msh);
+int			ft_invalid_identifier(char *str);
+int			ft_add_to_env(char *var, t_prog *msh, int tmp);
 
 /** Heredoc **/
 void		*ft_heredoc(t_prog *msh);
