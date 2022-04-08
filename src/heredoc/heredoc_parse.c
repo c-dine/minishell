@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:13:38 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/06 13:50:20 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 17:28:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ char	*find_delim(char *str, t_heredoc *heredoc)
 		|| str[i] == '<' || str[i] == '\0')
 		return (NULL);
 	marker = i;
+	if (((str[i] == '"' && str[i + 1] == '"')
+			|| (str[i] == '\'' && str[i + 1] == '\''))
+		&& str[i + 2] == ' ')
+		return (ft_strdup(""));
 	if (str[i] == '"' || str[i] == '\'')
-	{
-		str = ft_split(&str[i], '<')[0];
-		str = ft_split(str, '>')[0];
-	}
+		str = ft_split(ft_split(&str[i], '<')[0], '>')[0];
 	else
 		return (find_delim_2(str, i, marker, heredoc));
 	temp = ft_quotes(str);
 	if (ft_strncmp(temp, str, ft_strlen(str) != 0))
 		heredoc->expand = 0;
-	rm_end_spaces(temp);
-	return (temp);
+	return (rm_end_spaces(temp), temp);
 }
 
 char	*hd_error(char *delim)
