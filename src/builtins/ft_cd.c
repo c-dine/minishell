@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:44:40 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/06 16:51:05 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:20:29 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,28 @@ void	ft_add_oldpwd(char *cmd, t_prog *msh)
 	}
 }
 
+void	ft_update_pwd(t_prog *msh)
+{
+	char	**tmp;
+	char	*tmp2;
+	char	*path;
+
+	tmp2 = getcwd(NULL, 0);
+	if (tmp2 == NULL)
+		path = ft_strdup("");
+	else
+		path = ft_strdup(tmp2);
+	free(tmp2);
+	if (msh->double_slash == 1)
+		path = ft_strjoin("/", path);
+	tmp = NULL;
+	mempush(&tmp, sizeof(char *), 3);
+	tmp[0] = ft_strdup("export");
+	tmp[1] = ft_strjoin("PWD=", path);
+	tmp[2] = NULL;
+	ft_export(tmp, msh);
+}
+
 int	ft_cd(char **cmd, t_prog *msh)
 {
 	DIR	*tmp;
@@ -69,7 +91,12 @@ int	ft_cd(char **cmd, t_prog *msh)
 	if (!tmp)
 		return (ft_error(INVALID_DIRECTORY, ft_strjoin("cd: ", cmd[1]), 1), 1);
 	closedir(tmp);
-	ft_add_oldpwd(ft_pwd(), msh);
+	ft_add_oldpwd(ft_pwd(msh), msh);
+	if (ft_strncmp(cmd[1], "//", 3) == 0)
+		msh->double_slash = 1;
+	else if (ft_strncmp(cmd[1], "/", 1) == 0)
+		msh->double_slash = 0;
 	chdir(cmd[1]);
+	ft_update_pwd(msh);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:21:43 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 15:23:46 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:04:30 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_builtin(t_list *cmd, t_prog *msh)
 		ret = ft_echo(cmd->content->cmd);
 	else if (cmd->content->cmd_type == 4)
 		ret = ft_cd(cmd->content->cmd, msh);
-	else if (cmd->content->cmd_type == 5 && ft_pwd() != NULL)
-		ret = ft_pwd_builtin();
+	else if (cmd->content->cmd_type == 5 && ft_pwd(msh) != NULL)
+		ret = ft_pwd_builtin(msh);
 	else if (cmd->content->cmd_type == 6)
 		ret = ft_export(cmd->content->cmd, msh);
 	else if (cmd->content->cmd_type == 7)

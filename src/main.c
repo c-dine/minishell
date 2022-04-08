@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:26 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 17:41:04 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:25:00 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(int argc, char **argv, char **envp)
 		msh.prev_err_code = g_error_code;
 		close(msh.fd_to_close_1);
 	}
-	// printf("BYE MINISHELL\n");
 	rl_clear_history();
 	memrelease();
 	close_fds_to_close(&msh);

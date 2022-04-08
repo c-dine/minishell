@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 17:35:54 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 18:02:15 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_prog
 	int					prev_err_code;
 	int					fd_to_close_1;
 	int					fd_to_close_2;
+	int					double_slash;
 	struct sigaction	sa;
 }				t_prog;
 
@@ -166,11 +167,11 @@ int			ft_show_export(t_prog *msh);
 int			add_empty_var(char *var, t_prog *msh);
 int			ft_unset(char **cmd, t_prog *msh);
 int			ft_cd(char **cmd, t_prog *msh);
-char		*ft_pwd(void);
+char		*ft_pwd(t_prog *msh);
 int			ft_exit(char **cmd, t_prog *msh);
 int			ft_fork_builtins(t_list *cmd, t_prog *msh);
 int			ft_builtin(t_list *cmd, t_prog *msh);
-int			ft_pwd_builtin(void);
+int			ft_pwd_builtin(t_prog *msh);
 void		ft_add_oldpwd(char *cmd, t_prog *msh);
 void		ft_env(t_prog *msh);
 void		ft_add_oldcmd(char *cmd, t_prog *msh);
