@@ -1,7 +1,6 @@
-declaration vriable globale ?
+segfault dans heredoc avec quote ouverte
 
 cdine:
-- fds encore ouverts
 
 ntan
 ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?

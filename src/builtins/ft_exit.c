@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:11:41 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 13:21:21 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:24:49 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ int	ft_exit(char **cmd, t_prog *msh)
 			g_error_code = 1, 1);
 	if (ft_count_cmds(msh) == 1)
 		write(STDERR_FILENO, "exit\n", 5);
-	return (memrelease(), exit(g_error_code), 0);
+	return (memrelease(), close_fds_to_close(msh), exit(g_error_code), 0);
 }
