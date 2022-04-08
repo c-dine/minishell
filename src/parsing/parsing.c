@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 00:23:00 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 20:00:57 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:45:21 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	ft_check_pipe_parse_error(char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 		{
-			if (line[i] == '"')
+			if (line[i] == '"' && s_quote % 2 == 0)
 				d_quote++;
-			else if (line[i] == '\'')
+			else if (line[i] == '\'' && d_quote % 2 == 0)
 				s_quote++;
 			i++;
 		}

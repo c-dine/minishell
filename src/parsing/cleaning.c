@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:34 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/07 21:30:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:43:47 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void	clean_cmd(t_block *res, char *str, t_prog *msh)
 	{
 		if (str[i] == '"' || str[i] == '\'')
 		{
-			if (str[i] == '"')
+			if (str[i] == '"' && s_quote % 2 == 0)
 				d_quote++;
-			else if (str[i] == '\'')
+			else if (str[i] == '\'' && s_quote % 2 == 0)
 				s_quote++;
 			i++;
 		}
-		if (d_quote % 2 == 0 && s_quote % 2 == 0
+		else if (d_quote % 2 == 0 && s_quote % 2 == 0
 			&& (str[i] == '<' || str[i] == '>'))
 			clean_cmd_2(str, &i);
 		else if (str[i])

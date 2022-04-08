@@ -6,7 +6,7 @@
 /*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:58:49 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/07 19:45:06 by ntan             ###   ########.fr       */
+/*   Updated: 2022/04/08 13:49:08 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,26 @@ static int	ft_count(char const *s, char c)
 {
 	int	count;
 	int	quote;
+	int s_quotes;
+	int d_quotes;
 
 	count = 0;
 	quote = 0;
+	s_quotes = 0;
+	d_quotes = 0;
 	ft_count_2(s, c, &count, &quote);
-	if (quote % 2 == 1)
+	while (*s)
+	{
+		if (*s == '"' || *s == '\'')
+		{
+			if (*s == '"' && s_quotes % 2 == 0)
+				d_quotes++;
+			else if (*s == '\'' && d_quotes % 2 == 0)
+				s_quotes++;
+		}
+		s++;
+	}
+	if (d_quotes % 2 == 1 || s_quotes % 2 == 1)
 		return (-1);
 	return (count);
 }
@@ -67,15 +82,22 @@ static char	**ft_freesplit(char **result, int k)
 static int	ft_sizechain(const char *s, char c)
 {
 	int	size;
-	int	nb_quotes;
-
+	int	d_quotes;
+	int	s_quotes;
+	
 	size = 0;
-	nb_quotes = 0;
+	s_quotes = 0;
+	d_quotes = 0;
 	while (*s)
 	{
 		if (*s == '"' || *s == '\'')
-			nb_quotes++;
-		if (*s == c && (nb_quotes % 2 == 0))
+		{
+			if (*s == '"')
+				d_quotes++;
+			else if (*s == '\'')
+				s_quotes++;
+		}
+		if (*s == c && (s_quotes % 2 == 0) && (d_quotes % 2 == 0))
 			break ;
 		size++;
 		s++;
