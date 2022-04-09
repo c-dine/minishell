@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 01:07:55 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 18:36:26 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/09 21:22:59 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	ft_shlvl(t_prog *msh, int add)
 		shlvl++;
 	else if (shlvl > 0)
 		shlvl--;
+	if (shlvl >= 1000)
+	{
+		shlvl = 1;
+		write(STDERR_FILENO,
+			"minishell: warning: shell level too high, resetting to 1\n", 57);
+	}
 	tmp = NULL;
 	mempush(&tmp, sizeof(char *), 3);
 	tmp[0] = ft_strdup("export");
