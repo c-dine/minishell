@@ -1,7 +1,7 @@
 fclean -> aussi fclean libft ?
 
 cdine:
-
+- shlvl max 1000
 ntan
 ok ? - quand chevron dans variable, ne peut pas afficher car syntax error -> remplacer variables apres parsing et avant retrait quotes ?
 ok ? - segfault quand affichage de chevrons dans guillemets

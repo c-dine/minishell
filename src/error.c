@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:32:26 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 14:14:35 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/09 21:13:54 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_error2(int code, char *indic, int err_code)
 		set_err_status(err_code, "numeric argument required", indic, code);
 	else if (code == IS_A_DIRECTORY)
 		set_err_status(err_code, "Is a directory", indic, code);
+	else if (code == NOT_A_DIRECTORY)
+		set_err_status(err_code, "Not a directory", indic, code);
 }
 
 void	*ft_error(int code, char *indic, int err_code)
@@ -65,4 +67,44 @@ void	*ft_error(int code, char *indic, int err_code)
 		set_err_status(err_code, "path corrupted", indic, code);
 	ft_error2(code, indic, err_code);
 	return (NULL);
+}
+
+int	return_value_file_or_folder(char *tmp2, t_list *cmd)
+{
+	DIR		*dir;
+
+	dir = NULL;
+	if (tmp2)
+		dir = opendir(tmp2);
+	else
+		return (closedir(dir), ft_error(FILE_NOT_FOUND,
+				cmd->content->cmd_path, 127), 127);
+	if (dir == NULL)
+		return (ft_error(NOT_A_DIRECTORY, cmd->content->cmd_path, 126), 126);
+	else
+		return (closedir(dir), ft_error(FILE_NOT_FOUND,
+				cmd->content->cmd_path, 127), 127);
+}
+
+int	ft_not_file_or_folder_error(t_list *cmd)
+{
+	char	*tmp;
+	char	*tmp2;
+	int		i;
+
+	tmp2 = NULL;
+	tmp = ft_strdup(cmd->content->cmd_path);
+	i = 1;
+	while (cmd->content->cmd_path[++i])
+	{
+		if (cmd->content->cmd_path[i] == '/')
+		{
+			tmp[i] = '\0';
+			if (access(tmp, F_OK) == -1)
+				break ;
+			tmp2 = tmp;
+			tmp = ft_strdup(cmd->content->cmd_path);
+		}
+	}
+	return (return_value_file_or_folder(tmp2, cmd));
 }

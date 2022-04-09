@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:47:46 by cdine             #+#    #+#             */
-/*   Updated: 2022/04/08 14:15:01 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/09 21:10:08 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int	cmd_pb(t_list *cmd, t_list *beginning)
 {
 	if (ft_strncmp(cmd->content->cmd[0], ".", 2) == 0)
 		ft_error(FILENAME_REQUIRED, ".", 2);
+	else if (access(cmd->content->cmd_path, F_OK) == -1
+		&& cmd->content->cmd_type == -1 && cmd->content->cmd_path)
+		return (ft_not_file_or_folder_error(cmd));
 	else if (cmd->content->cmd_path == NULL || (cmd->content->cmd
 			&& (cmd->content->cmd[0][0] == '\0'
 			|| ft_strncmp(cmd->content->cmd[0], "..", 2) == 0)))

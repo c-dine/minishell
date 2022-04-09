@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:28:42 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 18:02:15 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/09 20:45:37 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define FILENAME_REQUIRED 11
 # define NUMERIC_ARGUMENT 12
 # define IS_A_DIRECTORY 13
+# define NOT_A_DIRECTORY 14
 
 extern int	g_error_code;
 
@@ -151,6 +152,7 @@ void		ft_shlvl(t_prog *msh, int add);
 /** ERRORS **/
 void		*ft_error(int code, char *indic, int err_code);
 int			ft_error_file_opening(char *path_file, int option);
+int			ft_not_file_or_folder_error(t_list *cmd);
 
 /** Builtin **/
 int			ft_echo(char **cmd);
