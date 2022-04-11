@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdine <cdine@student.42.fr>                +#+  +:+       +#+         #
+#    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 17:31:23 by ntan              #+#    #+#              #
-#    Updated: 2022/04/08 19:40:56 by cdine            ###   ########.fr        #
+#    Updated: 2022/04/11 14:22:48 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,20 +61,15 @@ LIBS      		=	-L./libft -lft -lreadline
 NAME			= 	minishell
 
 .c.o:
-	  			@$(CC) $(CFLAGS) -c -I. $< -o $(<:.c=.o)
+	  			$(CC) $(CFLAGS) -c -I. $< -o $(<:.c=.o)
 
-all:			$(NAME)
+all:			lib $(NAME)
 
-$(NAME):		lib $(OBJS)
-				@echo Compiling minishell ....
-				@$(CC) -I. $(OBJS) -o $(NAME) $(LIBS)
-				@echo Minishell compiled.
-				@# valgrind --suppressions=./.readline.supp --leak-check=full ./minishell
+$(NAME):		$(OBJS)		
+				$(CC) $(CFLAGS) -I. $(OBJS) -o $(NAME) $(LIBS)
 
 lib:			
-				@echo Compiling libft ....
-				@make bonus -sC libft
-				@echo "Libft compiled.\n"
+				make -C libft
 
 clean:
 				@echo Cleaning ....

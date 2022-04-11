@@ -6,7 +6,7 @@
 #    By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/26 11:47:51 by ntan              #+#    #+#              #
-#    Updated: 2022/03/10 18:37:38 by ntan             ###   ########.fr        #
+#    Updated: 2022/04/11 14:22:41 by ntan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,12 @@ CFLAGS			= -Wall -Wextra -Werror
 NAME			= libft.a
 
 .c.o:
-				@$(CC) $(CFLAGS) -I. -c $< -o $(<:.c=.o)
+				$(CC) $(CFLAGS) -I. -c $< -o $(<:.c=.o)
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				@ar rcs $(NAME) $(OBJS)
+$(NAME):		$(OBJS) $(BONUS_OBJS)
+				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
 				@$(RM) $(OBJS) $(BONUS_OBJS)
@@ -45,6 +45,3 @@ fclean:			clean
 				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
-
-bonus:			$(OBJS) $(BONUS_OBJS)
-				@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)

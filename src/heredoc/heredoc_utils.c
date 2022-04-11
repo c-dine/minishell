@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ntan <ntan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:11:06 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/08 17:30:58 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/11 12:56:44 by ntan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*replace_var_hd(char *line, t_prog *msh)
 
 	mempush(&res, sizeof(char), get_size_with_vars(line, msh) + 2);
 	alias_expansion(line, res, msh, 1);
-	return (remove_first_spaces(res));
+	return (res);
 }
 
 char	*hd_strjoin(char const *s1, char const *s2)
