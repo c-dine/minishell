@@ -6,7 +6,7 @@
 /*   By: cdine <cdine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 07:50:50 by ntan              #+#    #+#             */
-/*   Updated: 2022/04/05 19:14:47 by cdine            ###   ########.fr       */
+/*   Updated: 2022/04/12 14:53:55 by cdine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	signal_manager(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -39,7 +39,7 @@ void	signal_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		g_error_code = 130;
-		printf("\n");
+		write(STDERR_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		close(STDIN_FILENO);
 	}
